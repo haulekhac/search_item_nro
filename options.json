@@ -1,0 +1,1152 @@
+[
+  {
+    "id": 0,
+    "name": "Tấn công+#|Attack: +#|Attack: +#",
+    "type": 0
+  },
+  {
+    "id": 1,
+    "name": "Thời gian sử dụng # phút|Use time remain # minute|Gunakan remain waktu # menit",
+    "type": 0
+  },
+  {
+    "id": 2,
+    "name": "HP, KI+#000|HP, KI +#000|HP, KI +#000",
+    "type": 0
+  },
+  {
+    "id": 3,
+    "name": "Vô hiệu và biến #% sát thương chưởng thành KI|Immune and convert #% of ranger damage hit to KI|Kekebalan tubuh Dan mengubah #% serangan diterima ke ke KI",
+    "type": 0
+  },
+  {
+    "id": 4,
+    "name": "Hồi phục #% KI khi bị đánh|Restore #% KI per hit|Mengembalikan #% KI per hit",
+    "type": 0
+  },
+  {
+    "id": 5,
+    "name": "+#% sức đánh chí mạng|+#% critical damage|+#% Kerusakan Kritikal",
+    "type": 0
+  },
+  {
+    "id": 6,
+    "name": "HP+#|HP+#|HP+#",
+    "type": 1
+  },
+  {
+    "id": 7,
+    "name": "KI+#|KI+#|KI+#",
+    "type": 1
+  },
+  {
+    "id": 8,
+    "name": "Hút #% HP, KI xung quanh mỗi 5 giây|Drain #% HP, KI around per 5 second|Drain #% HP, KI around per 5 second",
+    "type": 1
+  },
+  {
+    "id": 9,
+    "name": "Hiệu lực trong # phút|Effect in  # min|Effect in # min",
+    "type": 1
+  },
+  {
+    "id": 10,
+    "name": "Chính xác: +#",
+    "type": 1
+  },
+  {
+    "id": 11,
+    "name": "Công đức +#|Bonus Point +#|Bonus Point +#",
+    "type": 2
+  },
+  {
+    "id": 12,
+    "name": "Số lần sử dụng còn lại +#|Use remain +#|Use remain +#",
+    "type": 2
+  },
+  {
+    "id": 13,
+    "name": "Số yêu quái đã hạ +#|Monster kill +#|Monster kill +#",
+    "type": 2
+  },
+  {
+    "id": 14,
+    "name": "Chí mạng+#%|Critical +#%|Critical +#%",
+    "type": 2
+  },
+  {
+    "id": 15,
+    "name": "Phản đòn cận chiến+#",
+    "type": 2
+  },
+  {
+    "id": 16,
+    "name": "Tốc độ di chuyển+#%",
+    "type": 2
+  },
+  {
+    "id": 17,
+    "name": "Né đòn: +#",
+    "type": 2
+  },
+  {
+    "id": 18,
+    "name": "Chính xác: +#%",
+    "type": 2
+  },
+  {
+    "id": 19,
+    "name": "Tấn công+#% khi đánh quái|Attack Monster+#%|Attack Monster+#%",
+    "type": 2
+  },
+  {
+    "id": 20,
+    "name": "PIN #|PIN #|PIN #",
+    "type": 2
+  },
+  {
+    "id": 21,
+    "name": "Yêu cầu sức mạnh # tỉ|Power require # billions|Membutuhkan power # milyar",
+    "type": 2
+  },
+  {
+    "id": 22,
+    "name": "HP+#K|HP+#K|HP+#K",
+    "type": 2
+  },
+  {
+    "id": 23,
+    "name": "KI+#K|KI+#K|KI+#K",
+    "type": 2
+  },
+  {
+    "id": 24,
+    "name": "Làm tăng trọng lực, gây chậm mọi người xung quanh|High gravity, slow down arround|Gravitasi tinggi ,membuat Lambat area sekitar",
+    "type": 2
+  },
+  {
+    "id": 25,
+    "name": "Tàng hình mỗi 5 giây|Cloak every 5 second|Jubah setiap 5 detik",
+    "type": 2
+  },
+  {
+    "id": 26,
+    "name": "Hóa đá mọi người xung quanh mỗi 30 giây|Transform arround into stone every 30 seconds|Mengubah sekitar menjadi batu setiap 30 detik",
+    "type": 2
+  },
+  {
+    "id": 27,
+    "name": "+# HP/30s",
+    "type": 2
+  },
+  {
+    "id": 28,
+    "name": "+# KI/30s",
+    "type": 2
+  },
+  {
+    "id": 29,
+    "name": "Biến Sôcôla mọi người xung quanh mỗi 30 giây|Transform arround into Chocolate every 30 seconds|Mengubah sekeliling menjadi coklat setiap 30 detik",
+    "type": 5
+  },
+  {
+    "id": 30,
+    "name": "Không giao dịch|Unable to Trade|Tidak bisa Bertukar",
+    "type": 0
+  },
+  {
+    "id": 31,
+    "name": "Số lượng #|Quantity #|Kuantitas #",
+    "type": 0
+  },
+  {
+    "id": 32,
+    "name": "Không bị hóa Xương|Can not Skeletonize|Tidak bisa merangkakan",
+    "type": 0
+  },
+  {
+    "id": 33,
+    "name": "Dịch chuyển tức thời",
+    "type": 6
+  },
+  {
+    "id": 34,
+    "name": "Tinh ấn|Seal of Star|Seal of Star",
+    "type": 6
+  },
+  {
+    "id": 35,
+    "name": "Nguyệt ấn|Seal of Moon|Seal of Moon",
+    "type": 6
+  },
+  {
+    "id": 36,
+    "name": "Nhật ấn|Seal of Sun|Seal of Sun",
+    "type": 6
+  },
+  {
+    "id": 37,
+    "name": "Số lần đã ký gửi #|Number of Deposit #|Number of Deposit #",
+    "type": 4
+  },
+  {
+    "id": 38,
+    "name": "Chỉ có tác dụng khi hợp thể|Only when fusion|Hanya ketika fusi",
+    "type": 5
+  },
+  {
+    "id": 39,
+    "name": "<Cập nhật bản mới để xem>|<Update new version required>|<Update new version required>",
+    "type": 6
+  },
+  {
+    "id": 40,
+    "name": "Siêu cải trang # đá ngũ sắc",
+    "type": 7
+  },
+  {
+    "id": 41,
+    "name": "Chỉ số thưởng +#:|Bonus option +#:|Opsi bonus +#:",
+    "type": 7
+  },
+  {
+    "id": 42,
+    "name": "Tấn công+#% lên quái bay|Attack+#% on flying monsters|Serang +#% pada monster terbang",
+    "type": 7
+  },
+  {
+    "id": 43,
+    "name": "Tấn công+#% lên quái khỉ|Attack+#% on monkey monsters|Serang +#% pada monster monyet",
+    "type": 7
+  },
+  {
+    "id": 44,
+    "name": "Tấn công+#% lên quái mặt đất|Attack+#% on ground monsters|Serang +#% pada monster darat",
+    "type": 7
+  },
+  {
+    "id": 45,
+    "name": "Tấn công+#% lên tộc Namếc|Attack+#% on Nameks|Serang+#% di Namek",
+    "type": 7
+  },
+  {
+    "id": 46,
+    "name": "Tấn công+#% lên tộc Trái đất|Attack+#% on Earthlings|Serangan+#% pada orang-orang di Bumi",
+    "type": 7
+  },
+  {
+    "id": 176,
+    "name": "$(Ở gần đủ 5 loại +20% sức đánh +50% tốc độ chạy)|$(Stand near by 4 other friends +20% Attack +50% Run Speed)|$(Berdiri di dekat 4 orang teman + 20% Attack + 50% Speed berlari)",
+    "type": 0
+  },
+  {
+    "id": 47,
+    "name": "Giáp+#|Defend: +#|Defend: +#",
+    "type": 0
+  },
+  {
+    "id": 48,
+    "name": "HP, KI+#|HP, KI +#|HP, KI +#",
+    "type": 2
+  },
+  {
+    "id": 49,
+    "name": "Tấn công+#%|Attack +#%|Attack +#%",
+    "type": 1
+  },
+  {
+    "id": 50,
+    "name": "Sức đánh+#%|Damage increase +#%|Damage bertambah +#%",
+    "type": 1
+  },
+  {
+    "id": 51,
+    "name": "Sôn Gô Ku ss#|Songoku ss#|Songoku ss#",
+    "type": 0
+  },
+  {
+    "id": 52,
+    "name": "Ca Đic siêu ss#|Vegeta ss#|Vegeta ss#",
+    "type": 0
+  },
+  {
+    "id": 63,
+    "name": "Còn lại # ngày|Remain # days|Tinggal # hari",
+    "type": 0
+  },
+  {
+    "id": 53,
+    "name": "Broly|Broly|Broly",
+    "type": 0
+  },
+  {
+    "id": 54,
+    "name": "Mr. Santa|Mr. Santa|Mr. Santa",
+    "type": 0
+  },
+  {
+    "id": 55,
+    "name": "Broly ss#|Broly ss#|Broly ss#",
+    "type": 0
+  },
+  {
+    "id": 56,
+    "name": "Ca Lích|Trunks|Trunks",
+    "type": 0
+  },
+  {
+    "id": 57,
+    "name": "Thên Xin Hăng|Tenshinhan|Tenshinhan",
+    "type": 0
+  },
+  {
+    "id": 58,
+    "name": "Pic|Android 17|Android 17",
+    "type": 0
+  },
+  {
+    "id": 59,
+    "name": "Siêu na mếc #|Super namek #|Super Namek #",
+    "type": 0
+  },
+  {
+    "id": 67,
+    "name": "Dùng nâng cấp găng tay|Use to upgrade Gloves|Pakai untuk upgrade Gloves",
+    "type": 0
+  },
+  {
+    "id": 64,
+    "name": "Còn lại # giờ|Remain # hours|Tinggal # jam",
+    "type": 0
+  },
+  {
+    "id": 62,
+    "name": "Phục hồi thể lực #%|Restore Hp #%|Mengisi HP#%",
+    "type": 2
+  },
+  {
+    "id": 60,
+    "name": "Sôn Gô Tên|Songoten|Songoten",
+    "type": 0
+  },
+  {
+    "id": 61,
+    "name": "Sôn Gô Ku|Songoku|Songoku",
+    "type": 0
+  },
+  {
+    "id": 65,
+    "name": "Còn lại # phút|Remain # minutes|Tinggal # menit",
+    "type": 0
+  },
+  {
+    "id": 66,
+    "name": "Chưa có|Empty|Kosong",
+    "type": 0
+  },
+  {
+    "id": 68,
+    "name": "Dùng để nâng cấp áo|Use to upgrade Armor|Pakai untuk upgrade Armor",
+    "type": 0
+  },
+  {
+    "id": 69,
+    "name": "Dùng để nâng cấp quần|Use to upgrade Pant|Pakai untuk upgrade Pants",
+    "type": 0
+  },
+  {
+    "id": 70,
+    "name": "Dùng để nâng cấp giày|Use to upgrade Shoes|Pakai untuk upgrade Shoes",
+    "type": 0
+  },
+  {
+    "id": 71,
+    "name": "Dùng để nâng cấp rađa|Use to upgrade Radar|Pakai untuk upgrade Radar",
+    "type": 0
+  },
+  {
+    "id": 72,
+    "name": "Cấp #|Level #|Level #",
+    "type": 0
+  },
+  {
+    "id": 73,
+    "name": null,
+    "type": 0
+  },
+  {
+    "id": 74,
+    "name": "Dùng để ép thành đá|Use to upgrade|Pakai untuk upgrade",
+    "type": 0
+  },
+  {
+    "id": 75,
+    "name": "Dùng để làm phép|Use to magic upgrade|Pakai untuk upgrade magic",
+    "type": 0
+  },
+  {
+    "id": 76,
+    "name": "Vip|Vip|VIP",
+    "type": 0
+  },
+  {
+    "id": 77,
+    "name": "HP+#%|HP +#%|HP +#%",
+    "type": 0
+  },
+  {
+    "id": 78,
+    "name": "Sức hủy diệt+#%|Destroy +#%|Destroy +#%",
+    "type": 0
+  },
+  {
+    "id": 79,
+    "name": "Đệ tử #% sức đánh|Summon #% attack damage|Summon #% attack damage",
+    "type": 0
+  },
+  {
+    "id": 80,
+    "name": "HP+#%/30s|HP +#%/30s|HP +#%/30s",
+    "type": 0
+  },
+  {
+    "id": 81,
+    "name": "KI+#%/30s|KI +#%/30s|KI +#%/30s",
+    "type": 0
+  },
+  {
+    "id": 82,
+    "name": "Không bị quái chủ động đánh và giảm 20% sát thương khi bị đánh|Monster does not attack first and reduce 20% damage receive|Monster tidak menyerang duluan dan mengurangi damage yang diterima sebanyak 20%",
+    "type": 0
+  },
+  {
+    "id": 83,
+    "name": "Tăng 20% sức mạnh và tiềm năng nhận được khi đánh quái|Increase 20% Power and Potentical receive when attack monster|Meningkatkan Power dan Potential yang didapatkan sebanyak 20% saat menyerang monster",
+    "type": 0
+  },
+  {
+    "id": 84,
+    "name": "Dùng để bay không tốn KI|Fly with no KI used|Terbang tanpa KI",
+    "type": 0
+  },
+  {
+    "id": 85,
+    "name": "Dùng để bay và phục hồi KI|Fly with KI restore|Terbang dengan mengisi KI",
+    "type": 0
+  },
+  {
+    "id": 86,
+    "name": "Ký gửi vàng|Consignment sale (Gold)|Titip jual (Gold)",
+    "type": 0
+  },
+  {
+    "id": 87,
+    "name": "Ký gửi ngọc|Consignment sale (Gems)|Titip jual (Gem)",
+    "type": 0
+  },
+  {
+    "id": 88,
+    "name": "Cộng #% exp khi đánh quái|Add #% exp when train monters|Tambah #% exp saat melatih monster",
+    "type": 0
+  },
+  {
+    "id": 89,
+    "name": "Dùng để bay và phục hồi HP, KI|Fly with HP and KI regen|Terbang dengan mengisi HP dan KI",
+    "type": 0
+  },
+  {
+    "id": 90,
+    "name": "Tặng cho người khác (bỏ ra đất) sẽ được nhận may mắn|Donate it and get lucky|Sumbang dan coba keberuntungan",
+    "type": 0
+  },
+  {
+    "id": 91,
+    "name": "Mở ra để nhận may mắn|Open it and get lucky|Buka dan coba keberuntungan",
+    "type": 0
+  },
+  {
+    "id": 92,
+    "name": "Chúc tết bang hội và mọi người kèm theo pháo hoa|Say happy new year to your clan and every body with fireworks |Ucapkan selamat tahun baru ke clan dan semua orang dengan kembang api",
+    "type": 0
+  },
+  {
+    "id": 93,
+    "name": "HSD # ngày|Expr: # days|Expr : # hari",
+    "type": 0
+  },
+  {
+    "id": 94,
+    "name": "Giáp #%|Reduce damage #%|Mengurangi kerusakan #%",
+    "type": 0
+  },
+  {
+    "id": 95,
+    "name": "Biến #% tấn công thành HP|Convert #% of damage to HP|Mengkonversi #% dari kerusakan HP",
+    "type": 0
+  },
+  {
+    "id": 96,
+    "name": "Biến #% tấn công thành KI|Convert #% of damage to KI|Mengkonversi #% dari kerusakan KI",
+    "type": 0
+  },
+  {
+    "id": 103,
+    "name": "KI +#%|KI +#%|KI +#%",
+    "type": 0
+  },
+  {
+    "id": 97,
+    "name": "Phản #% sát thương|Reflects #% damage receive|Mencerminkan #% kerusakan menerima",
+    "type": 0
+  },
+  {
+    "id": 98,
+    "name": "Xuyên giáp #% chưởng|#% armor penetration in KI attack|#% penetrasi armor dalam serangan KI",
+    "type": 0
+  },
+  {
+    "id": 104,
+    "name": "Biến #% tấn công quái thành HP|Convert #% of damage to monster to HP|Mengkonversi # % dari kerusakan rakasa untuk HP",
+    "type": 0
+  },
+  {
+    "id": 99,
+    "name": "Xuyên giáp #% cận chiến|#% armor penetration in melee|#% penetrasi armor di jarak dekat",
+    "type": 0
+  },
+  {
+    "id": 100,
+    "name": "+#% vàng rơi|+#% Gold drop from monsters|+#% Penurunan Emas dari monster",
+    "type": 0
+  },
+  {
+    "id": 101,
+    "name": "+#% tiềm năng, sức mạnh|+#% power and SP received from monsters|+#% power dan SP yang diterima dari monster",
+    "type": 0
+  },
+  {
+    "id": 102,
+    "name": "# Sao Pha Lê|# Crystal Stars|# Bintang Kristal",
+    "type": 0
+  },
+  {
+    "id": 105,
+    "name": "Vô hình khi không đánh quái và boss|Invisible while not attack monster or boss|Tak terlihat sementara tidak menyerang rakasa atau bos",
+    "type": 0
+  },
+  {
+    "id": 106,
+    "name": "Chống lạnh|Immunity to cold|Kekebalan terhadap dingin",
+    "type": 0
+  },
+  {
+    "id": 107,
+    "name": "# Sao Pha Lê|# Crystal Stars|# Bintang Kristal",
+    "type": 0
+  },
+  {
+    "id": 108,
+    "name": "#% Né đòn|#% Avoid|#% Menghindari",
+    "type": 0
+  },
+  {
+    "id": 109,
+    "name": "Hôi, giảm #% HP|Smells foul damage around|Bau Busuk Kerusakan Di Sekitar",
+    "type": 0
+  },
+  {
+    "id": 110,
+    "name": "Dò pha lê|Opportunity found crystal star from monsters|Kesempatan untuk menemukan Kristal Dari monster",
+    "type": 0
+  },
+  {
+    "id": 111,
+    "name": "Phân tâm|Distracting everyone around|Mengganggu orang sekitar",
+    "type": 0
+  },
+  {
+    "id": 112,
+    "name": "Giảm #% khi mua Avatar hoặc Cải trang|#% Discount when buying Disguised or Avatar|#% Diskon saat membeli Menyamar atau Avatar",
+    "type": 0
+  },
+  {
+    "id": 113,
+    "name": "Ném cho Sói Hẹc Quyn|Threw for Hercules Wolf|Melemparkan Untuk Serigala Hercules",
+    "type": 0
+  },
+  {
+    "id": 114,
+    "name": "+#% TĐ chạy|+#% Move Speed|+#% kecepatan",
+    "type": 0
+  },
+  {
+    "id": 115,
+    "name": "Biến cà rốt|Transform other to the carrot|Transform sentuhan orang untuk wortel",
+    "type": 0
+  },
+  {
+    "id": 116,
+    "name": "Kháng TDHS|Not affected by the Solar Flare|Tidak terpengaruh serangan Solar Flare",
+    "type": 0
+  },
+  {
+    "id": 117,
+    "name": "Đẹp +#% SĐ cho mình và người xung quanh|Beauty increase damage everyone around +#%|Kecantikan menambah kerusakan di sekitar +#%",
+    "type": 0
+  },
+  {
+    "id": 118,
+    "name": "Tới ngay mục tiêu và gây choáng trong # mili giây|Blink to target and Stun for # mili second|Membutakan target dan stun untuk # mili detik",
+    "type": 0
+  },
+  {
+    "id": 119,
+    "name": "Gây mù xung quanh trong # giây|Blind arround for # second|Membutakan sekitar untuk # detik",
+    "type": 0
+  },
+  {
+    "id": 120,
+    "name": "Ra đòn sau # giây|Cool down is # second|Cool down selama # detik",
+    "type": 0
+  },
+  {
+    "id": 121,
+    "name": "Ru ngủ trong # giây|Force to sleep for # second|Force untuk tidur #detik",
+    "type": 0
+  },
+  {
+    "id": 122,
+    "name": "Bảo vệ trong # giây|Protect in # second|Berlindung selama # detik",
+    "type": 0
+  },
+  {
+    "id": 123,
+    "name": "Trói gô mục tiêu trong # giây|Tie target in # second|Target pengikatan # detik",
+    "type": 0
+  },
+  {
+    "id": 124,
+    "name": "Tỉnh giấc bị yếu đi -#% sức đánh trong 10 giây|Awake in weakness -#% attack damage in 10 second|Bangun di dalam kelemahan serangan -#% untuk 10 detik",
+    "type": 0
+  },
+  {
+    "id": 125,
+    "name": "Tăng và hồi phục #% HP tạm thời cho mình và xung quanh trong 30 giây|Temporary increase and restore #% HP for you and friendly arround in 30 second|Menambah dan restore #% HP untuk kamu dan teman di sekitar mu selama 30 detik",
+    "type": 0
+  },
+  {
+    "id": 126,
+    "name": "Biến sôcôla làm yếu đi -#% sức đánh trong 30 giây|Transform target into Chocolate and weak -#% attack damage in 30 second|Ubah target menjadi coklat dan serangan -#% selama 30 detik",
+    "type": 0
+  },
+  {
+    "id": 127,
+    "name": "Set Thên Xin Hăng|Set Tienshinhan|Set Tienshinhan",
+    "type": 0
+  },
+  {
+    "id": 128,
+    "name": "Set Kirin|Set Kurilin|Set Kurilin",
+    "type": 0
+  },
+  {
+    "id": 129,
+    "name": "Set Sôngôku|Set Songoku|Set Songoku",
+    "type": 0
+  },
+  {
+    "id": 130,
+    "name": "Set Picolo|Set Piccolo|Set Piccolo",
+    "type": 0
+  },
+  {
+    "id": 131,
+    "name": "Set Ốc tiêu|Set Nail|Set Nail",
+    "type": 0
+  },
+  {
+    "id": 132,
+    "name": "Set Pikkoro Daimao|Set Pikkoro Daimao|Set Pikkoro Daimao",
+    "type": 0
+  },
+  {
+    "id": 133,
+    "name": "Set Kakarot|Set Kakarot|Set Kakarot",
+    "type": 0
+  },
+  {
+    "id": 134,
+    "name": "Set Ca Đíc|Set Vegeta|Set Vegeta",
+    "type": 0
+  },
+  {
+    "id": 135,
+    "name": "Set Nappa|Set Nappa|Set Nappa",
+    "type": 0
+  },
+  {
+    "id": 137,
+    "name": "$(5 món x5 thời gian hóa khỉ)|$(5 items 5x Monkey transformation time)|$(5 items 5x Waktu Perubahan Kera)",
+    "type": 9
+  },
+  {
+    "id": 136,
+    "name": "$(5 món +100% sát thương đấm Galick)|$(5 items  +100%  Galick punch damage)|$(5 items +100%  Galick punch damage)",
+    "type": 9
+  },
+  {
+    "id": 138,
+    "name": "$(5 món +80% HP)|$(5 items +80% HP)|$(5 items +80% HP)",
+    "type": 9
+  },
+  {
+    "id": 139,
+    "name": "$(5 món x2 thời gian chói mắt)|$(5 items 2x Dazzle time)|$(5 items 2x Solar Flare)",
+    "type": 9
+  },
+  {
+    "id": 140,
+    "name": "$(5 món +100% sát thương Quả Cầu Kênh Khi)|$(5 items +100% Genki-Dama damage)|$(5 items +100% Genki-Dama damage)",
+    "type": 9
+  },
+  {
+    "id": 141,
+    "name": "$(5 món +100% sát thương Kamejoko)|$(5 items +100% Kamejoko damage)|$(5 items +100% Kamejoko damage)",
+    "type": 9
+  },
+  {
+    "id": 142,
+    "name": "$(5 món +50% sát thương Masenkosappo)|$(5 items +50%  Masenkosappo damage)|$(5 items +50%  Masenkosappo damage)",
+    "type": 9
+  },
+  {
+    "id": 143,
+    "name": "$(5 món Bất tử xung quanh khi đánh quái)|$(5 items : Immortal around when attack  monsters)|$(5 items : Immortal ketika attack monster)",
+    "type": 9
+  },
+  {
+    "id": 144,
+    "name": "$(5 món +100% sát thương và bất tử đệ từ Đẻ Trứng)|$(5 items +100% damage and immortal for disciple from Summon)|$(5 items +100% damage dan immortal untuk murid dari Summon)",
+    "type": 9
+  },
+  {
+    "id": 145,
+    "name": "$(Ở gần 1 CT Dr Slum khác loại +20% sức đánh +66% tốc độ chạy)|$(Near player who has different type Dr Slum disguise +20% attack damage +66% run speed)|$(Berdekatan dengan player yang memiliki salah satu dr slump disg +20% attack damage +66% kecepatan)",
+    "type": 0
+  },
+  {
+    "id": 146,
+    "name": "$(Ở gần 2 CT Dr Slum khác loại +30% sức đánh +100% tốc độ chạy)|$(Near 2 players who have different type Dr Slum disguise +30% attack damage +100% run speed)|$(Berdekatan dengan 2 player yang memiliki salah satu dr slump disg +30% attack damage +100% kecepatan)",
+    "type": 0
+  },
+  {
+    "id": 147,
+    "name": "+#% sức đánh|+#% attack damage|+#% attack damage",
+    "type": 0
+  },
+  {
+    "id": 148,
+    "name": "+#% tốc độ chạy|+#% run speed|+#% kecepatan",
+    "type": 0
+  },
+  {
+    "id": 150,
+    "name": "(Chỉ số tăng khi ở gần Android Sát Thủ khác loại)|increase when standing near other kind of Killer Androids disguises|Bertambah ketika berdiri didekat disguise Killer Androids",
+    "type": 0
+  },
+  {
+    "id": 149,
+    "name": "(Chỉ số tăng khi ở gần CT Hải Tặc khác loại)|increase when standing near other kind of pirate disguises|Bertambah ketika berdiri dekat disguise OP lain nya",
+    "type": 0
+  },
+  {
+    "id": 151,
+    "name": "$(Ở gần 1 CT nhóm Piláp khác loại +20% sức đánh +66% tốc độ chạy)|$(Near player who has different type Pilaf Team disguise +20% attack damage +66% run speed)|$(Berdekatan dengan player yang memiliki salah satu Pilaf Team disg +20% attack damage +66% kecepatan)",
+    "type": 0
+  },
+  {
+    "id": 152,
+    "name": "$(Ở gần 2 CT nhóm Piláp khác loại +30% sức đánh +100% tốc độ chạy)|$(Near 2 players who have different type Pilaf Team disguise +30% attack damage +100% run speed)|$(Berdekatan dengan 2 player yang memiliki salah satu Pilaf Team disg +30% attack damage +100% kecepatan)",
+    "type": 0
+  },
+  {
+    "id": 153,
+    "name": "#% tỉ lệ phát nổ sau khi chết|50% chance to explode after die|50% Chance untuk meledak setelah mati",
+    "type": 0
+  },
+  {
+    "id": 154,
+    "name": "Không thể bán lại|Can not be sold|Tidak bisa dijual",
+    "type": 0
+  },
+  {
+    "id": 189,
+    "name": "Đệ tử chưởng antomic +#% sát thương|Disciple antomic +#% damage|Murid anatomi +#% kerusakan",
+    "type": 0
+  },
+  {
+    "id": 155,
+    "name": "Giảm 50% sức đánh, HP, KI và +#% SM, TN, vàng từ quái|Reduce 50% Attack, HP, KI and +#% Power, Potential, Gold drop|Kurangi 50% Attack, HP, KI dan +#% Power, Potential, Drop Gold",
+    "type": 0
+  },
+  {
+    "id": 156,
+    "name": "Cộng dồn 1% sức đánh khi chỉ dùng chiêu đấm, tối đa #%|Accumulate 1% Attack when using Punch skill only, Max #%|Akumulasi 1% Attack ketika hanya menggunakan skill pukulan, Max #%",
+    "type": 0
+  },
+  {
+    "id": 157,
+    "name": "Giảm #% mọi sát thương khi KI dưới 20%|Reduce #% all Damage when KI below 20%|Kurangi #% semua Damage ketika KI dibawah 20%",
+    "type": 0
+  },
+  {
+    "id": 158,
+    "name": "Khi ở trần và không đeo cải trang sẽ có cơ hội tìm thấy vật phẩm sự kiện|You may find event items randomly when you are naked and with out any disguise.|Anda dapat menemukan barang-barang acara secara acak ketika Anda telanjang dan tanpa menyamar.",
+    "type": 0
+  },
+  {
+    "id": 159,
+    "name": "x# sức đánh đòn chưởng cơ bản mỗi phút|x# Basic Ki Blast Damage per minute|x# Basic Damage Ki Blast per menit",
+    "type": 0
+  },
+  {
+    "id": 161,
+    "name": "Thêm # ngọc mỗi ngày khi đánh quái.|Receive # Free Gems daily from defeating monsters.|Menerima # gems harian gratis dari mengalahkan monster.",
+    "type": 0
+  },
+  {
+    "id": 160,
+    "name": "+#% TN, SM cho đệ tử khi sư phụ mặc|+#% Disciple Potential, Power while Master using|+#% Potensial Murid, Power ketika Guru menggunakan Disguise ini",
+    "type": 0
+  },
+  {
+    "id": 162,
+    "name": "Cute hồi #% KI/s bản thân và xung quanh|Cute effect regen #% KI/s to you and friendly arround|Efek lucu regen #% KI/s untuk Anda dan ramah di sekitar",
+    "type": 0
+  },
+  {
+    "id": 163,
+    "name": "Biến người xung quanh thành Bí Ngô|Turn people around into pumpkins|Ubah orang menjadi labu",
+    "type": 0
+  },
+  {
+    "id": 164,
+    "name": "Đổi bằng # điểm sự kiện|Exchange # Event Point|Tukarkan # Point Event",
+    "type": 0
+  },
+  {
+    "id": 165,
+    "name": "Cơ hội ra đòn +#% sát thương lửa khi cận chiến quái|Chance +#% Fire damage when melee attack monsters|Chance +#% Fire damage when melee attack monsters",
+    "type": 0
+  },
+  {
+    "id": 166,
+    "name": "Ngầu +#% sức đánh lên quái khi bay với Cải Trang Tàu Pảy Pảy|Cool +#% attack power when flying with Disguise Tao Pai-pai|Kekuatan serangan keren +#% saat terbang dengan Disguise Tao Pai-pai",
+    "type": 0
+  },
+  {
+    "id": 167,
+    "name": "Tạo không khí lạnh|Create cold air|Ciptakan udara dingin",
+    "type": 0
+  },
+  {
+    "id": 168,
+    "name": "Hấp thụ sức mạnh rồi bộc phá|Absorb damage to increase attack power|Menyerap kerusakan untuk meningkatkan kekuatan serangan",
+    "type": 0
+  },
+  {
+    "id": 169,
+    "name": "Cơ hội hạ độc đối thủ|Opportunity to poison the enemy|Peluang untuk meracuni musuh",
+    "type": 0
+  },
+  {
+    "id": 170,
+    "name": "Ngầu +#% sức đánh lên quái khi bay với Cải Trang nhà Fide|Cool +#% attack power when flying with Disguise Frieza Family|Kekuatan serangan keren +#% saat terbang dengan Disguise Keluarga Frieza",
+    "type": 0
+  },
+  {
+    "id": 171,
+    "name": "Số lượng #K|Quantity #K|Kuantitas #K",
+    "type": 0
+  },
+  {
+    "id": 172,
+    "name": "#|#|#",
+    "type": 0
+  },
+  {
+    "id": 173,
+    "name": "Phục hồi #% HP và KI cho đồng đội|Restore #% HP and KI |Isi #% HP dan KI",
+    "type": 0
+  },
+  {
+    "id": 174,
+    "name": "Sự kiện năm #|Event in year #|Event di tahun #",
+    "type": 0
+  },
+  {
+    "id": 175,
+    "name": "Giảm #% thời gian bị mù|Reduce #% blind time|Kurangi #% waktu buta",
+    "type": 0
+  },
+  {
+    "id": 177,
+    "name": "$(Tối đa +2% tất cả khi ở gần Mabư mập)|$(Up to +2% of all if near Fat Mabu)|$(Hingga +2% dari semua jika dekat Fat Mabu)",
+    "type": 0
+  },
+  {
+    "id": 178,
+    "name": "KI+#%/10s|KI +#%/10s|KI +#%/10s",
+    "type": 0
+  },
+  {
+    "id": 179,
+    "name": "+2% sức đánh, tối đa 10% khi ở gần Cải Trang tộc Demons Frost|+2% attack damage, up to 10% when near Demons Frost Disguise|+2% kerusakan serangan, hingga 10% saat di dekat Demons Frost Disguise",
+    "type": 0
+  },
+  {
+    "id": 180,
+    "name": "+#% sức đánh khi ở gần Cải Trang Black Gohan Rose|+#% attack damage when near Black Gohan Rose Disguise|+#% kerusakan serangan saat di dekat Black Gohan Rose Disguise",
+    "type": 0
+  },
+  {
+    "id": 181,
+    "name": "Dịch chuyển tức thời +#% sát thương|Teleport attack +#% damage|Serangan teleportasi +#% kerusakan",
+    "type": 0
+  },
+  {
+    "id": 182,
+    "name": "+#% sát thương đệ từ trứng|+#% damage for summon disciple|+#% kerusakan untuk murid pemanggil",
+    "type": 0
+  },
+  {
+    "id": 183,
+    "name": "Giảm #% thời gian hồi Khiên|Reduce #% Shield cooldown|Kurangi #% cooldown Perisai",
+    "type": 0
+  },
+  {
+    "id": 184,
+    "name": "+#% sức đánh, tối đa 10% khi ở gần Gohan xanh, Poc đỏ, Arale búp bê|+#% attack power, up to 10% when near Green Gohan, Red Android 18, Arale doll|+#% kekuatan serangan, hingga 10% saat berada di dekat Green Gohan, Red Android 18, boneka Arale",
+    "type": 0
+  },
+  {
+    "id": 185,
+    "name": "+# giờ sử dụng|+# hours|+# jam",
+    "type": 0
+  },
+  {
+    "id": 186,
+    "name": "Biến kẹo 30 giây|Turn candy 30 seconds|Putar permen 30 detik",
+    "type": 0
+  },
+  {
+    "id": 188,
+    "name": "Đệ tử chưởng kamejoko +#% sát thương|Disciples kame kame ha +#% damage|Murid kame kame ha +#% kerusakan",
+    "type": 0
+  },
+  {
+    "id": 187,
+    "name": "Giảm # giây thời gian bị mù|Reduce # seconds blind time|Kurangi waktu buta # detik",
+    "type": 0
+  },
+  {
+    "id": 190,
+    "name": "Đệ tử chưởng masenko +#% sát thương|Disciple masenko +#% damage|Murid masenko +#% kerusakan",
+    "type": 0
+  },
+  {
+    "id": 191,
+    "name": "Né chí mạng+#%|Critical Evasion+#%|Penghindaran Kritis+#%",
+    "type": 0
+  },
+  {
+    "id": 192,
+    "name": "+#% Chí mạng|+#% Critical|+#% Critical",
+    "type": 0
+  },
+  {
+    "id": 193,
+    "name": "+#% sức đánh, tối đa 11% khi ở gần Cải trang cầu thủ khác|+#% attack power, up to 11% when near Football player disguise|+#% kekuatan serangan, hingga 11% saat berada di dekat Penyamaran pemain sepak bola",
+    "type": 0
+  },
+  {
+    "id": 194,
+    "name": "+#% sức đánh, tối đa 10% khi ở gần Cải trang hè khác|+#% attack power, up to 10% when near another Summer Disguise|+#% kekuatan serangan, hingga 10% saat berada di dekat Penyamaran Musim Panas lainnya",
+    "type": 0
+  },
+  {
+    "id": 195,
+    "name": "+#% sức đánh, tối đa 10% khi ở gần Cải trang siêu nhân khác|+#% attack power, up to 10% when near another Superhero Disguise|+#% kekuatan serangan, hingga 10% saat berada di dekat Penyamaran Pahlawan Super lain",
+    "type": 0
+  },
+  {
+    "id": 196,
+    "name": "Xinh +#% sức đánh, tối đa 18% khi ở gần Cải trang Thỏ khác|Beauty +#% attack power, up to 18% when near another Rabbit Disguise|Kecantikan +#% kekuatan serangan, hingga 18% saat berada di dekat Penyamaran Kelinci lain",
+    "type": 0
+  },
+  {
+    "id": 197,
+    "name": "Tấn công+#% lên tộc Xayda|Attack+#% on Saiyan|Serang+#% pada Saiyan",
+    "type": 7
+  },
+  {
+    "id": 198,
+    "name": "Giảm #% sát thương từ tộc Trái Đất|Reduce #% damage from Earthlings|Kurangi #% kerusakan dari Penduduk Bumi",
+    "type": 7
+  },
+  {
+    "id": 199,
+    "name": "Giảm #% sát thương từ tộc Namếc|Reduce #% damage from Nameks|Kurangi #% kerusakan dari Nameks",
+    "type": 7
+  },
+  {
+    "id": 200,
+    "name": "Giảm #% sát thương từ tộc Xayda|Reduce #% damage from Saiyan|Kurangi #% kerusakan dari Saiyan",
+    "type": 7
+  },
+  {
+    "id": 201,
+    "name": "Tấn công+#% gần 2 thành viên bang|Attack+#% near 2 clan members|Serang+#% dekat 2 anggota klan",
+    "type": 7
+  },
+  {
+    "id": 202,
+    "name": "HP+#% gần 2 thành viên bang|HP+#% near 2 clan members|HP+#% dekat 2 anggota klan",
+    "type": 7
+  },
+  {
+    "id": 203,
+    "name": "KI+#% gần 2 thành viên bang|KI+#% near 2 clan members|KI+#% dekat 2 anggota klan",
+    "type": 7
+  },
+  {
+    "id": 204,
+    "name": "Tấn công+#% lên Boss|Attack+#% on Boss|Serang+#% pada Boss",
+    "type": 7
+  },
+  {
+    "id": 205,
+    "name": "Đi cùng CT Diệt Quỷ +#% SĐ, tối đa 18%|+#% attack power, up to 18% when near Demon Slayer disguise|+#% kekuatan serangan, hingga 18% saat di dekat Demon Slayer menyamar",
+    "type": 7
+  },
+  {
+    "id": 206,
+    "name": "Vật phẩm hiếm rơi từ quái (+#%)|Rare item dropped from monsters (+#%)|Item langka dijatuhkan dari monster (+#%)",
+    "type": 0
+  },
+  {
+    "id": 207,
+    "name": "Vật phẩm hiếm rơi từ boss (+#%)|Rare item dropped from boss (+#%)|Item langka dijatuhkan dari bos (+#%)",
+    "type": 0
+  },
+  {
+    "id": 208,
+    "name": "Trang bị đã chuyển hóa|Transformed equipment|Peralatan yang diubah",
+    "type": 0
+  },
+  {
+    "id": 209,
+    "name": "Bị rớt cấp # lần|Dropped level # times|Turun level # kali",
+    "type": 0
+  },
+  {
+    "id": 210,
+    "name": "# Dòng chỉ số ẩn|# Hidden options|# Opsi tersembunyi",
+    "type": 0
+  },
+  {
+    "id": 211,
+    "name": "Giám định #/5|Unidentified #/5|Tidak teridentifikasi #/5",
+    "type": 0
+  },
+  {
+    "id": 212,
+    "name": "Độ bền #/1000|Durability #/1000|Daya Tahan #/1000",
+    "type": 0
+  },
+  {
+    "id": 213,
+    "name": "Giá bán: # triệu vàng|Sell Value: # million gold|Nilai Jual: # juta emas",
+    "type": 0
+  },
+  {
+    "id": 214,
+    "name": "Phạm vi tuyệt kỹ +#%|Super Skill Range +#%|Rentang Keterampilan Super +#%",
+    "type": 0
+  },
+  {
+    "id": 215,
+    "name": "Số lượng mục tiêu +#|Number of targets +#|Jumlah target +#",
+    "type": 0
+  },
+  {
+    "id": 216,
+    "name": "Tuyệt kỹ +#% sát thương|Super Skill +#% damage|Keterampilan Super +#% kerusakan",
+    "type": 0
+  },
+  {
+    "id": 217,
+    "name": "- Chưa giám định|- Unverified|- Tidak diverifikasi",
+    "type": 0
+  },
+  {
+    "id": 218,
+    "name": " ---------|---------|---------",
+    "type": 0
+  },
+  {
+    "id": 219,
+    "name": "Số lần tẩy #|Refine time #|Waktu Refine #",
+    "type": 0
+  },
+  {
+    "id": 220,
+    "name": "Hoàn thành #%|Complete #%|Selesai #%",
+    "type": 0
+  },
+  {
+    "id": 225,
+    "name": "Giảm # giây bị phong ấn của Ma Phong Ba|Reduce # seconds affected time of Mafuba|Mengurangi # detik waktu Mafuba yang terpengaruh",
+    "type": 0
+  },
+  {
+    "id": 221,
+    "name": "Phục hồi #% HP và  KI mỗi 30 giây cho bản thân và đồng bang|Recovers #% HP and KI every 30 seconds for self and allies|Memulihkan #% HP dan KI setiap 30 detik untuk diri sendiri dan sekutu",
+    "type": 0
+  },
+  {
+    "id": 222,
+    "name": "120 giây kích nộ sức đánh #% trong 30 giây|120 seconds of attack damage #% for 30 seconds|Kerusakan serangan 120 detik #% selama 30 detik",
+    "type": 0
+  },
+  {
+    "id": 223,
+    "name": "120 giây kích hồi #% HP trong vòng 30 giây|120 seconds restores #% HP within 30 seconds|120 detik memulihkan #% HP dalam 30 detik",
+    "type": 0
+  },
+  {
+    "id": 224,
+    "name": "Giảm thời gian cooldown của tất cả kỹ năng về 0,1 giây|Reduce cooldown time of all skills down to 0.1s|Mengurangi waktu cooldown semua keterampilan hingga 0,1 detik",
+    "type": 0
+  },
+  {
+    "id": 226,
+    "name": "Cute +#% SĐ cho mình và người xung quanh|Cute increase damage everyone around +#%|Peningkatan kerusakan yang lucu pada semua orang di sekitar +#%",
+    "type": 0
+  },
+  {
+    "id": 227,
+    "name": "Giảm #% tác dụng của các đòn khống chế khi dùng khiên năng lượng|Reduced by #% the effect of control attacks when using energy shields|Mengurangi sebesar #% efek serangan kontrol saat menggunakan perisai energi",
+    "type": 0
+  },
+  {
+    "id": 228,
+    "name": "Cường hóa tới ô sao pha lê #|Enhanced to crystal star socket #|Ditingkatkan ke soket bintang kristal #",
+    "type": 0
+  },
+  {
+    "id": 229,
+    "name": "Lạnh gây giảm #% HP , KI mỗi 30s cho những người xung quanh|Cold causes #% HP and KI reduction every 30 seconds to those around|Dingin menyebabkan pengurangan #% HP dan KI setiap 30 detik pada orang di sekitar",
+    "type": 0
+  }
+]
