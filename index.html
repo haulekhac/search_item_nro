@@ -559,16 +559,21 @@ function getIconUrl(item) {
 function iconBoxHtml(item, iid) {
   const url = getIconUrl(item);
   if (url) {
-    return '<img src="' + url + '" onerror="this.parentNode.innerHTML=\'<span>' + (item ? (item.icon || item.iconId || '?') : '?') + '</span>\'" alt="">';
+    const iconVal = item ? (item.icon != null ? item.icon : item.iconId) : null;
+    const onlineFallback = iconVal != null ? (ONLINE_ICON_BASE + iconVal + '.png') : '';
+    const fallbackScript = onlineFallback
+      ? `this.onerror=function(){this.src='small/Small999999.png'};this.src='${onlineFallback}'`
+      : `this.src='small/Small999999.png'`;
+    return '<img src="' + url + '" onerror="' + fallbackScript + '" alt="">';
   }
-  return '<span>' + (item ? item.id : iid) + '</span>';
+  return '<img src="small/Small999999.png" alt="">';
 }
 
 /* ══════════════════════════════════════════════
    NOTIFICATIONS
 ══════════════════════════════════════════════ */
 const NOTIFS = [
-  {id:'tb002',emoji:'🔒',title:'Tool vừa được cập nhật!',desc:'Thêm tự động tra cứu item online nếu không có trong local, hiển thị hình ảnh đúng nguồn.',time:'28/02/2026'},
+  {id:'tb002',emoji:'🔒',title:'Tool vừa được cập nhật!',desc:'Thêm tự động tra cứu item online nếu không có trong local, hiển thị hình ảnh đúng nguồn, item nào không có ảnh hiển thị Crush =))) Vd: 1982',time:'28/02/2026'},
   {id:'tb001',emoji:'🔒',title:'Cập nhật trước đó',desc:'Thêm hiển thị hình ảnh và tối ưu các lỗi ở bản cũ.',time:'27/02/2026'},
 ];
 const RK = 'db_nread';
@@ -805,7 +810,7 @@ function ric(p) {
   const gn = getG(gender), gc = gCls(gender);
   const gTag = (gender != null && gender !== 3) ? '<span class="tag ' + gc + '">' + esc(gn) + '</span>' : '';
   const ptag = (part != null && part >= 0) ? (isDanh ? '<span class="tag tp2">Danh hiệu #' + part + '</span>' : '<span class="tag tgr">Part ' + part + '</span>') : '';
-  const onlineTag = isOnline ? '<span class="tag tag-online">Dữ liệu được đấu bởi API</span>' : '';
+  const onlineTag = isOnline ? '<span class="tag tag-online">🌐 Online</span>' : '';
   return '<div class="ic"><div class="ic-top"><span class="rarity ' + rc + '">' + rl + '</span><span class="id-badge">ID: ' + esc(String(item ? item.id : iid)) + '</span><div class="icon-box">' + iconH + '</div><div class="ic-info"><div class="ic-name">' + esc(name) + '</div>' + (desc && !isDanh ? '<div class="ic-desc">' + esc(desc) + '</div>' : '') + '<div class="tags">' + (typeName ? '<span class="tag tb">' + esc(typeName) + '</span>' : '') + (lvl > 1 ? '<span class="tag to">Lv.' + lvl + '</span>' : '') + gTag + ptag + onlineTag + '</div></div></div>' + (opts.length ? '<div class="div1"></div><div class="ic-opts"><div class="oh">Options (' + opts.length + ')</div>' + optsH + (isDanh ? '<div class="dl">Danh hiệu — thứ tự #' + part + '</div>' : '') + '</div>' : (desc ? '<div class="div1"></div><div class="ic-opts"><div class="dl">' + esc(desc) + '</div></div>' : '')) + '</div>';
 }
 
@@ -962,16 +967,19 @@ async function lI() {
     return;
   }
 
-  el.innerHTML = results.map(({id, item, online}) => {
-    const name = vi(item.name), desc = vi(item.description || '');
-    const isDanh = desc === 'Danh hieu' || desc === 'Danh hiệu';
-    const iconUrl = getIconUrl(item);
-    const ih = iconUrl ? '<img src="' + iconUrl + '" onerror="this.style.display=\'none\'" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">' : '';
-    const gc = gCls(item.gender); const gn = getG(item.gender);
-    const iconVal = item.icon != null ? item.icon : item.iconId;
-    const onlineTag = online ? '<span class="tag tag-online" style="font-size:9px;">API</span>' : '';
-    return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);">' + ih + '<div><div class="lr-name">' + esc(name) + '</div>' + (desc && !isDanh ? '<div style="font-size:12px;color:var(--text2)">' + esc(desc) + '</div>' : '') + '</div></div><div class="lr-row"><span class="lk">ID</span><span class="lv">' + esc(id) + '</span><span class="lk">IconID</span><span class="lv">' + (iconVal != null ? iconVal : '—') + '</span><span class="lk">Type</span><span class="lv">' + (TN[item.type] || item.type) + '</span><span class="lk">Level</span><span class="lv">' + item.level + '</span></div><div class="lr-row" style="margin-top:5px;">' + (item.gender !== 3 ? '<span class="tag ' + gc + '">' + esc(gn) + '</span>' : '') + (isDanh ? '<span class="tag tp2">Danh hiệu #' + item.part + '</span>' : (item.part >= 0 ? '<span class="tag tgr">Part ' + item.part + '</span>' : '')) + onlineTag + '</div>';
-  }).join('<hr style="border-color:var(--border);margin:8px 0">');
+el.innerHTML = results.map(({id, item, online}) => {
+  const name = vi(item.name), desc = vi(item.description || '');
+  const isDanh = desc === 'Danh hieu' || desc === 'Danh hiệu';
+  const iconUrl = getIconUrl(item);
+  const iconVal = item.icon != null ? item.icon : item.iconId;
+  const onlineFb = iconVal != null ? ONLINE_ICON_BASE + iconVal + '.png' : '';
+const ih = iconUrl
+  ? '<img src="' + iconUrl + '" onerror="' + (onlineFb ? 'this.onerror=function(){this.src=\'small/Small999999.png\'};this.src=\'' + onlineFb + '\'' : 'this.src=\'small/Small999999.png\'') + '" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">'
+  : '<img src="small/Small999999.png" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">';
+  const gc = gCls(item.gender);
+  const gn = getG(item.gender);
+  return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);">' + ih + '<div><div class="lr-name">' + esc(name) + '</div>' + (desc && !isDanh ? '<div style="font-size:12px;color:var(--text2)">' + esc(desc) + '</div>' : '') + '</div></div><div class="lr-row"><span class="lk">ID</span><span class="lv">' + esc(id) + '</span><span class="lk">IconID</span><span class="lv">' + (iconVal != null ? iconVal : '—') + '</span><span class="lk">Type</span><span class="lv">' + (TN[item.type] || item.type) + '</span><span class="lk">Level</span><span class="lv">' + item.level + '</span></div><div class="lr-row" style="margin-top:5px;">' + (item.gender !== 3 ? '<span class="tag ' + gc + '">' + esc(gn) + '</span>' : '') + (isDanh ? '<span class="tag tp2">Danh hiệu #' + item.part + '</span>' : (item.part >= 0 ? '<span class="tag tgr">Part ' + item.part + '</span>' : '')) + '</div>';
+}).join('<hr style="border-color:var(--border);margin:8px 0">');
 }
 
 /* ══════════════════════════════════════════════
@@ -1128,32 +1136,31 @@ async function _uo() {
     let item = ID[iid] || null;
     let online = false;
     if (!item) {
-      // Thử local cache online trước (không await toàn bộ nếu chưa load)
       if (onlineCache[iid]) { item = onlineCache[iid]; online = true; }
     }
     if (item) {
-      ne.innerHTML = '<span class="iname-b">' + esc(vi(item.name)) + '</span>' + (online ? ' <span class="tag tag-online" style="font-size:9px;padding:1px 5px;">API</span>' : '');
+      ne.innerHTML = '<span class="iname-b">' + esc(vi(item.name)) + '</span>'
+        + (online ? ' <span class="tag tag-online" style="font-size:9px;padding:1px 5px;">🌐</span>' : '');
       const iconUrl = getIconUrl(item);
       if (iconUrl) {
         iconBox.style.display = 'flex';
-        iconBox.innerHTML = '<img src="' + iconUrl + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.innerHTML=\'<span style=\\\'font-family:var(--mono);font-size:9px;color:var(--text3)\\\'>' + (item.icon || item.iconId) + '</span>\'">';
+        iconBox.innerHTML = '<img src="' + iconUrl + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">';
       } else {
         iconBox.style.display = 'none';
         iconBox.innerHTML = '';
       }
     } else {
-      // Chưa có → hiện loading nhỏ rồi fetch
       ne.innerHTML = '<span class="spin-sm"></span>';
       iconBox.style.display = 'none';
       const res = await getItemAsync(iid);
-      // Kiểm tra input chưa thay đổi
       if (document.getElementById('bid').value.trim() !== iid) return;
       if (res.item) {
-        ne.innerHTML = '<span class="iname-b">' + esc(vi(res.item.name)) + '</span>' + (res.online ? ' <span class="tag tag-online" style="font-size:9px;padding:1px 5px;">API</span>' : '');
+        ne.innerHTML = '<span class="iname-b">' + esc(vi(res.item.name)) + '</span>'
+          + (res.online ? ' <span class="tag tag-online" style="font-size:9px;padding:1px 5px;">🌐</span>' : '');
         const iconUrl = getIconUrl(res.item);
         if (iconUrl) {
           iconBox.style.display = 'flex';
-          iconBox.innerHTML = '<img src="' + iconUrl + '" style="width:100%;height:100%;object-fit:contain;">';
+          iconBox.innerHTML = '<img src="' + iconUrl + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">';
         }
       } else {
         ne.innerHTML = '<span style="font-size:12px;color:var(--red)">Không tìm thấy</span>';
@@ -1176,7 +1183,10 @@ async function _uo() {
   }
   const qtyStr = (qty && parseInt(qty) > 0) ? 'x' + qty : '';
   let str = (iid || 'ITEM') + qtyStr;
-  if (valid.length) str += '_' + valid.map(r => { const hh = OD[r.optId] && OD[r.optId].name.includes('#'); return r.optId + ',' + (hh ? (r.val || '0') : '0'); }).join(';');
+  if (valid.length) str += '_' + valid.map(r => {
+    const hh = OD[r.optId] && OD[r.optId].name.includes('#');
+    return r.optId + ',' + (hh ? (r.val || '0') : '0');
+  }).join(';');
   document.getElementById('ot').textContent = str;
   document.getElementById('ot').style.color = 'var(--green)';
 }
