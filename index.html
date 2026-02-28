@@ -810,7 +810,7 @@ function ric(p) {
   const gn = getG(gender), gc = gCls(gender);
   const gTag = (gender != null && gender !== 3) ? '<span class="tag ' + gc + '">' + esc(gn) + '</span>' : '';
   const ptag = (part != null && part >= 0) ? (isDanh ? '<span class="tag tp2">Danh hiệu #' + part + '</span>' : '<span class="tag tgr">Part ' + part + '</span>') : '';
-  const onlineTag = isOnline ? '<span class="tag tag-online">🌐 Online</span>' : '';
+  const onlineTag = isOnline ? '<span class="tag tag-online">API</span>' : '';
   return '<div class="ic"><div class="ic-top"><span class="rarity ' + rc + '">' + rl + '</span><span class="id-badge">ID: ' + esc(String(item ? item.id : iid)) + '</span><div class="icon-box">' + iconH + '</div><div class="ic-info"><div class="ic-name">' + esc(name) + '</div>' + (desc && !isDanh ? '<div class="ic-desc">' + esc(desc) + '</div>' : '') + '<div class="tags">' + (typeName ? '<span class="tag tb">' + esc(typeName) + '</span>' : '') + (lvl > 1 ? '<span class="tag to">Lv.' + lvl + '</span>' : '') + gTag + ptag + onlineTag + '</div></div></div>' + (opts.length ? '<div class="div1"></div><div class="ic-opts"><div class="oh">Options (' + opts.length + ')</div>' + optsH + (isDanh ? '<div class="dl">Danh hiệu — thứ tự #' + part + '</div>' : '') + '</div>' : (desc ? '<div class="div1"></div><div class="ic-opts"><div class="dl">' + esc(desc) + '</div></div>' : '')) + '</div>';
 }
 
@@ -978,7 +978,7 @@ const ih = iconUrl
   : '<img src="small/Small999999.png" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">';
   const gc = gCls(item.gender);
   const gn = getG(item.gender);
-  return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);">' + ih + '<div><div class="lr-name">' + esc(name) + '</div>' + (desc && !isDanh ? '<div style="font-size:12px;color:var(--text2)">' + esc(desc) + '</div>' : '') + '</div></div><div class="lr-row"><span class="lk">ID</span><span class="lv">' + esc(id) + '</span><span class="lk">IconID</span><span class="lv">' + (iconVal != null ? iconVal : '—') + '</span><span class="lk">Type</span><span class="lv">' + (TN[item.type] || item.type) + '</span><span class="lk">Level</span><span class="lv">' + item.level + '</span></div><div class="lr-row" style="margin-top:5px;">' + (item.gender !== 3 ? '<span class="tag ' + gc + '">' + esc(gn) + '</span>' : '') + (isDanh ? '<span class="tag tp2">Danh hiệu #' + item.part + '</span>' : (item.part >= 0 ? '<span class="tag tgr">Part ' + item.part + '</span>' : '')) + '</div>';
+  return '<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);">' + ih + '<div><div class="lr-name">' + esc(name) + '</div>' + (desc && !isDanh ? '<div style="font-size:12px;color:var(--text2)">' + esc(desc) + '</div>' : '') + '</div></div><div class="lr-row"><span class="lk">ID</span><span class="lv">' + esc(id) + '</span><span class="lk">IconID</span><span class="lv">' + (iconVal != null ? iconVal : '—') + '</span><span class="lk">Type</span><span class="lv">' + (TN[item.type] || item.type) + '</span><span class="lk">Level</span><span class="lv">' + item.level + '</span></div><div class="lr-row" style="margin-top:5px;">' + (item.gender !== 3 ? '<span class="tag ' + gc + '">' + esc(gn) + '</span>' : '') + (isDanh ? '<span class="tag tp2">Banner ID: ' + item.part + '</span>' : (item.part >= 0 ? '<span class="tag tgr">Part ' + item.part + '</span>' : '')) + '</div>';
 }).join('<hr style="border-color:var(--border);margin:8px 0">');
 }
 
@@ -1140,7 +1140,7 @@ async function _uo() {
     }
     if (item) {
       ne.innerHTML = '<span class="iname-b">' + esc(vi(item.name)) + '</span>'
-        + (online ? ' <span class="tag tag-online" style="font-size:9px;padding:1px 5px;">🌐</span>' : '');
+        + (online ? ' <span class="tag tag-online" style="font-size:9px;padding:1px 5px;">API</span>' : '');
       const iconUrl = getIconUrl(item);
       if (iconUrl) {
         iconBox.style.display = 'flex';
@@ -1156,7 +1156,7 @@ async function _uo() {
       if (document.getElementById('bid').value.trim() !== iid) return;
       if (res.item) {
         ne.innerHTML = '<span class="iname-b">' + esc(vi(res.item.name)) + '</span>'
-          + (res.online ? ' <span class="tag tag-online" style="font-size:9px;padding:1px 5px;">🌐</span>' : '');
+          + (res.online ? ' <span class="tag tag-online" style="font-size:9px;padding:1px 5px;">API</span>' : '');
         const iconUrl = getIconUrl(res.item);
         if (iconUrl) {
           iconBox.style.display = 'flex';
