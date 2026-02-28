@@ -11,18 +11,15 @@
 [data-theme="light"]{--bg:#f0f4fa;--bg1:#ffffff;--bg2:#f5f8fe;--bg3:#e8eef8;--border:#cbd5e8;--border2:#b0bfd8;--text:#1a2540;--text2:#4a6080;--text3:#8a9ab8;--input-bg:#f5f8fe;--card-bg:#ffffff;--shadow:rgba(0,0,0,.1);--overlay:rgba(240,244,250,.92);}
 :root{--accent:#3b8bff;--accent2:#5ba3ff;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--yellow:#eab308;--purple:#8b5cf6;--cyan:#06b6d4;--mono:'JetBrains Mono',monospace;--sans:'Be Vietnam Pro',sans-serif;}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .25s;}
-/* BG image overlay khi có ảnh/theme */
 body.has-bg{background-color:transparent !important;}
 body.has-bg::before{content:'';position:fixed;inset:0;z-index:0;background:inherit;background-size:cover;background-position:center;background-attachment:fixed;pointer-events:none;}
 #app,#login-screen,#loading-overlay{position:relative;z-index:1;}
-/* Cards hơi trong suốt khi có ảnh nền */
 body.has-bg .card,body.has-bg .topbar,body.has-bg .ic,body.has-bg .map-card{backdrop-filter:blur(2px);}
 body.has-bg[data-theme="dark"] .card,body.has-bg[data-theme="dark"] .ic,body.has-bg[data-theme="dark"] .map-card{background:rgba(20,30,48,.82);}
 body.has-bg[data-theme="dark"] .topbar{background:rgba(20,30,48,.92);}
 body.has-bg[data-theme="light"] .card,body.has-bg[data-theme="light"] .ic,body.has-bg[data-theme="light"] .map-card{background:rgba(255,255,255,.82);}
 body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 
-/* THEME PICKER */
 .theme-wrap{position:relative;display:flex;align-items:center;}
 .theme-btn{width:34px;height:34px;border-radius:7px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--text2);font-size:15px;}
 .theme-btn:hover{border-color:var(--accent);color:var(--text);}
@@ -31,19 +28,16 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .theme-drop-hd{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;}
 .theme-section{margin-bottom:12px;}
 .theme-section-lbl{font-size:10px;font-weight:600;color:var(--text3);margin-bottom:7px;letter-spacing:.05em;text-transform:uppercase;}
-/* Base light/dark toggle */
 .base-row{display:flex;gap:6px;margin-bottom:8px;}
 .base-btn{flex:1;padding:7px 0;border-radius:7px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-family:var(--sans);font-size:11.5px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px;}
 .base-btn:hover{border-color:var(--accent2);color:var(--text);}
 .base-btn.on{border-color:var(--accent);background:rgba(59,139,255,.12);color:var(--accent2);}
-/* Color swatches */
 .swatches{display:flex;flex-wrap:wrap;gap:6px;}
 .swatch{width:34px;height:34px;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:all .15s;flex-shrink:0;position:relative;}
 .swatch:hover{transform:scale(1.1);border-color:rgba(255,255,255,.5);}
 .swatch.on{border-color:#fff;box-shadow:0 0 0 2px var(--accent);}
 .swatch::after{content:'✓';position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.5);}
 .swatch.on::after{display:flex;}
-/* Upload BG */
 .upload-area{border:1.5px dashed var(--border2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:border-color .15s;display:flex;align-items:center;gap:9px;font-size:12px;color:var(--text2);font-weight:600;}
 .upload-area:hover{border-color:var(--accent);color:var(--text);}
 .upload-area svg{flex-shrink:0;opacity:.7;}
@@ -52,12 +46,10 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .clear-bg-btn{width:100%;margin-top:6px;padding:6px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--red);font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer;transition:all .13s;display:none;}
 .clear-bg-btn.show{display:block;}
 .clear-bg-btn:hover{background:rgba(239,68,68,.07);border-color:var(--red);}
-/* BG overlay opacity slider */
 .overlay-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
 .overlay-lbl{font-size:11px;color:var(--text2);font-weight:600;white-space:nowrap;min-width:70px;}
 .overlay-slider{flex:1;accent-color:var(--accent);cursor:pointer;}
 .overlay-val{font-family:var(--mono);font-size:11px;color:var(--accent2);min-width:36px;text-align:right;}
-/* BG position & size controls */
 .bg-controls{display:none;margin-top:8px;background:var(--bg3);border-radius:8px;padding:9px 10px;border:1px solid var(--border);}
 .bg-controls.show{display:block;}
 .bg-ctrl-row{display:flex;align-items:center;gap:8px;margin-top:6px;}
@@ -196,6 +188,11 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:110px;gap:8px;color:var(--text3);font-size:13px;}
 .ic{background:var(--card-bg);border:1px solid var(--border);border-radius:10px;overflow:hidden;animation:fu .18s ease;}
 .ic+.ic{margin-top:9px;}
+.qp-results-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-top:10px;}
+.qp-results-hdr{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);}
+.qp-results-hdr::before{content:'';width:3px;height:11px;background:var(--green);border-radius:2px;flex-shrink:0;}
+.qp-results-body{padding:10px;display:flex;flex-direction:column;gap:8px;}
+#qp-results .ic{border-radius:10px !important;border:1px solid var(--border) !important;margin-top:0 !important;}
 @keyframes fu{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .ic-top{display:flex;align-items:flex-start;padding:13px 14px;position:relative;}
 .rarity{position:absolute;top:0;left:0;font-size:9px;font-weight:700;letter-spacing:.07em;padding:3px 9px;border-radius:0 0 6px 0;text-transform:uppercase;}
@@ -204,7 +201,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .id-badge-copy{cursor:pointer;transition:all .15s;user-select:none;}
 .id-badge-copy:hover{background:rgba(59,139,255,.15);color:var(--accent2);border:1px solid rgba(59,139,255,.3);}
 .id-badge-copy.copied{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.3);}
-/* ID chip dùng trong lI() */
 .id-chip{font-family:var(--mono);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:5px;background:var(--bg3);color:var(--text3);border:1px solid var(--border);cursor:pointer;user-select:none;transition:all .15s;white-space:nowrap;flex-shrink:0;margin-top:1px;}
 .id-chip:hover{background:rgba(59,139,255,.13);color:var(--accent2);border-color:rgba(59,139,255,.35);}
 .id-chip.copied{background:rgba(34,197,94,.1);color:var(--green);border-color:rgba(34,197,94,.3);}
@@ -217,7 +213,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .tag{font-size:10px;font-weight:600;padding:2px 7px;border-radius:4px;}
 .tb{background:rgba(59,139,255,.12);color:var(--accent2);}.to{background:rgba(245,158,11,.12);color:var(--orange);}.tp2{background:rgba(139,92,246,.1);color:var(--purple);}.tg2{background:rgba(34,197,94,.1);color:var(--green);}.tgr{background:var(--bg3);color:var(--text2);}.tcyan{background:rgba(6,182,212,.07);color:var(--cyan);opacity:.8;}
 .tag-online{background:rgba(34,197,94,.08);color:var(--green);border:1px solid rgba(34,197,94,.25);}
-/* Qty badge - inline kế tên, màu gradient nổi */
 .tag-qty{background:linear-gradient(135deg,#f59e0b,#ef4444);color:#fff;font-weight:800;letter-spacing:.03em;font-size:10.5px;padding:1px 7px;border-radius:5px;box-shadow:0 1px 6px rgba(245,100,11,.35);vertical-align:middle;margin-left:6px;display:inline-block;line-height:1.5;}
 .div1{height:1px;background:var(--border);}
 .ic-opts{padding:11px 14px;}
@@ -274,6 +269,12 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .id-f{max-width:110px;}
 .iname-b{font-size:12px;font-weight:600;color:var(--green);}
 .spin-sm{display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:5px;}
+
+/* ── QUICK PASTE styles ── */
+.qp-chip{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:5px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);cursor:default;white-space:nowrap;max-width:160px;overflow:hidden;text-overflow:ellipsis;transition:background .13s,border-color .13s;}
+.qp-chip:hover{background:rgba(59,139,255,.1);border-color:rgba(59,139,255,.3);color:var(--accent2);}
+.qp-section-hdr{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin:14px 0 6px;display:flex;align-items:center;gap:8px;}
+.qp-section-hdr::before{content:'';width:3px;height:11px;background:var(--green);border-radius:2px;flex-shrink:0;}
 </style>
 </head>
 <body>
@@ -380,7 +381,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
       </button>
       <div class="theme-drop" id="theme-drop">
         <div class="theme-drop-hd">Tùy chỉnh giao diện</div>
-
         <div class="theme-section">
           <div class="theme-section-lbl">Chế độ sáng / tối</div>
           <div class="base-row">
@@ -394,12 +394,10 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
             </button>
           </div>
         </div>
-
         <div class="theme-section">
           <div class="theme-section-lbl">Màu nền gradient</div>
           <div class="swatches" id="swatches"></div>
         </div>
-
         <div class="theme-section">
           <div class="theme-section-lbl">Ảnh nền tùy chỉnh</div>
           <div class="upload-area" id="upload-area" onclick="document.getElementById('bg-upload').click()">
@@ -408,7 +406,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
           </div>
           <input type="file" id="bg-upload" accept="image/*" style="display:none" onchange="handleBgUpload(this)">
           <img class="upload-preview" id="upload-preview" alt="preview">
-
           <div class="bg-controls" id="bg-controls">
             <div class="bg-ctrl-row">
               <span class="overlay-lbl">Kích thước:</span>
@@ -434,7 +431,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
               <span class="overlay-val" id="overlay-val">40%</span>
             </div>
           </div>
-
           <button class="clear-bg-btn" id="clear-bg-btn" onclick="clearBg()">✕ Xóa ảnh nền</button>
         </div>
       </div>
@@ -469,8 +465,45 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
     </div>
   </div>
   <div id="mm" style="display:none">
-    <div class="card">
-      <div class="ctitle">Nhập nhiều chuỗi (mỗi dòng 1 item)</div>
+    <!-- ══ QUICK PASTE PANEL ══ -->
+    <div class="card" id="quick-paste-card">
+      <div class="ctitle" style="justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+        <span>Nhập nhanh nhiều Item (phân cách bằng @)</span>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span id="qp-count" style="font-size:10px;font-weight:700;color:var(--accent2);background:rgba(59,139,255,.12);padding:2px 9px;border-radius:5px;display:none;"></span>
+          <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:3px 8px;border:1px solid var(--border);border-radius:5px;">@ SEPARATOR</span>
+        </div>
+      </div>
+      <div style="position:relative;">
+        <textarea id="qp-input" class="field" rows="2"
+          placeholder="Dán chuỗi vào đây... VD: @454_73,0@1884x2_50,12;50,10;38,0@921_50,15;38,0;72,2"
+          spellcheck="false"
+          style="width:100%;resize:vertical;font-family:var(--mono);font-size:12.5px;min-height:56px;padding-right:36px;line-height:1.6;"
+          oninput="onQpInput(this.value)"></textarea>
+        <button onclick="clearQp()" title="Xóa"
+          style="position:absolute;top:8px;right:8px;background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:18px;line-height:1;padding:1px 5px;transition:color .13s;"
+          onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">×</button>
+      </div>
+      <!-- Chips preview -->
+      <div id="qp-chips" style="display:none;margin-top:9px;flex-wrap:wrap;gap:5px;padding:8px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;min-height:36px;"></div>
+      <div style="display:flex;gap:8px;margin-top:9px;align-items:center;flex-wrap:wrap;">
+        <button class="btn bp bsm" id="qp-check-btn" onclick="checkQp()" style="display:none;gap:5px;">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Kiểm tra tất cả
+        </button>
+        <button class="btn bgh bsm" id="qp-to-rows-btn" onclick="qpToRows()" style="display:none;">
+          Chuyển sang dạng hàng ↓
+        </button>
+        <button class="btn bgh bsm" id="qp-clear-all-btn" onclick="clearQp()" style="display:none;">Xóa tất cả</button>
+      </div>
+    </div>
+
+    <!-- QP RESULTS -->
+    <div id="qp-results"></div>
+
+    <!-- ══ MANUAL ROWS ══ -->
+    <div class="card" id="manual-rows-card" style="margin-top:12px;display:none;background:var(--bg1);border:1px solid var(--border2);">
+      <div class="ctitle">Nhập từng chuỗi (mỗi dòng 1 item)</div>
       <div id="mrows"></div>
       <div style="display:flex;gap:8px;margin-top:4px;align-items:center;">
         <button class="btn bgh bsm" onclick="addMRow()" style="gap:4px;">
@@ -574,21 +607,17 @@ async function loadData() {
     loadEl.textContent = 'Đang tìm items.json...';
     const a = await tryFetch(['items.json','Items.json','item.json','Item.json']);
     if (!a) throw new Error('Không tìm thấy items.json — kiểm tra lại tên file!');
-
     loadEl.textContent = 'Đang tìm options.json...';
     const b = await tryFetch(['options.json','Options.json','option.json','Option.json']);
     if (!b) throw new Error('Không tìm thấy options.json — kiểm tra lại tên file!');
-
     loadEl.textContent = 'Đang tìm Maps.json...';
     const c = await tryFetch(['Maps.json','maps.json','map.json','Map.json']);
     if (!c) throw new Error('Không tìm thấy Maps.json — kiểm tra lại tên file!');
-
     loadEl.textContent = 'Đang xử lý dữ liệu...';
     ID = await a.json();
     const optsRaw = await b.json();
     OD = Array.isArray(optsRaw) ? Object.fromEntries(optsRaw.map(o => [String(o.id), o])) : optsRaw;
     MD = await c.json();
-
     document.getElementById('loading-overlay').style.display = 'none';
     buildSelOpts();
     initMRows();
@@ -605,31 +634,17 @@ async function loadData() {
 loadData();
 
 function normalizeOnlineItem(o) {
-  return {
-    id: o.id,
-    name: o.name || '',
-    description: o.description || '',
-    level: o.level || 1,
-    type: o.type != null ? o.type : 0,
-    gender: o.gender != null ? o.gender : 3,
-    part: o.part != null ? o.part : -1,
-    iconId: o.icon != null ? o.icon : null,
-    icon: o.icon != null ? o.icon : null,
-    _online: true
-  };
+  return { id: o.id, name: o.name || '', description: o.description || '', level: o.level || 1, type: o.type != null ? o.type : 0, gender: o.gender != null ? o.gender : 3, part: o.part != null ? o.part : -1, iconId: o.icon != null ? o.icon : null, icon: o.icon != null ? o.icon : null, _online: true };
 }
 
 async function fetchOnlineAll() {
   if (onlineItemsAll) return onlineItemsAll;
   if (onlineLoadPromise) return onlineLoadPromise;
-  onlineLoadPromise = fetch(ONLINE_ITEMS_URL)
-    .then(r => r.json())
-    .then(arr => {
-      onlineItemsAll = arr;
-      arr.forEach(o => { onlineCache[String(o.id)] = normalizeOnlineItem(o); });
-      return onlineItemsAll;
-    })
-    .catch(() => { onlineItemsAll = []; return []; });
+  onlineLoadPromise = fetch(ONLINE_ITEMS_URL).then(r => r.json()).then(arr => {
+    onlineItemsAll = arr;
+    arr.forEach(o => { onlineCache[String(o.id)] = normalizeOnlineItem(o); });
+    return onlineItemsAll;
+  }).catch(() => { onlineItemsAll = []; return []; });
   return onlineLoadPromise;
 }
 
@@ -651,11 +666,8 @@ function getIconUrl(item) {
   if (!item) return null;
   const iconVal = item.icon != null ? item.icon : (item.iconId != null ? item.iconId : null);
   if (iconVal == null) return null;
-  if (item._online) {
-    return ONLINE_ICON_BASE + iconVal + '.png';
-  } else {
-    return 'small/Small' + iconVal + '.png';
-  }
+  if (item._online) return ONLINE_ICON_BASE + iconVal + '.png';
+  else return 'small/Small' + iconVal + '.png';
 }
 
 function iconBoxHtml(item, iid) {
@@ -721,9 +733,7 @@ document.addEventListener('click',e=>{if(!document.getElementById('notif-wrap').
 
 /* AUTH */
 const MEMBERS = ['Khang','Thanh','Hau'];
-const TROLL_MSG = {
-  'Phi': 'Phi làm lồn gì mà được vô đây??? Troll dị á, mày không có quyền!!'
-};
+const TROLL_MSG = { 'Phi': 'Phi làm lồn gì mà được vô đây??? Troll dị á, mày không có quyền!!' };
 function normName(n){return n.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\u0111/g,'d');}
 const NORM_MAP = Object.fromEntries(MEMBERS.map(m=>[normName(m),m]));
 function showErr(msg){const e=document.getElementById('lerr');e.innerHTML=msg;e.style.display='block';}
@@ -769,7 +779,6 @@ function switchLoginMode(mode){
   hideErr();
   if(!isFace)resetFaceId();
 }
-
 let fidScanning=false;
 function onFidSelectChange(){
   const val=document.getElementById('fid-select').value;
@@ -804,279 +813,118 @@ function startFaceScan(){
 
 /* THEME / PAGES */
 const GRADIENTS = [
-  {id:'g1', label:'Xanh ngọc', css:'linear-gradient(45deg,#0c675e,#069e90)'},
-  {id:'g2', label:'Cầu vồng', css:'linear-gradient(135deg,rgba(165,42,4,.89),rgba(113,102,8,.89),rgba(13,95,16,.93),rgba(4,79,88,.94),rgba(19,56,86,.9),rgba(24,32,78,.94),rgba(100,8,115,.95))'},
-  {id:'g3', label:'Xám tối', css:'linear-gradient(45deg,#29323c,#485563)'},
-  {id:'g4', label:'Nâu đất', css:'linear-gradient(45deg,#795548,#945c48)'},
-  {id:'g5', label:'Xanh dương', css:'linear-gradient(45deg,#1565C0,#1E88E5)'},
-  {id:'g6', label:'Tím', css:'linear-gradient(45deg,#65379b,#886aea)'},
-  {id:'g7', label:'Đỏ hồng', css:'linear-gradient(180deg,#ff5447,#f1076f)'},
-  {id:'g8', label:'Xanh lá', css:'linear-gradient(180deg,#08a50e,#69bb03)'},
-  {id:'g9', label:'Tím xanh', css:'linear-gradient(45deg,#6a11cb,#2575fc)'},
-  {id:'g10', label:'Hoàng hôn', css:'linear-gradient(135deg,#f093fb,#f5576c)'},
-  {id:'g11', label:'Đại dương', css:'linear-gradient(135deg,#0072ff,#00c6ff)'},
-  {id:'g12', label:'Vàng cam', css:'linear-gradient(135deg,#f7971e,#ffd200)'},
-  {id:'g13', label:'Sakura', css:'linear-gradient(135deg,#fbc2eb,#a18cd1)'},
-  {id:'g14', label:'Thiên hà', css:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460,#533483)'},
-  {id:'g15', label:'Mặt trời', css:'linear-gradient(135deg,#fc4a1a,#f7b733)'},
+  {id:'g1',label:'Xanh ngọc',css:'linear-gradient(45deg,#0c675e,#069e90)'},
+  {id:'g2',label:'Cầu vồng',css:'linear-gradient(135deg,rgba(165,42,4,.89),rgba(113,102,8,.89),rgba(13,95,16,.93),rgba(4,79,88,.94),rgba(19,56,86,.9),rgba(24,32,78,.94),rgba(100,8,115,.95))'},
+  {id:'g3',label:'Xám tối',css:'linear-gradient(45deg,#29323c,#485563)'},
+  {id:'g4',label:'Nâu đất',css:'linear-gradient(45deg,#795548,#945c48)'},
+  {id:'g5',label:'Xanh dương',css:'linear-gradient(45deg,#1565C0,#1E88E5)'},
+  {id:'g6',label:'Tím',css:'linear-gradient(45deg,#65379b,#886aea)'},
+  {id:'g7',label:'Đỏ hồng',css:'linear-gradient(180deg,#ff5447,#f1076f)'},
+  {id:'g8',label:'Xanh lá',css:'linear-gradient(180deg,#08a50e,#69bb03)'},
+  {id:'g9',label:'Tím xanh',css:'linear-gradient(45deg,#6a11cb,#2575fc)'},
+  {id:'g10',label:'Hoàng hôn',css:'linear-gradient(135deg,#f093fb,#f5576c)'},
+  {id:'g11',label:'Đại dương',css:'linear-gradient(135deg,#0072ff,#00c6ff)'},
+  {id:'g12',label:'Vàng cam',css:'linear-gradient(135deg,#f7971e,#ffd200)'},
+  {id:'g13',label:'Sakura',css:'linear-gradient(135deg,#fbc2eb,#a18cd1)'},
+  {id:'g14',label:'Thiên hà',css:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460,#533483)'},
+  {id:'g15',label:'Mặt trời',css:'linear-gradient(135deg,#fc4a1a,#f7b733)'},
 ];
 
-let currentBase = localStorage.getItem('db_base')||'dark';
-let currentGrad = localStorage.getItem('db_grad')||'';
-let currentBgImg = null; // base64
-let currentOverlay = parseInt(localStorage.getItem('db_overlay')||'40');
-let currentBgSize = localStorage.getItem('db_bgsize')||'cover';
-let currentBgPosX = parseInt(localStorage.getItem('db_bgposx')||'50');
-let currentBgPosY = parseInt(localStorage.getItem('db_bgposy')||'50');
-let themeDropOpen = false;
+let currentBase=localStorage.getItem('db_base')||'dark';
+let currentGrad=localStorage.getItem('db_grad')||'';
+let currentBgImg=null;
+let currentOverlay=parseInt(localStorage.getItem('db_overlay')||'40');
+let currentBgSize=localStorage.getItem('db_bgsize')||'cover';
+let currentBgPosX=parseInt(localStorage.getItem('db_bgposx')||'50');
+let currentBgPosY=parseInt(localStorage.getItem('db_bgposy')||'50');
+let themeDropOpen=false;
 
-function buildSwatches() {
-  const c = document.getElementById('swatches');
-  c.innerHTML = GRADIENTS.map(g =>
-    `<div class="swatch" id="sw-${g.id}" style="background:${g.css}" title="${g.label}" onclick="setGrad('${g.id}')"></div>`
-  ).join('');
+function buildSwatches(){
+  const c=document.getElementById('swatches');
+  c.innerHTML=GRADIENTS.map(g=>`<div class="swatch" id="sw-${g.id}" style="background:${g.css}" title="${g.label}" onclick="setGrad('${g.id}')"></div>`).join('');
 }
-
-function setBaseMode(mode) {
-  currentBase = mode;
-  localStorage.setItem('db_base', mode);
-  document.documentElement.setAttribute('data-theme', mode);
-  document.getElementById('mode-dark').classList.toggle('on', mode==='dark');
-  document.getElementById('mode-light').classList.toggle('on', mode==='light');
+function setBaseMode(mode){
+  currentBase=mode;localStorage.setItem('db_base',mode);
+  document.documentElement.setAttribute('data-theme',mode);
+  document.getElementById('mode-dark').classList.toggle('on',mode==='dark');
+  document.getElementById('mode-light').classList.toggle('on',mode==='light');
 }
-
-function setGrad(id) {
-  // Clear custom image if selecting gradient
-  if (currentBgImg) {
-    currentBgImg = null;
-    localStorage.removeItem('db_bgimg');
-    document.getElementById('upload-preview').classList.remove('show');
-    document.getElementById('clear-bg-btn').classList.remove('show');
-    document.getElementById('bg-controls').classList.remove('show');
-  }
-  if (currentGrad === id) {
-    // deselect
-    currentGrad = '';
-    localStorage.removeItem('db_grad');
-    document.getElementById('sw-'+id).classList.remove('on');
-    applyBg();
-  } else {
-    if (currentGrad) document.getElementById('sw-'+currentGrad).classList.remove('on');
-    currentGrad = id;
-    localStorage.setItem('db_grad', id);
-    document.getElementById('sw-'+id).classList.add('on');
-    applyBg();
+function setGrad(id){
+  if(currentBgImg){currentBgImg=null;localStorage.removeItem('db_bgimg');document.getElementById('upload-preview').classList.remove('show');document.getElementById('clear-bg-btn').classList.remove('show');document.getElementById('bg-controls').classList.remove('show');}
+  if(currentGrad===id){currentGrad='';localStorage.removeItem('db_grad');document.getElementById('sw-'+id).classList.remove('on');applyBg();}
+  else{if(currentGrad)document.getElementById('sw-'+currentGrad).classList.remove('on');currentGrad=id;localStorage.setItem('db_grad',id);document.getElementById('sw-'+id).classList.add('on');applyBg();}
+}
+function applyBg(){
+  const body=document.body;
+  if(currentBgImg){
+    body.style.backgroundImage=`url(${currentBgImg})`;body.style.backgroundSize=currentBgSize;body.style.backgroundPosition=`${currentBgPosX}% ${currentBgPosY}%`;body.style.backgroundAttachment='fixed';body.style.backgroundRepeat='no-repeat';body.classList.add('has-bg');
+    let ov=document.getElementById('bg-overlay-div');
+    if(!ov){ov=document.createElement('div');ov.id='bg-overlay-div';ov.style.cssText='position:fixed;inset:0;z-index:0;pointer-events:none;transition:background .3s;';document.body.insertBefore(ov,document.body.firstChild);}
+    const op=currentOverlay/100;const base=currentBase==='dark'?`0,0,0`:`255,255,255`;ov.style.background=`rgba(${base},${op})`;ov.style.display='block';
+  }else if(currentGrad){
+    const g=GRADIENTS.find(x=>x.id===currentGrad);body.style.backgroundImage=g?g.css:'';body.style.backgroundSize='100% 100%';body.style.backgroundAttachment='fixed';body.style.backgroundRepeat='';body.classList.add('has-bg');
+    const ov=document.getElementById('bg-overlay-div');if(ov)ov.style.display='none';
+  }else{
+    body.style.backgroundImage='';body.style.backgroundSize='';body.style.backgroundAttachment='';body.style.backgroundRepeat='';body.classList.remove('has-bg');
+    const ov=document.getElementById('bg-overlay-div');if(ov)ov.style.display='none';
   }
 }
 
-function applyBg() {
-  const body = document.body;
-  if (currentBgImg) {
-    body.style.backgroundImage = `url(${currentBgImg})`;
-    body.style.backgroundSize = currentBgSize;
-    body.style.backgroundPosition = `${currentBgPosX}% ${currentBgPosY}%`;
-    body.style.backgroundAttachment = 'fixed';
-    body.style.backgroundRepeat = 'no-repeat';
-    body.classList.add('has-bg');
-    let ov = document.getElementById('bg-overlay-div');
-    if (!ov) {
-      ov = document.createElement('div');
-      ov.id = 'bg-overlay-div';
-      ov.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;transition:background .3s;';
-      document.body.insertBefore(ov, document.body.firstChild);
-    }
-    const op = currentOverlay / 100;
-    const base = currentBase === 'dark' ? `0,0,0` : `255,255,255`;
-    ov.style.background = `rgba(${base},${op})`;
-    ov.style.display = 'block';
-  } else if (currentGrad) {
-    const g = GRADIENTS.find(x=>x.id===currentGrad);
-    body.style.backgroundImage = g ? g.css : '';
-    body.style.backgroundSize = '100% 100%';
-    body.style.backgroundAttachment = 'fixed';
-    body.style.backgroundRepeat = '';
-    body.classList.add('has-bg');
-    const ov = document.getElementById('bg-overlay-div');
-    if (ov) ov.style.display = 'none';
-  } else {
-    body.style.backgroundImage = '';
-    body.style.backgroundSize = '';
-    body.style.backgroundAttachment = '';
-    body.style.backgroundRepeat = '';
-    body.classList.remove('has-bg');
-    const ov = document.getElementById('bg-overlay-div');
-    if (ov) ov.style.display = 'none';
-  }
-}
+let _idb=null;
+function openIDB(){if(_idb)return Promise.resolve(_idb);return new Promise((res,rej)=>{const req=indexedDB.open('dragonboy_tool',1);req.onupgradeneeded=e=>e.target.result.createObjectStore('kv');req.onsuccess=e=>{_idb=e.target.result;res(_idb);};req.onerror=()=>rej(req.error);});}
+function idbSet(key,val){return openIDB().then(db=>new Promise((res,rej)=>{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(val,key);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);}));}
+function idbGet(key){return openIDB().then(db=>new Promise((res,rej)=>{const tx=db.transaction('kv','readonly');const req=tx.objectStore('kv').get(key);req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error);}));}
+function idbDel(key){return openIDB().then(db=>new Promise((res,rej)=>{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').delete(key);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);}));}
 
-/* ── IndexedDB cho ảnh nền (không giới hạn kích thước) ── */
-let _idb = null;
-function openIDB() {
-  if (_idb) return Promise.resolve(_idb);
-  return new Promise((res, rej) => {
-    const req = indexedDB.open('dragonboy_tool', 1);
-    req.onupgradeneeded = e => e.target.result.createObjectStore('kv');
-    req.onsuccess = e => { _idb = e.target.result; res(_idb); };
-    req.onerror = () => rej(req.error);
-  });
-}
-function idbSet(key, val) {
-  return openIDB().then(db => new Promise((res, rej) => {
-    const tx = db.transaction('kv', 'readwrite');
-    tx.objectStore('kv').put(val, key);
-    tx.oncomplete = () => res();
-    tx.onerror = () => rej(tx.error);
-  }));
-}
-function idbGet(key) {
-  return openIDB().then(db => new Promise((res, rej) => {
-    const tx = db.transaction('kv', 'readonly');
-    const req = tx.objectStore('kv').get(key);
-    req.onsuccess = () => res(req.result);
-    req.onerror = () => rej(req.error);
-  }));
-}
-function idbDel(key) {
-  return openIDB().then(db => new Promise((res, rej) => {
-    const tx = db.transaction('kv', 'readwrite');
-    tx.objectStore('kv').delete(key);
-    tx.oncomplete = () => res();
-    tx.onerror = () => rej(tx.error);
-  }));
-}
-
-function handleBgUpload(input) {
-  const file = input.files[0];
-  if (!file) return;
-
-  const uploadArea = document.getElementById('upload-area');
-  const origHTML = uploadArea.innerHTML;
-  uploadArea.innerHTML = '<span class="spin-sm"></span> Đang nén ảnh...';
-  uploadArea.style.pointerEvents = 'none';
-
-  const reader = new FileReader();
-  reader.onload = e => {
-    const img = new Image();
-    img.onload = () => {
-      // Nén xuống max 1280px — đủ đẹp cho background, nhẹ hơn nhiều
-      const MAX = 1280;
-      let w = img.width, h = img.height;
-      if (w > MAX || h > MAX) {
-        if (w > h) { h = Math.round(h * MAX / w); w = MAX; }
-        else { w = Math.round(w * MAX / h); h = MAX; }
-      }
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-
-      // Nén từng bước cho đến khi đủ nhỏ
-      let q = 0.82, compressed = canvas.toDataURL('image/jpeg', q);
-      if (compressed.length > 3_000_000) { q = 0.65; compressed = canvas.toDataURL('image/jpeg', q); }
-      if (compressed.length > 2_000_000) { q = 0.50; compressed = canvas.toDataURL('image/jpeg', q); }
-
-      uploadArea.innerHTML = origHTML;
-      uploadArea.style.pointerEvents = '';
-
-      currentBgImg = compressed;
-      if (currentGrad) { document.getElementById('sw-'+currentGrad).classList.remove('on'); currentGrad=''; localStorage.removeItem('db_grad'); }
-
-      // Lưu vào IndexedDB (không giới hạn, không bị lỗi đầy localStorage)
-      idbSet('db_bgimg', compressed).catch(() => {});
-
-      _showBgControls();
-      applyBg();
+function handleBgUpload(input){
+  const file=input.files[0];if(!file)return;
+  const uploadArea=document.getElementById('upload-area');const origHTML=uploadArea.innerHTML;
+  uploadArea.innerHTML='<span class="spin-sm"></span> Đang nén ảnh...';uploadArea.style.pointerEvents='none';
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      const MAX=1280;let w=img.width,h=img.height;
+      if(w>MAX||h>MAX){if(w>h){h=Math.round(h*MAX/w);w=MAX;}else{w=Math.round(w*MAX/h);h=MAX;}}
+      const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;canvas.getContext('2d').drawImage(img,0,0,w,h);
+      let q=0.82,compressed=canvas.toDataURL('image/jpeg',q);
+      if(compressed.length>3_000_000){q=0.65;compressed=canvas.toDataURL('image/jpeg',q);}
+      if(compressed.length>2_000_000){q=0.50;compressed=canvas.toDataURL('image/jpeg',q);}
+      uploadArea.innerHTML=origHTML;uploadArea.style.pointerEvents='';
+      currentBgImg=compressed;
+      if(currentGrad){document.getElementById('sw-'+currentGrad).classList.remove('on');currentGrad='';localStorage.removeItem('db_grad');}
+      idbSet('db_bgimg',compressed).catch(()=>{});
+      _showBgControls();applyBg();
     };
-    img.onerror = () => { uploadArea.innerHTML = origHTML; uploadArea.style.pointerEvents = ''; alert('Không đọc được ảnh!'); };
-    img.src = e.target.result;
+    img.onerror=()=>{uploadArea.innerHTML=origHTML;uploadArea.style.pointerEvents='';alert('Không đọc được ảnh!');};
+    img.src=e.target.result;
   };
   reader.readAsDataURL(file);
 }
+function _showBgControls(){
+  document.getElementById('upload-preview').src=currentBgImg;document.getElementById('upload-preview').classList.add('show');document.getElementById('clear-bg-btn').classList.add('show');document.getElementById('bg-controls').classList.add('show');
+  document.getElementById('overlay-slider').value=currentOverlay;document.getElementById('overlay-val').textContent=currentOverlay+'%';
+  document.getElementById('bg-pos-x').value=currentBgPosX;document.getElementById('bg-pos-x-val').textContent=currentBgPosX+'%';
+  document.getElementById('bg-pos-y').value=currentBgPosY;document.getElementById('bg-pos-y-val').textContent=currentBgPosY+'%';
+  document.querySelectorAll('.bg-size-btn').forEach(b=>b.classList.toggle('on',b.dataset.v===currentBgSize));
+}
+function clearBg(){currentBgImg=null;idbDel('db_bgimg').catch(()=>{});localStorage.removeItem('db_bgimg');document.getElementById('upload-preview').classList.remove('show');document.getElementById('upload-preview').src='';document.getElementById('clear-bg-btn').classList.remove('show');document.getElementById('bg-controls').classList.remove('show');document.getElementById('bg-upload').value='';applyBg();}
+function updateOverlay(val){currentOverlay=parseInt(val);localStorage.setItem('db_overlay',currentOverlay);document.getElementById('overlay-val').textContent=currentOverlay+'%';applyBg();}
+function setBgSize(val){currentBgSize=val;localStorage.setItem('db_bgsize',val);document.querySelectorAll('.bg-size-btn').forEach(b=>b.classList.toggle('on',b.dataset.v===val));applyBg();}
+function updateBgPos(){currentBgPosX=parseInt(document.getElementById('bg-pos-x').value);currentBgPosY=parseInt(document.getElementById('bg-pos-y').value);document.getElementById('bg-pos-x-val').textContent=currentBgPosX+'%';document.getElementById('bg-pos-y-val').textContent=currentBgPosY+'%';localStorage.setItem('db_bgposx',currentBgPosX);localStorage.setItem('db_bgposy',currentBgPosY);applyBg();}
 
-function _showBgControls() {
-  document.getElementById('upload-preview').src = currentBgImg;
-  document.getElementById('upload-preview').classList.add('show');
-  document.getElementById('clear-bg-btn').classList.add('show');
-  document.getElementById('bg-controls').classList.add('show');
-  document.getElementById('overlay-slider').value = currentOverlay;
-  document.getElementById('overlay-val').textContent = currentOverlay + '%';
-  document.getElementById('bg-pos-x').value = currentBgPosX;
-  document.getElementById('bg-pos-x-val').textContent = currentBgPosX + '%';
-  document.getElementById('bg-pos-y').value = currentBgPosY;
-  document.getElementById('bg-pos-y-val').textContent = currentBgPosY + '%';
-  document.querySelectorAll('.bg-size-btn').forEach(b => b.classList.toggle('on', b.dataset.v === currentBgSize));
+function toggleThemeDrop(e){e.stopPropagation();themeDropOpen=!themeDropOpen;document.getElementById('theme-drop').classList.toggle('open',themeDropOpen);}
+function closeThemeDrop(){themeDropOpen=false;document.getElementById('theme-drop').classList.remove('open');}
+document.addEventListener('click',e=>{if(!document.getElementById('theme-wrap').contains(e.target))closeThemeDrop();});
+
+function initTheme(){
+  buildSwatches();setBaseMode(currentBase);
+  if(currentGrad){const el=document.getElementById('sw-'+currentGrad);if(el)el.classList.add('on');}
+  const legacyImg=localStorage.getItem('db_bgimg');
+  if(legacyImg){currentBgImg=legacyImg;idbSet('db_bgimg',legacyImg).then(()=>localStorage.removeItem('db_bgimg')).catch(()=>{});_showBgControls();applyBg();}
+  else{idbGet('db_bgimg').then(img=>{if(img){currentBgImg=img;_showBgControls();applyBg();}else{applyBg();}}).catch(()=>applyBg());}
 }
 
-function clearBg() {
-  currentBgImg = null;
-  idbDel('db_bgimg').catch(() => {});
-  localStorage.removeItem('db_bgimg'); // dọn cái cũ nếu còn
-  document.getElementById('upload-preview').classList.remove('show');
-  document.getElementById('upload-preview').src = '';
-  document.getElementById('clear-bg-btn').classList.remove('show');
-  document.getElementById('bg-controls').classList.remove('show');
-  document.getElementById('bg-upload').value = '';
-  applyBg();
-}
-
-function updateOverlay(val) {
-  currentOverlay = parseInt(val);
-  localStorage.setItem('db_overlay', currentOverlay);
-  document.getElementById('overlay-val').textContent = currentOverlay + '%';
-  applyBg();
-}
-
-function setBgSize(val) {
-  currentBgSize = val;
-  localStorage.setItem('db_bgsize', val);
-  document.querySelectorAll('.bg-size-btn').forEach(b => b.classList.toggle('on', b.dataset.v === val));
-  applyBg();
-}
-
-function updateBgPos() {
-  currentBgPosX = parseInt(document.getElementById('bg-pos-x').value);
-  currentBgPosY = parseInt(document.getElementById('bg-pos-y').value);
-  document.getElementById('bg-pos-x-val').textContent = currentBgPosX + '%';
-  document.getElementById('bg-pos-y-val').textContent = currentBgPosY + '%';
-  localStorage.setItem('db_bgposx', currentBgPosX);
-  localStorage.setItem('db_bgposy', currentBgPosY);
-  applyBg();
-}
-
-function toggleThemeDrop(e) {
-  e.stopPropagation();
-  themeDropOpen = !themeDropOpen;
-  document.getElementById('theme-drop').classList.toggle('open', themeDropOpen);
-}
-function closeThemeDrop() { themeDropOpen=false; document.getElementById('theme-drop').classList.remove('open'); }
-document.addEventListener('click', e => { if (!document.getElementById('theme-wrap').contains(e.target)) closeThemeDrop(); });
-
-function initTheme() {
-  buildSwatches();
-  setBaseMode(currentBase);
-  if (currentGrad) {
-    const el = document.getElementById('sw-'+currentGrad);
-    if (el) el.classList.add('on');
-  }
-  // Load ảnh từ IndexedDB (ưu tiên) hoặc localStorage cũ
-  const legacyImg = localStorage.getItem('db_bgimg');
-  if (legacyImg) {
-    // Migrate từ localStorage → IndexedDB rồi xoá cũ
-    currentBgImg = legacyImg;
-    idbSet('db_bgimg', legacyImg).then(() => localStorage.removeItem('db_bgimg')).catch(() => {});
-    _showBgControls();
-    applyBg();
-  } else {
-    idbGet('db_bgimg').then(img => {
-      if (img) {
-        currentBgImg = img;
-        _showBgControls();
-        applyBg();
-      } else {
-        applyBg(); // gradient hoặc trống
-      }
-    }).catch(() => applyBg());
-  }
-}
 function showPage(i,el){
   document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('on',j===i));
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
@@ -1089,525 +937,385 @@ function togM(){
   const on=document.getElementById('mtg').checked;
   document.getElementById('sm').style.display=on?'none':'block';
   document.getElementById('mm').style.display=on?'block':'none';
-  if(on&&document.getElementById('mrows').children.length===0)addMRow();
+  if(!on){
+    // Khi tắt toggle, ẩn manual card + reset
+    document.getElementById('manual-rows-card').style.display='none';
+    document.getElementById('qp-results').innerHTML='';
+    document.getElementById('qp-input').value='';
+    onQpInput('');
+  }
 }
 
 /* UTILS */
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function vi(s){return s?String(s).split('|')[0]:'';}
 function fo(d,v){if(!d)return null;return vi(d.name).replace(/#/g,parseInt(v)||0);}
-// Copy ID - dùng cho id-badge và id-chip
-function cpId(el, id) {
-  navigator.clipboard.writeText(String(id)).then(() => {
-    const orig = el.textContent;
-    el.textContent = '✓ Đã Coppy';
-    el.classList.add('copied');
-    setTimeout(() => { el.textContent = orig; el.classList.remove('copied'); }, 1500);
+function cpId(el,id){
+  navigator.clipboard.writeText(String(id)).then(()=>{
+    const orig=el.textContent;el.textContent='✓ Đã Coppy';el.classList.add('copied');
+    setTimeout(()=>{el.textContent=orig;el.classList.remove('copied');},1500);
   });
 }
 function gr(lvl){
-  if(lvl<=5)return['CHUNG','rc0'];
-  if(lvl<=30)return['HIẾM','rc1'];
-  if(lvl<=60)return['QUÝ','rc2'];
-  if(lvl<=90)return['SỬ THI','rc3'];
-  return['HUYỀN THOẠI','rc4'];
+  if(lvl<=5)return['CHUNG','rc0'];if(lvl<=30)return['HIẾM','rc1'];if(lvl<=60)return['QUÝ','rc2'];if(lvl<=90)return['SỬ THI','rc3'];return['HUYỀN THOẠI','rc4'];
 }
 const TN={0:'Áo',1:'Quần',2:'Găng',3:'Giày',4:'Phụ kiện',5:'Cải Trang',6:'Thức ăn',7:'Sách',8:'Vật phẩm nhiệm vụ',9:'Vàng',10:'Tài nguyên',11:'Đeo lưng',12:'Ngọc rồng',13:'Nguyên liệu',18:'Pet',19:'Bông Tai',23:'Phương tiện',27:'Đạo cụ',28:'Trạng Thái',29:'Mảnh ghép',30:'Huy chương',33:'Kỹ năng',36:'Danh hiệu',37:'Sách KN'};
 const GN={'0':'Trái Đất','1':'Namec','2':'Xayda','3':'Chung'};
 function getG(g){return GN[String(g)]||'Chung';}
 function gCls(g){const m={'0':'tcyan','1':'tg2','2':'to','3':'tgr'};return m[String(g)]||'tgr';}
 
-/* BUILD SELECT OPTIONS */
 let selOpts='';
 function buildSelOpts(){
-  selOpts='<option value="">-- Chọn option --</option>'
-    +Object.entries(OD).sort((a,b)=>parseInt(a[0])-parseInt(b[0]))
-    .map(([k,v])=>'<option value="'+k+'">'+k+' - '+esc(vi(v.name))+'</option>').join('');
+  selOpts='<option value="">-- Chọn option --</option>'+Object.entries(OD).sort((a,b)=>parseInt(a[0])-parseInt(b[0])).map(([k,v])=>'<option value="'+k+'">'+k+' - '+esc(vi(v.name))+'</option>').join('');
 }
 
-/* ══════════════════════════════════════════════
-   PARSE & RENDER
-   FIX: Nhận diện xN (số lượng) trong item ID
-   VD: "956x3_30,0;87,0" → iid=956, qty=3
-══════════════════════════════════════════════ */
-function parseSync(s) {
-  s = s.trim();
-  const u = s.indexOf('_');
-  if (u < 0) return null;
-  let rawId = s.slice(0, u), rest = s.slice(u + 1);
-
-  // Tách số lượng xN ra khỏi item ID
-  // VD: "956x3" → iid="956", qty=3
-  // VD: "1935x10" → iid="1935", qty=10
-  // VD: "1935" → iid="1935", qty=null (không có số lượng)
-  let qty = null;
-  const qtyMatch = rawId.match(/^(\d+)[xX](\d+)$/);
-  if (qtyMatch) {
-    rawId = qtyMatch[1];
-    qty = parseInt(qtyMatch[2]);
-  }
-  const iid = rawId;
-
-  const item = ID[iid] || null;
-  const opts = [];
-  if (rest) {
-    for (const p of rest.split(';')) {
-      if (!p.trim()) continue;
-      const pts = p.split(',');
-      opts.push({id:pts[0], val:pts[1]||'0', data:OD[pts[0]]||null});
-    }
-  }
-  return {iid, item, opts, qty, online: false};
+function parseSync(s){
+  s=s.trim();const u=s.indexOf('_');if(u<0)return null;
+  let rawId=s.slice(0,u),rest=s.slice(u+1);
+  let qty=null;const qtyMatch=rawId.match(/^(\d+)[xX](\d+)$/);
+  if(qtyMatch){rawId=qtyMatch[1];qty=parseInt(qtyMatch[2]);}
+  const iid=rawId;const item=ID[iid]||null;
+  const opts=[];
+  if(rest){for(const p of rest.split(';')){if(!p.trim())continue;const pts=p.split(',');opts.push({id:pts[0],val:pts[1]||'0',data:OD[pts[0]]||null});}}
+  return{iid,item,opts,qty,online:false};
 }
 
-async function parseAsync(s) {
-  const p = parseSync(s);
-  if (!p) return null;
-  if (!p.item) {
-    const {item, online} = await getItemAsync(p.iid);
-    p.item = item;
-    p.online = online;
-  }
+async function parseAsync(s){
+  const p=parseSync(s);if(!p)return null;
+  if(!p.item){const{item,online}=await getItemAsync(p.iid);p.item=item;p.online=online;}
   return p;
 }
 
-function ric(p) {
-  if (!p) return '<div class="empty"><span style="color:var(--red)">Định dạng không hợp lệ</span></div>';
-  const {iid, item, opts} = p;
-  const qty = p.qty || null;
-  const name = item ? vi(item.name) : '[Item ID: ' + iid + ']';
-  const desc = item ? vi(item.description || '') : '';
-  const lvl = item ? (item.level || 1) : 1;
-  const [rl, rc] = gr(lvl);
-  const typeName = item ? (TN[item.type] || 'Type ' + item.type) : '';
-  const part = item ? item.part : null;
-  const gender = item != null ? item.gender : null;
-  const isDanh = desc === 'Danh hieu' || desc === 'Danh hiệu';
-  const iconH = iconBoxHtml(item, iid);
-
-  let optsH = '';
-  opts.forEach((o, i) => {
-    const label = o.data ? fo(o.data, o.val) : '[Option ' + o.id + ']';
-    const nt = o.id === '30';
-    optsH += '<div class="ol' + (nt ? ' nt' : '') + '" style="animation-delay:' + (i * .04) + 's"><span class="on2">' + o.id + '</span><span class="ot">' + esc(label) + '</span></div>';
-  });
-
-  const gn = getG(gender), gc = gCls(gender);
-  const gTag = (gender != null && gender !== 3) ? '<span class="tag ' + gc + '">' + esc(gn) + '</span>' : '';
-  const ptag = (part != null && part >= 0) ? (isDanh ? '<span class="tag tp2">Danh hiệu #' + part + '</span>' : '<span class="tag tgr">Part ' + part + '</span>') : '';
-  // Qty tag - INLINE kế tên item, màu gradient cam-đỏ nổi bật
-  const qtyInline = qty ? '<span class="tag-qty">Số Lượng ' + qty + '</span>' : '';
-  // Badge ID - click để copy, không lặp qty vì đã có tag
-  const realId = String(item ? item.id : iid);
-
-  return '<div class="ic">'
-    + '<div class="ic-top">'
-    + '<span class="rarity ' + rc + '">' + rl + '</span>'
-    + '<span class="id-badge id-badge-copy" onclick="cpId(this,\''+realId+'\')" title="Click để copy ID">ID: ' + esc(realId) + '</span>'
-    + '<div class="icon-box">' + iconH + '</div>'
-    + '<div class="ic-info">'
-    + '<div class="ic-name">' + esc(name) + qtyInline + '</div>'
-    + (desc && !isDanh ? '<div class="ic-desc">' + esc(desc) + '</div>' : '')
-    + '<div class="tags">'
-    + (typeName ? '<span class="tag tb">' + esc(typeName) + '</span>' : '')
-    + (lvl > 1 ? '<span class="tag to">Lv.' + lvl + '</span>' : '')
-    + gTag + ptag
-    + '</div>'
-    + '</div></div>'
-    + (opts.length
-      ? '<div class="div1"></div><div class="ic-opts"><div class="oh">Options (' + opts.length + ')</div>' + optsH + (isDanh ? '<div class="dl">Danh hiệu — thứ tự #' + part + '</div>' : '') + '</div>'
-      : (desc ? '<div class="div1"></div><div class="ic-opts"><div class="dl">' + esc(desc) + '</div></div>' : ''))
-    + '</div>';
+function ric(p){
+  if(!p)return'<div class="empty"><span style="color:var(--red)">Định dạng không hợp lệ</span></div>';
+  const{iid,item,opts}=p;const qty=p.qty||null;
+  const name=item?vi(item.name):'[Item ID: '+iid+']';const desc=item?vi(item.description||''):'';  
+  const lvl=item?(item.level||1):1;const[rl,rc]=gr(lvl);
+  const typeName=item?(TN[item.type]||'Type '+item.type):'';
+  const part=item?item.part:null;const gender=item!=null?item.gender:null;
+  const isDanh=desc==='Danh hieu'||desc==='Danh hiệu';
+  const iconH=iconBoxHtml(item,iid);
+  let optsH='';
+  opts.forEach((o,i)=>{const label=o.data?fo(o.data,o.val):'[Option '+o.id+']';const nt=o.id==='30';optsH+='<div class="ol'+(nt?' nt':'')+'" style="animation-delay:'+(i*.04)+'s"><span class="on2">'+o.id+'</span><span class="ot">'+esc(label)+'</span></div>';});
+  const gn=getG(gender),gc=gCls(gender);
+  const gTag=(gender!=null&&gender!==3)?'<span class="tag '+gc+'">'+esc(gn)+'</span>':'';
+  const ptag=(part!=null&&part>=0)?(isDanh?'<span class="tag tp2">Danh hiệu #'+part+'</span>':'<span class="tag tgr">Part '+part+'</span>'):'';
+  const qtyInline=qty?'<span class="tag-qty">Số Lượng '+qty+'</span>':'';
+  const realId=String(item?item.id:iid);
+  return'<div class="ic">'
+    +'<div class="ic-top">'
+    +'<span class="rarity '+rc+'">'+rl+'</span>'
+    +'<span class="id-badge id-badge-copy" onclick="cpId(this,\''+realId+'\')" title="Click để copy ID">ID: '+esc(realId)+'</span>'
+    +'<div class="icon-box">'+iconH+'</div>'
+    +'<div class="ic-info">'
+    +'<div class="ic-name">'+esc(name)+qtyInline+'</div>'
+    +(desc&&!isDanh?'<div class="ic-desc">'+esc(desc)+'</div>':'')
+    +'<div class="tags">'
+    +(typeName?'<span class="tag tb">'+esc(typeName)+'</span>':'')
+    +(lvl>1?'<span class="tag to">Lv.'+lvl+'</span>':'')
+    +gTag+ptag
+    +'</div>'
+    +'</div></div>'
+    +(opts.length
+      ?'<div class="div1"></div><div class="ic-opts"><div class="oh">Options ('+opts.length+')</div>'+optsH+(isDanh?'<div class="dl">Danh hiệu — thứ tự #'+part+'</div>':'')+'</div>'
+      :(desc?'<div class="div1"></div><div class="ic-opts"><div class="dl">'+esc(desc)+'</div></div>':''))
+    +'</div>';
 }
 
-function bt(p) {
-  if (!p) return '';
-  const {iid, item, opts} = p;
-  const qty = p.qty || null;
-  const lines = [(item ? vi(item.name) : '[' + iid + ']') + (qty ? ' x' + qty : '')];
-  opts.forEach(o => lines.push(o.data ? fo(o.data, o.val) : '[Option ' + o.id + ']'));
-  const desc = item ? vi(item.description || '') : '';
-  if (desc) lines.push('----' + desc);
+function bt(p){
+  if(!p)return'';const{iid,item,opts}=p;const qty=p.qty||null;
+  const lines=[(item?vi(item.name):'['+iid+']')+(qty?' x'+qty:'')];
+  opts.forEach(o=>lines.push(o.data?fo(o.data,o.val):'[Option '+o.id+']'));
+  const desc=item?vi(item.description||''):'';if(desc)lines.push('----'+desc);
   return lines.join('\n');
 }
 
 /* SINGLE INPUT */
-let singleRes = null;
-async function checkSingle() {
-  const v = document.getElementById('si').value.trim();
-  const ee = document.getElementById('es');
-  if (!v) { ee.textContent = 'Chưa nhập chuỗi nào!'; ee.style.display = 'block'; return; }
-  ee.style.display = 'none';
-  document.getElementById('rs-e').style.display = 'none';
-  document.getElementById('rs-r').innerHTML = '<div class="empty"><span class="spin-sm"></span><span style="color:var(--text2)">Đang tra cứu...</span></div>';
-  document.getElementById('rs-r').style.display = 'block';
-  document.getElementById('as').style.display = 'none';
-  singleRes = await parseAsync(v);
-  document.getElementById('rs-r').innerHTML = ric(singleRes);
-  document.getElementById('as').style.display = 'flex';
+let singleRes=null;
+async function checkSingle(){
+  const v=document.getElementById('si').value.trim();const ee=document.getElementById('es');
+  if(!v){ee.textContent='Chưa nhập chuỗi nào!';ee.style.display='block';return;}
+  ee.style.display='none';
+  document.getElementById('rs-e').style.display='none';
+  document.getElementById('rs-r').innerHTML='<div class="empty"><span class="spin-sm"></span><span style="color:var(--text2)">Đang tra cứu...</span></div>';
+  document.getElementById('rs-r').style.display='block';
+  document.getElementById('as').style.display='none';
+  singleRes=await parseAsync(v);
+  document.getElementById('rs-r').innerHTML=ric(singleRes);
+  document.getElementById('as').style.display='flex';
 }
-function clearSingle() {
-  document.getElementById('si').value = '';
-  document.getElementById('rs-e').style.display = 'flex';
-  document.getElementById('rs-r').style.display = 'none';
-  document.getElementById('as').style.display = 'none';
-  document.getElementById('es').style.display = 'none';
-  singleRes = null;
-}
-function cpSingle() {
-  if (!singleRes) return;
-  const txt = bt(singleRes);
-  navigator.clipboard.writeText(txt).then(() => { const b = event.currentTarget; const o = b.innerHTML; b.textContent = 'Đã copy!'; setTimeout(() => b.innerHTML = o, 2000); });
+function clearSingle(){document.getElementById('si').value='';document.getElementById('rs-e').style.display='flex';document.getElementById('rs-r').style.display='none';document.getElementById('as').style.display='none';document.getElementById('es').style.display='none';singleRes=null;}
+function cpSingle(){if(!singleRes)return;const txt=bt(singleRes);navigator.clipboard.writeText(txt).then(()=>{const b=event.currentTarget;const o=b.innerHTML;b.textContent='Đã copy!';setTimeout(()=>b.innerHTML=o,2000);});}
+
+/* ══════════════════════════════════════════════
+   QUICK PASTE — phân cách bằng @
+══════════════════════════════════════════════ */
+function parseQpStr(raw) {
+  // Tách bằng @ — bỏ phần tử rỗng, trim khoảng trắng
+  return raw.split('@').map(s => s.trim()).filter(s => s.length > 0);
 }
 
-/* MULTI ROWS */
-let mrowId = 0;
-function initMRows() { addMRow(); }
-function addMRow() {
-  const id = mrowId++;
-  const c = document.getElementById('mrows');
-  const idx = c.children.length + 1;
-  const wrap = document.createElement('div');
-  wrap.className = 'mrow-wrap';
-  wrap.id = 'mwrap' + id;
-  wrap.innerHTML = '<div class="mrow">'
-    + '<span class="mrow-num">' + idx + '</span>'
-    + '<input class="field" id="mri' + id + '" placeholder="Nhập chuỗi... VD: 1935x2_50,24;14,10" spellcheck="false" style="font-family:var(--mono);font-size:13px;"/>'
-    + '<button class="btn bp bsm" onclick="checkOneRow(' + id + ')">Kiểm tra</button>'
-    + '<button class="mrow-del" onclick="delMRow(' + id + ')" title="Xóa dòng này">&#10005;</button>'
-    + '</div>'
-    + '<div class="mrow-res" id="mrr' + id + '" style="display:none"></div>';
-  c.appendChild(wrap);
-  document.getElementById('mri' + id).addEventListener('keydown', ev => { if (ev.key === 'Enter') checkOneRow(id); });
-  reIndexMRows();
-}
-function delMRow(id) {
-  const el = document.getElementById('mwrap' + id);
-  if (el) el.remove();
-  reIndexMRows();
-  if (document.getElementById('mrows').children.length === 0) addMRow();
-}
-function reIndexMRows() {
-  document.querySelectorAll('#mrows .mrow-wrap').forEach((w, i) => {
-    const num = w.querySelector('.mrow-num');
-    if (num) num.textContent = i + 1;
-  });
-}
-async function checkOneRow(id) {
-  const inp = document.getElementById('mri' + id);
-  const resEl = document.getElementById('mrr' + id);
-  if (!inp || !resEl) return;
-  const v = inp.value.trim();
-  if (!v) { resEl.style.display = 'none'; return; }
-  resEl.innerHTML = '<div class="empty" style="min-height:50px"><span class="spin-sm"></span><span style="color:var(--text2)">Đang tra cứu...</span></div>';
-  resEl.style.display = 'block';
-  const p = await parseAsync(v);
-  resEl.innerHTML = ric(p);
-}
-async function checkAllRows() {
-  const wraps = [...document.querySelectorAll('#mrows .mrow-wrap')];
-  await Promise.all(wraps.map(async w => {
-    const inp = w.querySelector('input.field');
-    const resEl = w.querySelector('.mrow-res');
-    if (!inp || !resEl) return;
-    const v = inp.value.trim();
-    if (!v) { resEl.style.display = 'none'; return; }
-    resEl.innerHTML = '<div class="empty" style="min-height:50px"><span class="spin-sm"></span></div>';
-    resEl.style.display = 'block';
-    resEl.innerHTML = ric(await parseAsync(v));
-  }));
-}
-function clearAllRows() {
-  document.getElementById('mrows').innerHTML = '';
-  mrowId = 0;
-  addMRow();
-}
+function onQpInput(val) {
+  const strs = parseQpStr(val);
+  const chipsEl = document.getElementById('qp-chips');
+  const countEl = document.getElementById('qp-count');
+  const checkBtn = document.getElementById('qp-check-btn');
+  const toRowsBtn = document.getElementById('qp-to-rows-btn');
+  const resultsEl = document.getElementById('qp-results');
 
-/* LOOKUP ITEM */
-async function lI() {
-  const q = document.getElementById('li').value.trim();
-  const el = document.getElementById('lir');
-  if (!q) return;
-  el.classList.add('on');
-  el.innerHTML = '<span class="spin-sm"></span><span style="font-size:12px;color:var(--text2)">Đang tra cứu...</span>';
+  // Clear kết quả cũ khi user edit lại
+  resultsEl.innerHTML = '';
 
-  let results = [];
-
-  if (ID[q]) {
-    results = [{id: q, item: ID[q], online: false}];
-  } else {
-    const ql = q.toLowerCase();
-    results = Object.entries(ID)
-      .filter(([k, v]) => vi(v.name).toLowerCase().includes(ql))
-      .slice(0, 5)
-      .map(([k, v]) => ({id: k, item: v, online: false}));
-  }
-
-  if (!results.length) {
-    const all = await fetchOnlineAll();
-    if (all.length) {
-      const byId = onlineCache[String(q)];
-      if (byId) {
-        results = [{id: String(byId.id), item: byId, online: true}];
-      } else {
-        const ql = q.toLowerCase();
-        results = all
-          .filter(o => (o.name||'').toLowerCase().includes(ql))
-          .slice(0, 5)
-          .map(o => ({id: String(o.id), item: normalizeOnlineItem(o), online: true}));
-      }
-    }
-  }
-
-  if (!results.length) {
-    el.innerHTML = '<span style="color:var(--red);font-size:13px">Ôi no! dữ liệu ' + esc(q) + ' không tìm thấy</span>';
+  if (!strs.length) {
+    chipsEl.style.display = 'none';
+    countEl.style.display = 'none';
+    checkBtn.style.display = 'none';
+    toRowsBtn.style.display = 'none';
+    document.getElementById('qp-clear-all-btn').style.display = 'none';
     return;
   }
 
-  el.innerHTML = results.map(({id, item, online}) => {
-    const name = vi(item.name), desc = vi(item.description || '');
-    const isDanh = desc === 'Danh hieu' || desc === 'Danh hiệu';
-    const iconUrl = getIconUrl(item);
-    const iconVal = item.icon != null ? item.icon : item.iconId;
-    const onlineFb = iconVal != null ? ONLINE_ICON_BASE + iconVal + '.png' : '';
-    const ih = iconUrl
-      ? '<img src="' + iconUrl + '" onerror="' + (onlineFb ? 'this.onerror=function(){this.src=\'small/Small999999.png\'};this.src=\'' + onlineFb + '\'' : 'this.src=\'small/Small999999.png\'') + '" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">'
-      : '<img src="small/Small999999.png" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">';
-    const gc = gCls(item.gender);
-    const gn = getG(item.gender);
-    const idChip = `<span class="id-chip" onclick="cpId(this,'${esc(id)}')" title="Click để copy ID">ID: ${esc(id)}</span>`;
-    return '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);position:relative;">'
-      + ih
-      + '<div style="flex:1;min-width:0"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px"><div class="lr-name">' + esc(name) + '</div>' + idChip + '</div>'
-      + (desc && !isDanh ? '<div style="font-size:12px;color:var(--text2);margin-top:2px">' + esc(desc) + '</div>' : '') + '</div></div>'
-      + '<div class="lr-row"><span class="lk">IconID</span><span class="lv">' + (iconVal != null ? iconVal : '—') + '</span><span class="lk">Type</span><span class="lv">' + (TN[item.type] || item.type) + '</span><span class="lk">Level</span><span class="lv">' + item.level + '</span></div>'
-      + '<div class="lr-row" style="margin-top:5px;">' + (item.gender !== 3 ? '<span class="tag ' + gc + '">' + esc(gn) + '</span>' : '') + (isDanh ? '<span class="tag tp2">Banner ID: ' + item.part + '</span>' : (item.part >= 0 ? '<span class="tag tgr">Part ' + item.part + '</span>' : '')) + '</div>';
+  // Render chip preview
+  chipsEl.style.display = 'flex';
+  chipsEl.innerHTML = strs.map((s, i) => {
+    const short = s.length > 24 ? s.slice(0, 24) + '…' : s;
+    return `<span class="qp-chip" title="${esc(s)}" style="animation-delay:${i*.03}s">${esc(short)}</span>`;
+  }).join('');
+
+  countEl.textContent = strs.length + ' items';
+  countEl.style.display = 'inline-block';
+  checkBtn.style.display = 'inline-flex';
+  toRowsBtn.style.display = 'inline-flex';
+  document.getElementById('qp-clear-all-btn').style.display = 'inline-flex';
+}
+
+async function checkQp() {
+  const strs = parseQpStr(document.getElementById('qp-input').value);
+  if (!strs.length) return;
+
+  const resultsEl = document.getElementById('qp-results');
+  resultsEl.innerHTML = `<div class="empty" style="min-height:64px"><span class="spin-sm"></span><span style="color:var(--text2);font-size:13px">Đang kiểm tra ${strs.length} items...</span></div>`;
+
+  // Parse tất cả đồng thời
+  const parsed = await Promise.all(strs.map(s => parseAsync(s)));
+
+  let html = `<div class="qp-results-wrap"><div class="qp-results-hdr">${strs.length} KẾT QUẢ</div><div class="qp-results-body">`;
+  html += parsed.map(p => ric(p)).join('');
+  html += '</div></div>';
+  resultsEl.innerHTML = html;
+
+  // Scroll đến kết quả
+  resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function clearQp() {
+  document.getElementById('qp-input').value = '';
+  onQpInput('');
+  document.getElementById('qp-results').innerHTML = '';
+  // Ẩn manual rows card lại
+  const manualCard = document.getElementById('manual-rows-card');
+  manualCard.style.display = 'none';
+}
+
+function qpToRows() {
+  const strs = parseQpStr(document.getElementById('qp-input').value);
+  if (!strs.length) return;
+
+  // Hiện manual rows card
+  const manualCard = document.getElementById('manual-rows-card');
+  manualCard.style.display = 'block';
+  // Animation
+  manualCard.style.opacity = '0';manualCard.style.transform = 'translateY(6px)';
+  requestAnimationFrame(() => { manualCard.style.transition = 'opacity .25s,transform .25s'; manualCard.style.opacity = '1'; manualCard.style.transform = 'translateY(0)'; });
+
+  // Fill vào manual rows
+  document.getElementById('mrows').innerHTML = '';
+  mrowId = 0;
+  strs.forEach(s => {
+    const id = mrowId++;
+    const c = document.getElementById('mrows');
+    const idx = c.children.length + 1;
+    const wrap = document.createElement('div');
+    wrap.className = 'mrow-wrap';
+    wrap.id = 'mwrap' + id;
+    const safeVal = s.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    wrap.innerHTML = '<div class="mrow">'
+      + '<span class="mrow-num">' + idx + '</span>'
+      + '<input class="field" id="mri' + id + '" value="' + safeVal + '" spellcheck="false" style="font-family:var(--mono);font-size:13px;"/>'
+      + '<button class="btn bp bsm" onclick="checkOneRow(' + id + ')">Kiểm tra</button>'
+      + '<button class="mrow-del" onclick="delMRow(' + id + ')" title="Xóa dòng này">&#10005;</button>'
+      + '</div>'
+      + '<div class="mrow-res" id="mrr' + id + '" style="display:none"></div>';
+    c.appendChild(wrap);
+    document.getElementById('mri' + id).addEventListener('keydown', ev => { if (ev.key === 'Enter') checkOneRow(id); });
+  });
+  reIndexMRows();
+  // Scroll xuống manual rows
+  setTimeout(() => manualCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+
+/* MULTI ROWS */
+let mrowId=0;
+function initMRows(){ /* rows added on demand */ }
+function addMRow(){
+  const id=mrowId++;const c=document.getElementById('mrows');const idx=c.children.length+1;
+  const wrap=document.createElement('div');wrap.className='mrow-wrap';wrap.id='mwrap'+id;
+  wrap.innerHTML='<div class="mrow">'
+    +'<span class="mrow-num">'+idx+'</span>'
+    +'<input class="field" id="mri'+id+'" placeholder="Nhập chuỗi... VD: 1935x2_50,24;14,10" spellcheck="false" style="font-family:var(--mono);font-size:13px;"/>'
+    +'<button class="btn bp bsm" onclick="checkOneRow('+id+')">Kiểm tra</button>'
+    +'<button class="mrow-del" onclick="delMRow('+id+')" title="Xóa dòng này">&#10005;</button>'
+    +'</div>'
+    +'<div class="mrow-res" id="mrr'+id+'" style="display:none"></div>';
+  c.appendChild(wrap);
+  document.getElementById('mri'+id).addEventListener('keydown',ev=>{if(ev.key==='Enter')checkOneRow(id);});
+  reIndexMRows();
+}
+function delMRow(id){const el=document.getElementById('mwrap'+id);if(el)el.remove();reIndexMRows();if(document.getElementById('mrows').children.length===0)addMRow();}
+function reIndexMRows(){document.querySelectorAll('#mrows .mrow-wrap').forEach((w,i)=>{const num=w.querySelector('.mrow-num');if(num)num.textContent=i+1;});}
+async function checkOneRow(id){
+  const inp=document.getElementById('mri'+id);const resEl=document.getElementById('mrr'+id);if(!inp||!resEl)return;
+  const v=inp.value.trim();if(!v){resEl.style.display='none';return;}
+  resEl.innerHTML='<div class="empty" style="min-height:50px"><span class="spin-sm"></span><span style="color:var(--text2)">Đang tra cứu...</span></div>';
+  resEl.style.display='block';
+  const p=await parseAsync(v);resEl.innerHTML=ric(p);
+}
+async function checkAllRows(){
+  const wraps=[...document.querySelectorAll('#mrows .mrow-wrap')];
+  await Promise.all(wraps.map(async w=>{
+    const inp=w.querySelector('input.field');const resEl=w.querySelector('.mrow-res');if(!inp||!resEl)return;
+    const v=inp.value.trim();if(!v){resEl.style.display='none';return;}
+    resEl.innerHTML='<div class="empty" style="min-height:50px"><span class="spin-sm"></span></div>';
+    resEl.style.display='block';resEl.innerHTML=ric(await parseAsync(v));
+  }));
+}
+function clearAllRows(){document.getElementById('mrows').innerHTML='';mrowId=0;addMRow();}
+
+/* LOOKUP ITEM */
+async function lI(){
+  const q=document.getElementById('li').value.trim();const el=document.getElementById('lir');if(!q)return;
+  el.classList.add('on');el.innerHTML='<span class="spin-sm"></span><span style="font-size:12px;color:var(--text2)">Đang tra cứu...</span>';
+  let results=[];
+  if(ID[q])results=[{id:q,item:ID[q],online:false}];
+  else{const ql=q.toLowerCase();results=Object.entries(ID).filter(([k,v])=>vi(v.name).toLowerCase().includes(ql)).slice(0,5).map(([k,v])=>({id:k,item:v,online:false}));}
+  if(!results.length){
+    const all=await fetchOnlineAll();
+    if(all.length){const byId=onlineCache[String(q)];if(byId){results=[{id:String(byId.id),item:byId,online:true}];}else{const ql=q.toLowerCase();results=all.filter(o=>(o.name||'').toLowerCase().includes(ql)).slice(0,5).map(o=>({id:String(o.id),item:normalizeOnlineItem(o),online:true}));}}
+  }
+  if(!results.length){el.innerHTML='<span style="color:var(--red);font-size:13px">Ôi no! dữ liệu '+esc(q)+' không tìm thấy</span>';return;}
+  el.innerHTML=results.map(({id,item,online})=>{
+    const name=vi(item.name),desc=vi(item.description||'');const isDanh=desc==='Danh hieu'||desc==='Danh hiệu';
+    const iconUrl=getIconUrl(item);const iconVal=item.icon!=null?item.icon:item.iconId;
+    const onlineFb=iconVal!=null?ONLINE_ICON_BASE+iconVal+'.png':'';
+    const ih=iconUrl?'<img src="'+iconUrl+'" onerror="'+(onlineFb?'this.onerror=function(){this.src=\'small/Small999999.png\'};this.src=\''+onlineFb+'\'':'this.src=\'small/Small999999.png\'')+'" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">':'<img src="small/Small999999.png" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">';
+    const gc=gCls(item.gender);const gn=getG(item.gender);
+    const idChip=`<span class="id-chip" onclick="cpId(this,'${esc(id)}')" title="Click để copy ID">ID: ${esc(id)}</span>`;
+    return'<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);position:relative;">'
+      +ih+'<div style="flex:1;min-width:0"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px"><div class="lr-name">'+esc(name)+'</div>'+idChip+'</div>'
+      +(desc&&!isDanh?'<div style="font-size:12px;color:var(--text2);margin-top:2px">'+esc(desc)+'</div>':'')+'</div></div>'
+      +'<div class="lr-row"><span class="lk">IconID</span><span class="lv">'+(iconVal!=null?iconVal:'—')+'</span><span class="lk">Type</span><span class="lv">'+(TN[item.type]||item.type)+'</span><span class="lk">Level</span><span class="lv">'+item.level+'</span></div>'
+      +'<div class="lr-row" style="margin-top:5px;">'+(item.gender!==3?'<span class="tag '+gc+'">'+esc(gn)+'</span>':'')+(isDanh?'<span class="tag tp2">Banner ID: '+item.part+'</span>':(item.part>=0?'<span class="tag tgr">Part '+item.part+'</span>':''))+'</div>';
   }).join('<hr style="border-color:var(--border);margin:8px 0">');
 }
 
 /* LOOKUP OPTION */
-function lO() {
-  const q = document.getElementById('lo').value.trim();
-  const el = document.getElementById('lor');
-  if (!q) return;
+function lO(){
+  const q=document.getElementById('lo').value.trim();const el=document.getElementById('lor');if(!q)return;
   el.classList.add('on');
-  let results = [];
-  if (OD[q]) results = [{id: q, opt: OD[q]}];
-  else {
-    const ql = q.toLowerCase();
-    results = Object.entries(OD).filter(([k,v]) => vi(v.name).toLowerCase().includes(ql)).slice(0,5).map(([k,v])=>({id:k,opt:v}));
-  }
-  if (!results.length) { el.innerHTML = '<span style="color:var(--red);font-size:13px">Ôi no! dữ liệu ' + esc(q) + ' không tìm thấy</span>'; return; }
-  el.innerHTML = results.map(({id, opt}) => {
-    const name = vi(opt.name); const hh = opt.name.includes('#');
-    return '<div class="lr-name">' + esc(name) + '</div><div class="lr-row"><span class="lk">ID</span><span class="lv">' + esc(id) + '</span><span class="lk">Type</span><span class="lv">' + opt.type + '</span><span class="lk">Tham số</span><span class="lv" style="color:' + (hh ? 'var(--green)' : 'var(--text3)') + ';">' + (hh ? 'Có (#)' : 'Không') + '</span></div>';
-  }).join('<hr style="border-color:var(--border);margin:8px 0">');
+  let results=[];
+  if(OD[q])results=[{id:q,opt:OD[q]}];
+  else{const ql=q.toLowerCase();results=Object.entries(OD).filter(([k,v])=>vi(v.name).toLowerCase().includes(ql)).slice(0,5).map(([k,v])=>({id:k,opt:v}));}
+  if(!results.length){el.innerHTML='<span style="color:var(--red);font-size:13px">Ôi no! dữ liệu '+esc(q)+' không tìm thấy</span>';return;}
+  el.innerHTML=results.map(({id,opt})=>{const name=vi(opt.name);const hh=opt.name.includes('#');return'<div class="lr-name">'+esc(name)+'</div><div class="lr-row"><span class="lk">ID</span><span class="lv">'+esc(id)+'</span><span class="lk">Type</span><span class="lv">'+opt.type+'</span><span class="lk">Tham số</span><span class="lv" style="color:'+(hh?'var(--green)':'var(--text3)')+';">'+(hh?'Có (#)':'Không')+'</span></div>';}).join('<hr style="border-color:var(--border);margin:8px 0">');
 }
 
 /* MAP LOOKUP */
 function normSearch(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
-function viewMap(id, name) {
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;cursor:pointer;';
-  overlay.onclick = function(){ document.body.removeChild(overlay); };
-  const title = document.createElement('div');
-  title.style.cssText = 'color:#fff;font-size:15px;font-weight:700;font-family:var(--sans);';
-  title.textContent = name + ' — map ' + id;
-  const img = document.createElement('img');
-  img.src = 'https://electroheavenvn.github.io/DataNRO/TeaMobi/Maps/' + id + '.png';
-  img.style.cssText = 'max-width:90vw;max-height:78vh;border-radius:10px;border:2px solid rgba(255,255,255,.15);box-shadow:0 8px 40px rgba(0,0,0,.7);';
-  img.onerror = function(){ title.textContent = 'Không có ảnh map ' + id; };
-  const hint = document.createElement('div');
-  hint.style.cssText = 'color:rgba(255,255,255,.35);font-size:12px;font-family:var(--sans);';
-  hint.textContent = 'Nhấn bất kỳ đâu để đóng';
-  overlay.appendChild(title); overlay.appendChild(img); overlay.appendChild(hint);
-  document.body.appendChild(overlay);
+function viewMap(id,name){
+  const overlay=document.createElement('div');overlay.style.cssText='position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;cursor:pointer;';overlay.onclick=function(){document.body.removeChild(overlay);};
+  const title=document.createElement('div');title.style.cssText='color:#fff;font-size:15px;font-weight:700;font-family:var(--sans);';title.textContent=name+' — map '+id;
+  const img=document.createElement('img');img.src='https://electroheavenvn.github.io/DataNRO/TeaMobi/Maps/'+id+'.png';img.style.cssText='max-width:90vw;max-height:78vh;border-radius:10px;border:2px solid rgba(255,255,255,.15);box-shadow:0 8px 40px rgba(0,0,0,.7);';img.onerror=function(){title.textContent='Không có ảnh map '+id;};
+  const hint=document.createElement('div');hint.style.cssText='color:rgba(255,255,255,.35);font-size:12px;font-family:var(--sans);';hint.textContent='Nhấn bất kỳ đâu để đóng';
+  overlay.appendChild(title);overlay.appendChild(img);overlay.appendChild(hint);document.body.appendChild(overlay);
 }
 
-const SVG_COPY = '<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="opacity:.7;flex-shrink:0"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>';
-const SVG_CHECK = '<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>';
-function makeBadge(mapId) {
-  const badge = document.createElement('span');
-  badge.style.cssText = ['align-self:flex-start','cursor:pointer','user-select:none','outline:none','-webkit-tap-highlight-color:transparent','display:inline-flex','align-items:center','gap:4px','padding:3px 10px 3px 7px','border-radius:999px','background:linear-gradient(135deg,rgba(59,139,255,.15),rgba(91,163,255,.08))','border:1px solid rgba(59,139,255,.3)','color:#5ba3ff',"font-family:'JetBrains Mono',monospace",'font-size:10.5px','font-weight:600','letter-spacing:.04em','box-shadow:0 0 8px rgba(59,139,255,.1),inset 0 1px 0 rgba(255,255,255,.04)','transition:all .2s cubic-bezier(.4,0,.2,1)'].join(';');
-  badge.title='Click để copy ID'; badge.innerHTML=SVG_COPY+'Map '+mapId;
+const SVG_COPY='<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="opacity:.7;flex-shrink:0"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>';
+const SVG_CHECK='<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>';
+
+function makeBadge(mapId){
+  const badge=document.createElement('span');badge.style.cssText=['align-self:flex-start','cursor:pointer','user-select:none','outline:none','-webkit-tap-highlight-color:transparent','display:inline-flex','align-items:center','gap:4px','padding:3px 10px 3px 7px','border-radius:999px','background:linear-gradient(135deg,rgba(59,139,255,.15),rgba(91,163,255,.08))','border:1px solid rgba(59,139,255,.3)','color:#5ba3ff',"font-family:'JetBrains Mono',monospace",'font-size:10.5px','font-weight:600','letter-spacing:.04em','box-shadow:0 0 8px rgba(59,139,255,.1),inset 0 1px 0 rgba(255,255,255,.04)','transition:all .2s cubic-bezier(.4,0,.2,1)'].join(';');
+  badge.title='Click để copy ID';badge.innerHTML=SVG_COPY+'Map '+mapId;
   const resetBadge=()=>{badge.innerHTML=SVG_COPY+'Map '+mapId;badge.style.background='linear-gradient(135deg,rgba(59,139,255,.15),rgba(91,163,255,.08))';badge.style.borderColor='rgba(59,139,255,.3)';badge.style.color='#5ba3ff';badge.style.boxShadow='0 0 8px rgba(59,139,255,.1),inset 0 1px 0 rgba(255,255,255,.04)';};
   badge.onmouseenter=()=>{badge.style.background='linear-gradient(135deg,rgba(59,139,255,.25),rgba(91,163,255,.15))';badge.style.borderColor='rgba(59,139,255,.6)';badge.style.boxShadow='0 0 14px rgba(59,139,255,.22),0 2px 6px rgba(0,0,0,.2)';badge.style.transform='translateY(-1px)';badge.style.color='#fff';};
   badge.onmouseleave=()=>{badge.style.transform='';resetBadge();};
   badge.onclick=function(e){e.stopPropagation();navigator.clipboard.writeText(String(mapId)).then(()=>{badge.innerHTML=SVG_CHECK+'Copy ID!';badge.style.background='linear-gradient(135deg,rgba(34,197,94,.2),rgba(34,197,94,.1))';badge.style.borderColor='rgba(34,197,94,.5)';badge.style.color='#22c55e';badge.style.boxShadow='0 0 12px rgba(34,197,94,.2)';badge.style.transform='';setTimeout(resetBadge,1400);});};
   return badge;
 }
-function makeMapCard(m, i) {
-  const div = document.createElement('div');
-  div.className = 'map-card'; div.style.animationDelay = (i * .04) + 's';
-  const thumbWrap = document.createElement('div');
-  thumbWrap.style.cssText = 'width:54px;height:54px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);flex-shrink:0;overflow:hidden;';
-  const thumb = document.createElement('img');
-  thumb.src = 'https://electroheavenvn.github.io/DataNRO/TeaMobi/Maps/' + m.id + '_tile.png';
-  thumb.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-  thumb.onerror = function(){ thumbWrap.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--text3);">' + m.id + '</div>'; };
-  thumbWrap.appendChild(thumb);
-  const info = document.createElement('div');
-  info.style.cssText = 'flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;';
-  const nameEl = document.createElement('span');
-  nameEl.style.cssText = ['white-space:nowrap','overflow:hidden','text-overflow:ellipsis','font-size:14px','font-weight:700','letter-spacing:.01em','background:linear-gradient(90deg,#f59e0b,#fbbf24)','-webkit-background-clip:text','-webkit-text-fill-color:transparent','background-clip:text'].join(';');
-  nameEl.textContent = m.name;
-  info.appendChild(nameEl); info.appendChild(makeBadge(m.id));
-  const btn = document.createElement('button');
-  btn.className = 'btn bgh bsm'; btn.style.cssText = 'flex-shrink:0;gap:5px;display:inline-flex;align-items:center;';
-  btn.innerHTML = '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Xem map';
-  btn.onclick = function(e){ e.stopPropagation(); viewMap(m.id, m.name); };
-  div.appendChild(thumbWrap); div.appendChild(info); div.appendChild(btn);
-  return div;
+
+function makeMapCard(m,i){
+  const div=document.createElement('div');div.className='map-card';div.style.animationDelay=(i*.04)+'s';
+  const thumbWrap=document.createElement('div');thumbWrap.style.cssText='width:54px;height:54px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);flex-shrink:0;overflow:hidden;';
+  const thumb=document.createElement('img');thumb.src='https://electroheavenvn.github.io/DataNRO/TeaMobi/Maps/'+m.id+'_tile.png';thumb.style.cssText='width:100%;height:100%;object-fit:cover;display:block;';thumb.onerror=function(){thumbWrap.innerHTML='<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--text3);">'+m.id+'</div>';};thumbWrap.appendChild(thumb);
+  const info=document.createElement('div');info.style.cssText='flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;';
+  const nameEl=document.createElement('span');nameEl.style.cssText=['white-space:nowrap','overflow:hidden','text-overflow:ellipsis','font-size:14px','font-weight:700','letter-spacing:.01em','background:linear-gradient(90deg,#f59e0b,#fbbf24)','-webkit-background-clip:text','-webkit-text-fill-color:transparent','background-clip:text'].join(';');nameEl.textContent=m.name;
+  info.appendChild(nameEl);info.appendChild(makeBadge(m.id));
+  const btn=document.createElement('button');btn.className='btn bgh bsm';btn.style.cssText='flex-shrink:0;gap:5px;display:inline-flex;align-items:center;';btn.innerHTML='<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Xem map';btn.onclick=function(e){e.stopPropagation();viewMap(m.id,m.name);};
+  div.appendChild(thumbWrap);div.appendChild(info);div.appendChild(btn);return div;
 }
-function lM() {
-  const q = document.getElementById('mi2').value.trim();
-  const el = document.getElementById('mr');
-  if (!q) { el.classList.remove('on'); return; }
-  el.classList.add('on');
-  const byId = MD.find(m => String(m.id) === q);
-  let results = [];
-  if (byId) results = [byId];
-  else { const ql = normSearch(q); results = MD.filter(m => normSearch(m.name).includes(ql)); }
-  if (!results.length) { el.innerHTML = '<span style="color:var(--red);font-size:13px">Làm gì có Map ' + esc(q) + ' đâu Bro</span>'; return; }
-  el.innerHTML = '';
-  const hdr = document.createElement('div');
-  hdr.style.cssText = 'font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;';
-  hdr.textContent = results.length + ' KẾT QUẢ';
-  el.appendChild(hdr);
-  results.forEach((m, i) => el.appendChild(makeMapCard(m, i)));
+
+function lM(){
+  const q=document.getElementById('mi2').value.trim();const el=document.getElementById('mr');if(!q){el.classList.remove('on');return;}
+  el.classList.add('on');const byId=MD.find(m=>String(m.id)===q);let results=[];
+  if(byId)results=[byId];else{const ql=normSearch(q);results=MD.filter(m=>normSearch(m.name).includes(ql));}
+  if(!results.length){el.innerHTML='<span style="color:var(--red);font-size:13px">Làm gì có Map '+esc(q)+' đâu Bro</span>';return;}
+  el.innerHTML='';const hdr=document.createElement('div');hdr.style.cssText='font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;';hdr.textContent=results.length+' KẾT QUẢ';el.appendChild(hdr);results.forEach((m,i)=>el.appendChild(makeMapCard(m,i)));
 }
-function clearMap(){ document.getElementById('mi2').value=''; const el=document.getElementById('mr'); el.classList.remove('on'); el.innerHTML=''; }
+function clearMap(){document.getElementById('mi2').value='';const el=document.getElementById('mr');el.classList.remove('on');el.innerHTML='';}
 
 /* BUILDER */
-let brows = [], brid = 0;
-function abr(){ brows.push({id:brid++,optId:'',val:''});rbr();uo(); }
-function delbr(id){ brows=brows.filter(r=>r.id!==id);rbr();uo(); }
+let brows=[],brid=0;
+function abr(){brows.push({id:brid++,optId:'',val:''});rbr();uo();}
+function delbr(id){brows=brows.filter(r=>r.id!==id);rbr();uo();}
 function rbr(){
   const c=document.getElementById('br');
   if(!brows.length){c.innerHTML='<div style="color:var(--text3);font-size:13px;padding:6px 0">Nhấn "Thêm option" để bắt đầu</div>';return;}
   c.innerHTML=brows.map((row,i)=>{
-    const od=row.optId!==''?OD[row.optId]:null;
-    const hh=od&&od.name.includes('#');
-    const prev=od?(hh?fo(od,row.val||'0'):vi(od.name)):'--';
-    return '<div class="brow" id="br'+row.id+'">'
-      +'<span class="bnum">'+(i+1)+'</span>'
-      +'<select class="bsel" onchange="ubrSel('+row.id+',this.value)">'+selOpts+'</select>'
-      +'<input class="bval" type="text" inputmode="numeric" placeholder="Giá trị" value="'+row.val+'" '+(hh?'':'disabled')+' id="bval'+row.id+'" oninput="ubrVal('+row.id+',this.value)"/>'
-      +'<span class="bprev" id="bprev'+row.id+'">'+esc(prev)+'</span>'
-      +'<button class="bdel" onclick="delbr('+row.id+')">×</button>'
-      +'</div>';
+    const od=row.optId!==''?OD[row.optId]:null;const hh=od&&od.name.includes('#');const prev=od?(hh?fo(od,row.val||'0'):vi(od.name)):'--';
+    return'<div class="brow" id="br'+row.id+'">'+'<span class="bnum">'+(i+1)+'</span>'+'<select class="bsel" onchange="ubrSel('+row.id+',this.value)">'+selOpts+'</select>'+'<input class="bval" type="text" inputmode="numeric" placeholder="Giá trị" value="'+row.val+'" '+(hh?'':'disabled')+' id="bval'+row.id+'" oninput="ubrVal('+row.id+',this.value)"/>'+'<span class="bprev" id="bprev'+row.id+'">'+esc(prev)+'</span>'+'<button class="bdel" onclick="delbr('+row.id+')">×</button>'+'</div>';
   }).join('');
   brows.forEach(row=>{const s=document.querySelector('#br'+row.id+' .bsel');if(s&&row.optId!=='')s.value=row.optId;});
 }
-function ubrSel(id,v){
-  const row=brows.find(r=>r.id===id);if(!row)return;
-  row.optId=v;row.val='';
-  rbr();uo();
-  const s=document.querySelector('#br'+id+' .bsel');if(s)s.value=row.optId;
-}
-function ubrVal(id,v){
-  const row=brows.find(r=>r.id===id);if(!row)return;
-  row.val=v;
-  const od=row.optId!==''?OD[row.optId]:null;
-  const hh=od&&od.name.includes('#');
-  const prev=od?(hh?fo(od,v||'0'):vi(od.name)):'--';
-  const prevEl=document.getElementById('bprev'+id);
-  if(prevEl)prevEl.textContent=prev;
-  uo();
+function ubrSel(id,v){const row=brows.find(r=>r.id===id);if(!row)return;row.optId=v;row.val='';rbr();uo();const s=document.querySelector('#br'+id+' .bsel');if(s)s.value=row.optId;}
+function ubrVal(id,v){const row=brows.find(r=>r.id===id);if(!row)return;row.val=v;const od=row.optId!==''?OD[row.optId]:null;const hh=od&&od.name.includes('#');const prev=od?(hh?fo(od,v||'0'):vi(od.name)):'--';const prevEl=document.getElementById('bprev'+id);if(prevEl)prevEl.textContent=prev;uo();}
+
+let uoTimer=null;
+function uo(){clearTimeout(uoTimer);uoTimer=setTimeout(_uo,120);}
+async function _uo(){
+  const iid=document.getElementById('bid').value.trim();const qty=document.getElementById('bqty').value.trim();
+  const ne=document.getElementById('bin');const qp=document.getElementById('bqtyp');const iconBox=document.getElementById('b-icon');
+  if(iid){
+    let item=ID[iid]||null;let online=false;if(!item){if(onlineCache[iid]){item=onlineCache[iid];online=true;}}
+    if(item){ne.innerHTML='<span class="iname-b">'+esc(vi(item.name))+'</span>';const iconUrl=getIconUrl(item);if(iconUrl){iconBox.style.display='flex';iconBox.innerHTML='<img src="'+iconUrl+'" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">';}else{iconBox.style.display='none';iconBox.innerHTML='';}}
+    else{ne.innerHTML='<span class="spin-sm"></span>';iconBox.style.display='none';const res=await getItemAsync(iid);if(document.getElementById('bid').value.trim()!==iid)return;if(res.item){ne.innerHTML='<span class="iname-b">'+esc(vi(res.item.name))+'</span>';const iconUrl=getIconUrl(res.item);if(iconUrl){iconBox.style.display='flex';iconBox.innerHTML='<img src="'+iconUrl+'" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">'; }}else{ne.innerHTML='<span style="font-size:12px;color:var(--red)">Không tìm thấy</span>';}}
+  }else{ne.innerHTML='';iconBox.style.display='none';iconBox.innerHTML='';}
+  if(qty&&parseInt(qty)>0)qp.textContent='→ Số Lượng:'+qty;else qp.textContent='';
+  const valid=brows.filter(r=>r.optId!=='');
+  if(!iid&&!valid.length){document.getElementById('ot').textContent='— chưa có dữ liệu —';document.getElementById('ot').style.color='var(--text3)';return;}
+  const qtyStr=(qty&&parseInt(qty)>0)?'x'+qty:'';
+  let str=(iid||'ITEM')+qtyStr;
+  if(valid.length)str+='_'+valid.map(r=>{const hh=OD[r.optId]&&OD[r.optId].name.includes('#');return r.optId+','+(hh?(r.val||'0'):'0');}).join(';');
+  document.getElementById('ot').textContent=str;document.getElementById('ot').style.color='var(--green)';
 }
 
-let uoTimer = null;
-function uo() {
-  clearTimeout(uoTimer);
-  uoTimer = setTimeout(_uo, 120);
-}
-async function _uo() {
-  const iid = document.getElementById('bid').value.trim();
-  const qty = document.getElementById('bqty').value.trim();
-  const ne = document.getElementById('bin');
-  const qp = document.getElementById('bqtyp');
-  const iconBox = document.getElementById('b-icon');
+function cpO(){const txt=document.getElementById('ot').textContent;if(txt==='— chưa có dữ liệu —')return;navigator.clipboard.writeText(txt).then(()=>{const ob=document.getElementById('ob');ob.classList.add('cp');setTimeout(()=>ob.classList.remove('cp'),1500);});}
+function toggleQty(){document.getElementById('qty-wrap').style.display='flex';document.getElementById('qty-btn').style.display='none';document.getElementById('bqty').focus();}
+function removeQty(){document.getElementById('bqty').value='';document.getElementById('qty-wrap').style.display='none';document.getElementById('qty-btn').style.display='';document.getElementById('bqtyp').textContent='';uo();}
+function rB(){brows=[];brid=0;document.getElementById('bid').value='';removeQty();document.getElementById('bin').innerHTML='';rbr();uo();}
 
-  if (iid) {
-    let item = ID[iid] || null;
-    let online = false;
-    if (!item) {
-      if (onlineCache[iid]) { item = onlineCache[iid]; online = true; }
-    }
-    if (item) {
-      ne.innerHTML = '<span class="iname-b">' + esc(vi(item.name)) + '</span>';
-      const iconUrl = getIconUrl(item);
-      if (iconUrl) {
-        iconBox.style.display = 'flex';
-        iconBox.innerHTML = '<img src="' + iconUrl + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">';
-      } else {
-        iconBox.style.display = 'none';
-        iconBox.innerHTML = '';
-      }
-    } else {
-      ne.innerHTML = '<span class="spin-sm"></span>';
-      iconBox.style.display = 'none';
-      const res = await getItemAsync(iid);
-      if (document.getElementById('bid').value.trim() !== iid) return;
-      if (res.item) {
-        ne.innerHTML = '<span class="iname-b">' + esc(vi(res.item.name)) + '</span>';
-        const iconUrl = getIconUrl(res.item);
-        if (iconUrl) {
-          iconBox.style.display = 'flex';
-          iconBox.innerHTML = '<img src="' + iconUrl + '" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">';
-        }
-      } else {
-        ne.innerHTML = '<span style="font-size:12px;color:var(--red)">Không tìm thấy</span>';
-      }
-    }
-  } else {
-    ne.innerHTML = '';
-    iconBox.style.display = 'none';
-    iconBox.innerHTML = '';
-  }
-
-  if (qty && parseInt(qty) > 0) qp.textContent = '→ Số Lượng:' + qty;
-  else qp.textContent = '';
-
-  const valid = brows.filter(r => r.optId !== '');
-  if (!iid && !valid.length) {
-    document.getElementById('ot').textContent = '— chưa có dữ liệu —';
-    document.getElementById('ot').style.color = 'var(--text3)';
-    return;
-  }
-  const qtyStr = (qty && parseInt(qty) > 0) ? 'x' + qty : '';
-  let str = (iid || 'ITEM') + qtyStr;
-  if (valid.length) str += '_' + valid.map(r => {
-    const hh = OD[r.optId] && OD[r.optId].name.includes('#');
-    return r.optId + ',' + (hh ? (r.val || '0') : '0');
-  }).join(';');
-  document.getElementById('ot').textContent = str;
-  document.getElementById('ot').style.color = 'var(--green)';
-}
-
-function cpO() {
-  const txt = document.getElementById('ot').textContent;
-  if (txt === '— chưa có dữ liệu —') return;
-  navigator.clipboard.writeText(txt).then(() => { const ob = document.getElementById('ob'); ob.classList.add('cp'); setTimeout(() => ob.classList.remove('cp'), 1500); });
-}
-function toggleQty() {
-  document.getElementById('qty-wrap').style.display = 'flex';
-  document.getElementById('qty-btn').style.display = 'none';
-  document.getElementById('bqty').focus();
-}
-function removeQty() {
-  document.getElementById('bqty').value = '';
-  document.getElementById('qty-wrap').style.display = 'none';
-  document.getElementById('qty-btn').style.display = '';
-  document.getElementById('bqtyp').textContent = '';
-  uo();
-}
-function rB(){ brows=[];brid=0;document.getElementById('bid').value='';removeQty();document.getElementById('bin').innerHTML='';rbr();uo(); }
-
-document.getElementById('si').addEventListener('keydown', ev => { if (ev.key === 'Enter') checkSingle(); });
-document.getElementById('li').addEventListener('keydown', ev => { if (ev.key === 'Enter') lI(); });
-document.getElementById('lo').addEventListener('keydown', ev => { if (ev.key === 'Enter') lO(); });
-document.getElementById('mi2').addEventListener('keydown', ev => { if (ev.key === 'Enter') lM(); });
+document.getElementById('si').addEventListener('keydown',ev=>{if(ev.key==='Enter')checkSingle();});
+document.getElementById('li').addEventListener('keydown',ev=>{if(ev.key==='Enter')lI();});
+document.getElementById('lo').addEventListener('keydown',ev=>{if(ev.key==='Enter')lO();});
+document.getElementById('mi2').addEventListener('keydown',ev=>{if(ev.key==='Enter')lM();});
 
 updateBell();
 initTheme();
