@@ -726,8 +726,8 @@ function closeNotif(){notifOpen=false;document.getElementById('notif-drop').clas
 document.addEventListener('click',e=>{if(!document.getElementById('notif-wrap').contains(e.target))closeNotif();});
 
 /* AUTH */
-const MEMBERS = ['Khang','Thanh','Hau'];
-const TROLL_MSG = { 'Phi': 'Phi làm lồn gì mà được vô đây??? Troll dị á, mày không có quyền!!' };
+const MEMBERS = ['Khang','Thanh','Hau','Phi'];
+const TROLL_MSG = { 'Tôi': 'mày không có quyền!!' };
 function normName(n){return n.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\u0111/g,'d');}
 const NORM_MAP = Object.fromEntries(MEMBERS.map(m=>[normName(m),m]));
 function showErr(msg){const e=document.getElementById('lerr');e.innerHTML=msg;e.style.display='block';}
