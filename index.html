@@ -19,7 +19,6 @@ body.has-bg[data-theme="dark"] .card,body.has-bg[data-theme="dark"] .ic,body.has
 body.has-bg[data-theme="dark"] .topbar{background:rgba(20,30,48,.92);}
 body.has-bg[data-theme="light"] .card,body.has-bg[data-theme="light"] .ic,body.has-bg[data-theme="light"] .map-card{background:rgba(255,255,255,.82);}
 body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
-
 .theme-wrap{position:relative;display:flex;align-items:center;}
 .theme-btn{width:34px;height:34px;border-radius:7px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--text2);font-size:15px;}
 .theme-btn:hover{border-color:var(--accent);color:var(--text);}
@@ -58,12 +57,10 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .bg-size-btn{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px;border:1px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;font-family:var(--sans);transition:all .13s;}
 .bg-size-btn:hover{color:var(--text);border-color:var(--border2);}
 .bg-size-btn.on{background:rgba(59,139,255,.15);color:var(--accent2);border-color:var(--accent);}
-
 #loading-overlay{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;}
 .loading-spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-text{font-size:13px;color:var(--text2);font-weight:600;}
-
 #login-screen{position:fixed;inset:0;z-index:999;background:var(--bg);display:none;align-items:center;justify-content:center;flex-direction:column;}
 #login-screen.show{display:flex;}
 .login-box{background:var(--bg1);border:1px solid var(--border);border-radius:20px;padding:36px 40px;width:100%;max-width:390px;box-shadow:0 20px 60px var(--shadow);animation:loginIn .4s ease;}
@@ -84,7 +81,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .login-save{display:flex;align-items:center;gap:8px;margin-top:12px;cursor:pointer;}
 .login-save input{accent-color:var(--accent);width:14px;height:14px;cursor:pointer;}
 .login-save span{font-size:12px;color:var(--text2);font-weight:500;}
-
 .faceid-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;padding:6px 0 4px;}
 .faceid-ring{width:112px;height:112px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;transition:border-color .3s;user-select:none;}
 .faceid-ring:hover{border-color:var(--accent);}
@@ -107,7 +103,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .fid-select{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:10px 38px 10px 14px;color:var(--text);font-family:var(--sans);font-size:14px;outline:none;appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a96bc' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;transition:border-color .15s;}
 .fid-select:focus{border-color:var(--accent);}
 .fid-hint{font-size:11px;color:var(--text3);text-align:center;margin-top:5px;}
-
 #app{display:none;}
 .topbar{height:52px;background:var(--bg1);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 1px 12px var(--shadow);}
 .logo img{height:34px;object-fit:contain;}
@@ -269,12 +264,20 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .id-f{max-width:110px;}
 .iname-b{font-size:12px;font-weight:600;color:var(--green);}
 .spin-sm{display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:5px;}
-
-/* ── QUICK PASTE styles ── */
 .qp-chip{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:5px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);cursor:default;white-space:nowrap;max-width:160px;overflow:hidden;text-overflow:ellipsis;transition:background .13s,border-color .13s;}
 .qp-chip:hover{background:rgba(59,139,255,.1);border-color:rgba(59,139,255,.3);color:var(--accent2);}
-.qp-section-hdr{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin:14px 0 6px;display:flex;align-items:center;gap:8px;}
-.qp-section-hdr::before{content:'';width:3px;height:11px;background:var(--green);border-radius:2px;flex-shrink:0;}
+/* ── QP Card grid ── */
+.qp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:4px;align-items:start;}
+.qp-card{background:var(--bg1);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .15s,box-shadow .15s;}
+.qp-card:hover{border-color:var(--border2);box-shadow:0 3px 12px var(--shadow);}
+.qp-card-hdr{display:flex;align-items:center;justify-content:space-between;padding:4px 8px;background:var(--bg3);border-bottom:1px solid var(--border);}
+.qp-card-body{display:flex;align-items:center;gap:8px;padding:9px 10px 7px;}
+.qp-card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px;}
+.qp-card-footer{padding:4px 10px 6px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);cursor:pointer;user-select:none;}
+.qp-card-footer:hover{background:var(--bg2);}
+.qp-card-opts{display:none;border-top:1px solid var(--border);padding:7px 10px 8px;}
+.qp-opt-row{display:flex;gap:6px;padding:3px 0;border-bottom:1px solid var(--border);}
+.qp-opt-row:last-child{border-bottom:none;}
 </style>
 </head>
 <body>
@@ -311,10 +314,8 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
       <div class="faceid-wrap">
         <div class="faceid-ring" id="fid-ring" onclick="startFaceScan()">
           <svg class="fid-svg" viewBox="0 0 60 60" fill="none" stroke="var(--accent2)" stroke-width="2.2" stroke-linecap="round">
-            <path d="M18 21 Q21 17.5 24 21"/>
-            <path d="M36 21 Q39 17.5 42 21"/>
-            <line x1="21" y1="27" x2="21" y2="31"/>
-            <line x1="39" y1="27" x2="39" y2="31"/>
+            <path d="M18 21 Q21 17.5 24 21"/><path d="M36 21 Q39 17.5 42 21"/>
+            <line x1="21" y1="27" x2="21" y2="31"/><line x1="39" y1="27" x2="39" y2="31"/>
             <path d="M29 28 L27.5 34.5 Q30 36.5 32.5 34.5 L31 28"/>
             <path d="M22 41 Q30 47 38 41"/>
           </svg>
@@ -385,12 +386,10 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
           <div class="theme-section-lbl">Chế độ sáng / tối</div>
           <div class="base-row">
             <button class="base-btn" id="mode-dark" onclick="setBaseMode('dark')">
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-              Tối
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>Tối
             </button>
             <button class="base-btn" id="mode-light" onclick="setBaseMode('light')">
-              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-              Sáng
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>Sáng
             </button>
           </div>
         </div>
@@ -440,7 +439,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 </div>
 
 <div class="main">
-
 <div class="page on" id="p0">
   <div id="sm">
     <div class="card">
@@ -465,13 +463,12 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
     </div>
   </div>
   <div id="mm" style="display:none">
-    <!-- ══ QUICK PASTE PANEL ══ -->
     <div class="card" id="quick-paste-card">
       <div class="ctitle" style="justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
         <span>Nhập nhanh nhiều Item (phân cách bằng @)</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <span id="qp-count" style="font-size:10px;font-weight:700;color:var(--accent2);background:rgba(59,139,255,.12);padding:2px 9px;border-radius:5px;display:none;"></span>
-          <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:3px 8px;border:1px solid var(--border);border-radius:5px;">@ SEPARATOR</span>
+          <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:3px 8px;border:1px solid var(--border);border-radius:5px;">Cách Nhau Bằng @</span>
         </div>
       </div>
       <div style="position:relative;">
@@ -484,31 +481,23 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
           style="position:absolute;top:8px;right:8px;background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:18px;line-height:1;padding:1px 5px;transition:color .13s;"
           onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">×</button>
       </div>
-      <!-- Chips preview -->
       <div id="qp-chips" style="display:none;margin-top:9px;flex-wrap:wrap;gap:5px;padding:8px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;min-height:36px;"></div>
       <div style="display:flex;gap:8px;margin-top:9px;align-items:center;flex-wrap:wrap;">
         <button class="btn bp bsm" id="qp-check-btn" onclick="checkQp()" style="display:none;gap:5px;">
           <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
           Kiểm tra tất cả
         </button>
-        <button class="btn bgh bsm" id="qp-to-rows-btn" onclick="qpToRows()" style="display:none;">
-          Chuyển sang dạng hàng ↓
-        </button>
+        <button class="btn bgh bsm" id="qp-to-rows-btn" onclick="qpToRows()" style="display:none;">Chuyển sang dạng hàng ↓</button>
         <button class="btn bgh bsm" id="qp-clear-all-btn" onclick="clearQp()" style="display:none;">Xóa tất cả</button>
       </div>
     </div>
-
-    <!-- QP RESULTS -->
     <div id="qp-results"></div>
-
-    <!-- ══ MANUAL ROWS ══ -->
     <div class="card" id="manual-rows-card" style="margin-top:12px;display:none;background:var(--bg1);border:1px solid var(--border2);">
       <div class="ctitle">Nhập từng chuỗi (mỗi dòng 1 item)</div>
       <div id="mrows"></div>
       <div style="display:flex;gap:8px;margin-top:4px;align-items:center;">
         <button class="btn bgh bsm" onclick="addMRow()" style="gap:4px;">
-          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Thêm
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Thêm
         </button>
         <button class="btn bp bsm" onclick="checkAllRows()">Kiểm tra tất cả</button>
         <button class="btn bgh bsm" onclick="clearAllRows()">Xóa tất cả</button>
@@ -518,22 +507,32 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 </div>
 
 <div class="page" id="p1">
-  <div class="lg">
-    <div class="card">
+  <div id="p1-wrap" style="display:flex;gap:12px;align-items:flex-start;transition:all .3s;">
+    <div class="card" id="item-card" style="flex:1;transition:all .3s;">
       <div class="ctitle">Tra cứu Item (ID hoặc tên)</div>
       <div class="row">
         <input class="field" id="li" placeholder="ID (VD: 1935) hoặc tên..." onkeydown="if(event.key==='Enter')lI()"/>
         <button class="btn bp bsm" onclick="lI()">Tra</button>
+        <button class="btn bgh bsm" onclick="clearLI()">✕</button>
       </div>
       <div class="lr" id="lir"></div>
     </div>
-    <div class="card">
-      <div class="ctitle">Tra cứu Option (ID hoặc tên)</div>
-      <div class="row">
-        <input class="field" id="lo" placeholder="ID (VD: 50) hoặc tên..." onkeydown="if(event.key==='Enter')lO()"/>
-        <button class="btn bp bsm" onclick="lO()">Tra</button>
+    <div class="card" id="opt-card" style="width:42px;overflow:hidden;transition:all .3s;cursor:pointer;flex-shrink:0;position:relative;" onclick="expandOpt()" title="Tra cứu Option">
+      <div id="opt-collapsed" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:8px 0;min-height:80px;">
+        <svg width="15" height="15" fill="none" stroke="var(--accent2)" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <span style="writing-mode:vertical-rl;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);">Option</span>
       </div>
-      <div class="lr" id="lor"></div>
+      <div id="opt-expanded" style="display:none;min-width:320px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+          <div class="ctitle" style="margin-bottom:0;">Tra cứu Option (ID hoặc tên)</div>
+          <button onclick="collapseOpt(event)" style="background:transparent;border:none;color:var(--text3);cursor:pointer;font-size:18px;line-height:1;padding:0 2px;transition:color .13s;" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">×</button>
+        </div>
+        <div class="row">
+          <input class="field" id="lo" placeholder="ID (VD: 50) hoặc tên..." onkeydown="if(event.key==='Enter')lO()"/>
+          <button class="btn bp bsm" onclick="lO()">Tra</button>
+        </div>
+        <div class="lr" id="lor"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -581,7 +580,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
     </div>
   </div>
 </div>
-
 </div>
 </div>
 
@@ -636,7 +634,6 @@ loadData();
 function normalizeOnlineItem(o) {
   return { id: o.id, name: o.name || '', description: o.description || '', level: o.level || 1, type: o.type != null ? o.type : 0, gender: o.gender != null ? o.gender : 3, part: o.part != null ? o.part : -1, iconId: o.icon != null ? o.icon : null, icon: o.icon != null ? o.icon : null, _online: true };
 }
-
 async function fetchOnlineAll() {
   if (onlineItemsAll) return onlineItemsAll;
   if (onlineLoadPromise) return onlineLoadPromise;
@@ -647,21 +644,18 @@ async function fetchOnlineAll() {
   }).catch(() => { onlineItemsAll = []; return []; });
   return onlineLoadPromise;
 }
-
 async function fetchOnlineById(id) {
   const sid = String(id);
   if (onlineCache[sid]) return onlineCache[sid];
   await fetchOnlineAll();
   return onlineCache[sid] || null;
 }
-
 async function getItemAsync(id) {
   const sid = String(id);
   if (ID[sid]) return { item: ID[sid], online: false };
   const onl = await fetchOnlineById(sid);
   return { item: onl, online: !!onl };
 }
-
 function getIconUrl(item) {
   if (!item) return null;
   const iconVal = item.icon != null ? item.icon : (item.iconId != null ? item.iconId : null);
@@ -669,7 +663,6 @@ function getIconUrl(item) {
   if (item._online) return ONLINE_ICON_BASE + iconVal + '.png';
   else return 'small/Small' + iconVal + '.png';
 }
-
 function iconBoxHtml(item, iid) {
   const url = getIconUrl(item);
   if (url) {
@@ -811,7 +804,7 @@ function startFaceScan(){
   },1600);
 }
 
-/* THEME / PAGES */
+/* THEME */
 const GRADIENTS = [
   {id:'g1',label:'Xanh ngọc',css:'linear-gradient(45deg,#0c675e,#069e90)'},
   {id:'g2',label:'Cầu vồng',css:'linear-gradient(135deg,rgba(165,42,4,.89),rgba(113,102,8,.89),rgba(13,95,16,.93),rgba(4,79,88,.94),rgba(19,56,86,.9),rgba(24,32,78,.94),rgba(100,8,115,.95))'},
@@ -829,7 +822,6 @@ const GRADIENTS = [
   {id:'g14',label:'Thiên hà',css:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460,#533483)'},
   {id:'g15',label:'Mặt trời',css:'linear-gradient(135deg,#fc4a1a,#f7b733)'},
 ];
-
 let currentBase=localStorage.getItem('db_base')||'dark';
 let currentGrad=localStorage.getItem('db_grad')||'';
 let currentBgImg=null;
@@ -838,7 +830,6 @@ let currentBgSize=localStorage.getItem('db_bgsize')||'cover';
 let currentBgPosX=parseInt(localStorage.getItem('db_bgposx')||'50');
 let currentBgPosY=parseInt(localStorage.getItem('db_bgposy')||'50');
 let themeDropOpen=false;
-
 function buildSwatches(){
   const c=document.getElementById('swatches');
   c.innerHTML=GRADIENTS.map(g=>`<div class="swatch" id="sw-${g.id}" style="background:${g.css}" title="${g.label}" onclick="setGrad('${g.id}')"></div>`).join('');
@@ -869,13 +860,11 @@ function applyBg(){
     const ov=document.getElementById('bg-overlay-div');if(ov)ov.style.display='none';
   }
 }
-
 let _idb=null;
 function openIDB(){if(_idb)return Promise.resolve(_idb);return new Promise((res,rej)=>{const req=indexedDB.open('dragonboy_tool',1);req.onupgradeneeded=e=>e.target.result.createObjectStore('kv');req.onsuccess=e=>{_idb=e.target.result;res(_idb);};req.onerror=()=>rej(req.error);});}
 function idbSet(key,val){return openIDB().then(db=>new Promise((res,rej)=>{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').put(val,key);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);}));}
 function idbGet(key){return openIDB().then(db=>new Promise((res,rej)=>{const tx=db.transaction('kv','readonly');const req=tx.objectStore('kv').get(key);req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error);}));}
 function idbDel(key){return openIDB().then(db=>new Promise((res,rej)=>{const tx=db.transaction('kv','readwrite');tx.objectStore('kv').delete(key);tx.oncomplete=()=>res();tx.onerror=()=>rej(tx.error);}));}
-
 function handleBgUpload(input){
   const file=input.files[0];if(!file)return;
   const uploadArea=document.getElementById('upload-area');const origHTML=uploadArea.innerHTML;
@@ -912,11 +901,9 @@ function clearBg(){currentBgImg=null;idbDel('db_bgimg').catch(()=>{});localStora
 function updateOverlay(val){currentOverlay=parseInt(val);localStorage.setItem('db_overlay',currentOverlay);document.getElementById('overlay-val').textContent=currentOverlay+'%';applyBg();}
 function setBgSize(val){currentBgSize=val;localStorage.setItem('db_bgsize',val);document.querySelectorAll('.bg-size-btn').forEach(b=>b.classList.toggle('on',b.dataset.v===val));applyBg();}
 function updateBgPos(){currentBgPosX=parseInt(document.getElementById('bg-pos-x').value);currentBgPosY=parseInt(document.getElementById('bg-pos-y').value);document.getElementById('bg-pos-x-val').textContent=currentBgPosX+'%';document.getElementById('bg-pos-y-val').textContent=currentBgPosY+'%';localStorage.setItem('db_bgposx',currentBgPosX);localStorage.setItem('db_bgposy',currentBgPosY);applyBg();}
-
 function toggleThemeDrop(e){e.stopPropagation();themeDropOpen=!themeDropOpen;document.getElementById('theme-drop').classList.toggle('open',themeDropOpen);}
 function closeThemeDrop(){themeDropOpen=false;document.getElementById('theme-drop').classList.remove('open');}
 document.addEventListener('click',e=>{if(!document.getElementById('theme-wrap').contains(e.target))closeThemeDrop();});
-
 function initTheme(){
   buildSwatches();setBaseMode(currentBase);
   if(currentGrad){const el=document.getElementById('sw-'+currentGrad);if(el)el.classList.add('on');}
@@ -938,7 +925,6 @@ function togM(){
   document.getElementById('sm').style.display=on?'none':'block';
   document.getElementById('mm').style.display=on?'block':'none';
   if(!on){
-    // Khi tắt toggle, ẩn manual card + reset
     document.getElementById('manual-rows-card').style.display='none';
     document.getElementById('qp-results').innerHTML='';
     document.getElementById('qp-input').value='';
@@ -963,12 +949,10 @@ const TN={0:'Áo',1:'Quần',2:'Găng',3:'Giày',4:'Phụ kiện',5:'Cải Trang
 const GN={'0':'Trái Đất','1':'Namec','2':'Xayda','3':'Chung'};
 function getG(g){return GN[String(g)]||'Chung';}
 function gCls(g){const m={'0':'tcyan','1':'tg2','2':'to','3':'tgr'};return m[String(g)]||'tgr';}
-
 let selOpts='';
 function buildSelOpts(){
   selOpts='<option value="">-- Chọn option --</option>'+Object.entries(OD).sort((a,b)=>parseInt(a[0])-parseInt(b[0])).map(([k,v])=>'<option value="'+k+'">'+k+' - '+esc(vi(v.name))+'</option>').join('');
 }
-
 function parseSync(s){
   s=s.trim();const u=s.indexOf('_');if(u<0)return null;
   let rawId=s.slice(0,u),rest=s.slice(u+1);
@@ -979,17 +963,15 @@ function parseSync(s){
   if(rest){for(const p of rest.split(';')){if(!p.trim())continue;const pts=p.split(',');opts.push({id:pts[0],val:pts[1]||'0',data:OD[pts[0]]||null});}}
   return{iid,item,opts,qty,online:false};
 }
-
 async function parseAsync(s){
   const p=parseSync(s);if(!p)return null;
   if(!p.item){const{item,online}=await getItemAsync(p.iid);p.item=item;p.online=online;}
   return p;
 }
-
 function ric(p){
   if(!p)return'<div class="empty"><span style="color:var(--red)">Định dạng không hợp lệ</span></div>';
   const{iid,item,opts}=p;const qty=p.qty||null;
-  const name=item?vi(item.name):'[Item ID: '+iid+']';const desc=item?vi(item.description||''):'';  
+  const name=item?vi(item.name):'[Item ID: '+iid+']';const desc=item?vi(item.description||''):'';
   const lvl=item?(item.level||1):1;const[rl,rc]=gr(lvl);
   const typeName=item?(TN[item.type]||'Type '+item.type):'';
   const part=item?item.part:null;const gender=item!=null?item.gender:null;
@@ -1021,7 +1003,6 @@ function ric(p){
       :(desc?'<div class="div1"></div><div class="ic-opts"><div class="dl">'+esc(desc)+'</div></div>':''))
     +'</div>';
 }
-
 function bt(p){
   if(!p)return'';const{iid,item,opts}=p;const qty=p.qty||null;
   const lines=[(item?vi(item.name):'['+iid+']')+(qty?' x'+qty:'')];
@@ -1030,7 +1011,7 @@ function bt(p){
   return lines.join('\n');
 }
 
-/* SINGLE INPUT */
+/* SINGLE */
 let singleRes=null;
 async function checkSingle(){
   const v=document.getElementById('si').value.trim();const ee=document.getElementById('es');
@@ -1047,14 +1028,10 @@ async function checkSingle(){
 function clearSingle(){document.getElementById('si').value='';document.getElementById('rs-e').style.display='flex';document.getElementById('rs-r').style.display='none';document.getElementById('as').style.display='none';document.getElementById('es').style.display='none';singleRes=null;}
 function cpSingle(){if(!singleRes)return;const txt=bt(singleRes);navigator.clipboard.writeText(txt).then(()=>{const b=event.currentTarget;const o=b.innerHTML;b.textContent='Đã copy!';setTimeout(()=>b.innerHTML=o,2000);});}
 
-/* ══════════════════════════════════════════════
-   QUICK PASTE — phân cách bằng @
-══════════════════════════════════════════════ */
+/* ══ QUICK PASTE ══ */
 function parseQpStr(raw) {
-  // Tách bằng @ — bỏ phần tử rỗng, trim khoảng trắng
   return raw.split('@').map(s => s.trim()).filter(s => s.length > 0);
 }
-
 function onQpInput(val) {
   const strs = parseQpStr(val);
   const chipsEl = document.getElementById('qp-chips');
@@ -1062,10 +1039,7 @@ function onQpInput(val) {
   const checkBtn = document.getElementById('qp-check-btn');
   const toRowsBtn = document.getElementById('qp-to-rows-btn');
   const resultsEl = document.getElementById('qp-results');
-
-  // Clear kết quả cũ khi user edit lại
   resultsEl.innerHTML = '';
-
   if (!strs.length) {
     chipsEl.style.display = 'none';
     countEl.style.display = 'none';
@@ -1074,14 +1048,11 @@ function onQpInput(val) {
     document.getElementById('qp-clear-all-btn').style.display = 'none';
     return;
   }
-
-  // Render chip preview
   chipsEl.style.display = 'flex';
   chipsEl.innerHTML = strs.map((s, i) => {
     const short = s.length > 24 ? s.slice(0, 24) + '…' : s;
     return `<span class="qp-chip" title="${esc(s)}" style="animation-delay:${i*.03}s">${esc(short)}</span>`;
   }).join('');
-
   countEl.textContent = strs.length + ' items';
   countEl.style.display = 'inline-block';
   checkBtn.style.display = 'inline-flex';
@@ -1089,6 +1060,7 @@ function onQpInput(val) {
   document.getElementById('qp-clear-all-btn').style.display = 'inline-flex';
 }
 
+// ══ FIX CHÍNH: dùng DOM thật thay vì innerHTML string để tránh lỗi escape ══
 async function checkQp() {
   const strs = parseQpStr(document.getElementById('qp-input').value);
   if (!strs.length) return;
@@ -1096,15 +1068,144 @@ async function checkQp() {
   const resultsEl = document.getElementById('qp-results');
   resultsEl.innerHTML = `<div class="empty" style="min-height:64px"><span class="spin-sm"></span><span style="color:var(--text2);font-size:13px">Đang kiểm tra ${strs.length} items...</span></div>`;
 
-  // Parse tất cả đồng thời
   const parsed = await Promise.all(strs.map(s => parseAsync(s)));
 
-  let html = `<div class="qp-results-wrap"><div class="qp-results-hdr">${strs.length} KẾT QUẢ</div><div class="qp-results-body">`;
-  html += parsed.map(p => ric(p)).join('');
-  html += '</div></div>';
-  resultsEl.innerHTML = html;
+  resultsEl.innerHTML = '';
 
-  // Scroll đến kết quả
+  if (strs.length > 2) {
+    // Grid view — dùng DOM để tránh bug escape onclick
+    const grid = document.createElement('div');
+    grid.className = 'qp-grid';
+    resultsEl.appendChild(grid);
+
+    parsed.forEach((p, idx) => {
+      if (!p || !p.item) {
+        const err = document.createElement('div');
+        err.style.cssText = 'background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;color:var(--red);font-size:12px;';
+        err.textContent = 'Không hợp lệ';
+        grid.appendChild(err);
+        return;
+      }
+
+      const item = p.item, id = p.iid, opts = p.opts, qty = p.qty;
+      const name = vi(item.name);
+      const desc = vi(item.description || '');
+      const isDanh = desc === 'Danh hieu' || desc === 'Danh hiệu';
+      const iconVal = item.icon != null ? item.icon : item.iconId;
+      const src = item._online
+        ? (iconVal != null ? ONLINE_ICON_BASE + iconVal + '.png' : 'small/Small999999.png')
+        : (iconVal != null ? 'small/Small' + iconVal + '.png' : 'small/Small999999.png');
+      const [rl, rc] = gr(item.level || 1);
+      const typeName = TN[item.type] || ('Type ' + item.type);
+      const gc = gCls(item.gender), gn = getG(item.gender);
+
+      // Card wrapper
+      const card = document.createElement('div');
+      card.className = 'qp-card';
+
+      // Header
+      const hdr = document.createElement('div');
+      hdr.className = 'qp-card-hdr';
+      hdr.innerHTML =
+        '<span style="font-size:8.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);">' + esc(rl) + '</span>';
+      const chipEl = document.createElement('span');
+      chipEl.className = 'id-chip';
+      chipEl.style.cssText = 'font-size:9px;padding:1px 5px;';
+      chipEl.textContent = 'ID: ' + id;
+      chipEl.onclick = function(e) { e.stopPropagation(); cpId(chipEl, id); };
+      hdr.appendChild(chipEl);
+      card.appendChild(hdr);
+
+      // Body
+      const body = document.createElement('div');
+      body.className = 'qp-card-body';
+      const imgEl = document.createElement('img');
+      imgEl.src = src;
+      imgEl.onerror = function() { this.onerror = null; this.src = 'small/Small999999.png'; };
+      imgEl.style.cssText = 'width:36px;height:36px;object-fit:contain;border-radius:6px;flex-shrink:0;';
+      const bodyInfo = document.createElement('div');
+      bodyInfo.style.cssText = 'flex:1;min-width:0;';
+      const nameDiv = document.createElement('div');
+      nameDiv.style.cssText = 'font-size:12px;font-weight:700;color:var(--text);line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+      nameDiv.textContent = name;
+      if (qty) {
+        const qtyBadge = document.createElement('span');
+        qtyBadge.className = 'tag-qty';
+        qtyBadge.style.cssText = 'font-size:8px;padding:1px 4px;';
+        qtyBadge.textContent = 'x' + qty;
+        nameDiv.appendChild(qtyBadge);
+      }
+      const tagsDiv = document.createElement('div');
+      tagsDiv.className = 'qp-card-tags';
+      tagsDiv.innerHTML =
+        '<span class="tag tb" style="font-size:8.5px;padding:1px 5px;">' + esc(typeName) + '</span>'
+        + (item.level > 1 ? '<span class="tag to" style="font-size:8.5px;padding:1px 5px;">Lv.' + item.level + '</span>' : '')
+        + (item.gender != null && item.gender !== 3 ? '<span class="tag ' + gc + '" style="font-size:8.5px;padding:1px 5px;">' + esc(gn) + '</span>' : '');
+      bodyInfo.appendChild(nameDiv);
+      bodyInfo.appendChild(tagsDiv);
+      body.appendChild(imgEl);
+      body.appendChild(bodyInfo);
+      card.appendChild(body);
+
+      // Footer + options panel — CHỈ tạo nếu có options
+      if (opts.length) {
+        // Options panel (ẩn mặc định)
+        const optsPanel = document.createElement('div');
+        optsPanel.className = 'qp-card-opts';
+        opts.forEach(o => {
+          const label = o.data ? fo(o.data, o.val) : '[Option ' + o.id + ']';
+          const nt = o.id === '30';
+          const row = document.createElement('div');
+          row.className = 'qp-opt-row';
+          row.innerHTML =
+            '<span style="font-family:var(--mono);font-size:9px;color:var(--text3);min-width:20px;">' + o.id + '</span>'
+            + '<span style="font-size:11px;color:' + (nt ? '#fca5a5' : 'var(--text)') + ';">' + esc(label) + '</span>';
+          optsPanel.appendChild(row);
+        });
+
+        // Footer toggle — dùng addEventListener, không dùng onclick string
+        const footer = document.createElement('div');
+        footer.className = 'qp-card-footer';
+        const footerLeft = document.createElement('span');
+        footerLeft.style.cssText = 'font-size:9.5px;font-weight:700;color:var(--text3);';
+        footerLeft.textContent = '⚙ ' + opts.length + ' options';
+        const footerArrow = document.createElement('span');
+        footerArrow.style.cssText = 'font-size:9px;color:var(--accent2);';
+        footerArrow.textContent = '▼ xem';
+        footer.appendChild(footerLeft);
+        footer.appendChild(footerArrow);
+
+        // Toggle bằng addEventListener — không cần ID, không escape
+        let isOpen = false;
+        footer.addEventListener('click', function(e) {
+          e.stopPropagation();
+          isOpen = !isOpen;
+          optsPanel.style.display = isOpen ? 'block' : 'none';
+          footerArrow.textContent = isOpen ? '▲ ẩn' : '▼ xem';
+        });
+
+        card.appendChild(footer);
+        card.appendChild(optsPanel);
+      }
+
+      grid.appendChild(card);
+    });
+
+  } else {
+    // Ít item → full width
+    const wrap = document.createElement('div');
+    wrap.className = 'qp-results-wrap';
+    const hdrEl = document.createElement('div');
+    hdrEl.className = 'qp-results-hdr';
+    hdrEl.textContent = strs.length + ' KẾT QUẢ';
+    const bodyEl = document.createElement('div');
+    bodyEl.className = 'qp-results-body';
+    parsed.forEach(p => { bodyEl.innerHTML += ric(p); });
+    wrap.appendChild(hdrEl);
+    wrap.appendChild(bodyEl);
+    resultsEl.appendChild(wrap);
+  }
+
   resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -1112,35 +1213,27 @@ function clearQp() {
   document.getElementById('qp-input').value = '';
   onQpInput('');
   document.getElementById('qp-results').innerHTML = '';
-  // Ẩn manual rows card lại
-  const manualCard = document.getElementById('manual-rows-card');
-  manualCard.style.display = 'none';
+  document.getElementById('manual-rows-card').style.display = 'none';
 }
 
 function qpToRows() {
   const strs = parseQpStr(document.getElementById('qp-input').value);
   if (!strs.length) return;
-
-  // Hiện manual rows card
   const manualCard = document.getElementById('manual-rows-card');
   manualCard.style.display = 'block';
-  // Animation
   manualCard.style.opacity = '0';manualCard.style.transform = 'translateY(6px)';
   requestAnimationFrame(() => { manualCard.style.transition = 'opacity .25s,transform .25s'; manualCard.style.opacity = '1'; manualCard.style.transform = 'translateY(0)'; });
-
-  // Fill vào manual rows
   document.getElementById('mrows').innerHTML = '';
   mrowId = 0;
   strs.forEach(s => {
     const id = mrowId++;
     const c = document.getElementById('mrows');
-    const idx = c.children.length + 1;
     const wrap = document.createElement('div');
     wrap.className = 'mrow-wrap';
     wrap.id = 'mwrap' + id;
     const safeVal = s.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     wrap.innerHTML = '<div class="mrow">'
-      + '<span class="mrow-num">' + idx + '</span>'
+      + '<span class="mrow-num">' + (c.children.length + 1) + '</span>'
       + '<input class="field" id="mri' + id + '" value="' + safeVal + '" spellcheck="false" style="font-family:var(--mono);font-size:13px;"/>'
       + '<button class="btn bp bsm" onclick="checkOneRow(' + id + ')">Kiểm tra</button>'
       + '<button class="mrow-del" onclick="delMRow(' + id + ')" title="Xóa dòng này">&#10005;</button>'
@@ -1150,13 +1243,12 @@ function qpToRows() {
     document.getElementById('mri' + id).addEventListener('keydown', ev => { if (ev.key === 'Enter') checkOneRow(id); });
   });
   reIndexMRows();
-  // Scroll xuống manual rows
   setTimeout(() => manualCard.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 }
 
 /* MULTI ROWS */
 let mrowId=0;
-function initMRows(){ /* rows added on demand */ }
+function initMRows(){}
 function addMRow(){
   const id=mrowId++;const c=document.getElementById('mrows');const idx=c.children.length+1;
   const wrap=document.createElement('div');wrap.className='mrow-wrap';wrap.id='mwrap'+id;
@@ -1196,26 +1288,76 @@ async function lI(){
   const q=document.getElementById('li').value.trim();const el=document.getElementById('lir');if(!q)return;
   el.classList.add('on');el.innerHTML='<span class="spin-sm"></span><span style="font-size:12px;color:var(--text2)">Đang tra cứu...</span>';
   let results=[];
-  if(ID[q])results=[{id:q,item:ID[q],online:false}];
+  if(ID[q]) results=[{id:q,item:ID[q],online:false}];
   else{const ql=q.toLowerCase();results=Object.entries(ID).filter(([k,v])=>vi(v.name).toLowerCase().includes(ql)).slice(0,5).map(([k,v])=>({id:k,item:v,online:false}));}
-  if(!results.length){
-    const all=await fetchOnlineAll();
-    if(all.length){const byId=onlineCache[String(q)];if(byId){results=[{id:String(byId.id),item:byId,online:true}];}else{const ql=q.toLowerCase();results=all.filter(o=>(o.name||'').toLowerCase().includes(ql)).slice(0,5).map(o=>({id:String(o.id),item:normalizeOnlineItem(o),online:true}));}}
+  const all=await fetchOnlineAll();
+  if(all.length){
+    const ql=q.toLowerCase();
+    const localIds=new Set(results.map(r=>r.id));
+    const onlineExtra = /^\d+$/.test(q)
+      ? (onlineCache[q]&&!localIds.has(q)?[{id:q,item:onlineCache[q],online:true}]:[])
+      : all.filter(o=>(o.name||'').toLowerCase().includes(ql)&&!localIds.has(String(o.id))).slice(0,5).map(o=>({id:String(o.id),item:normalizeOnlineItem(o),online:true}));
+    results=[...results,...onlineExtra];
   }
   if(!results.length){el.innerHTML='<span style="color:var(--red);font-size:13px">Ôi no! dữ liệu '+esc(q)+' không tìm thấy</span>';return;}
-  el.innerHTML=results.map(({id,item,online})=>{
-    const name=vi(item.name),desc=vi(item.description||'');const isDanh=desc==='Danh hieu'||desc==='Danh hiệu';
-    const iconUrl=getIconUrl(item);const iconVal=item.icon!=null?item.icon:item.iconId;
-    const onlineFb=iconVal!=null?ONLINE_ICON_BASE+iconVal+'.png':'';
-    const ih=iconUrl?'<img src="'+iconUrl+'" onerror="'+(onlineFb?'this.onerror=function(){this.src=\'small/Small999999.png\'};this.src=\''+onlineFb+'\'':'this.src=\'small/Small999999.png\'')+'" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">':'<img src="small/Small999999.png" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">';
-    const gc=gCls(item.gender);const gn=getG(item.gender);
-    const idChip=`<span class="id-chip" onclick="cpId(this,'${esc(id)}')" title="Click để copy ID">ID: ${esc(id)}</span>`;
-    return'<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);position:relative;">'
-      +ih+'<div style="flex:1;min-width:0"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px"><div class="lr-name">'+esc(name)+'</div>'+idChip+'</div>'
-      +(desc&&!isDanh?'<div style="font-size:12px;color:var(--text2);margin-top:2px">'+esc(desc)+'</div>':'')+'</div></div>'
-      +'<div class="lr-row"><span class="lk">IconID</span><span class="lv">'+(iconVal!=null?iconVal:'—')+'</span><span class="lk">Type</span><span class="lv">'+(TN[item.type]||item.type)+'</span><span class="lk">Level</span><span class="lv">'+item.level+'</span></div>'
-      +'<div class="lr-row" style="margin-top:5px;">'+(item.gender!==3?'<span class="tag '+gc+'">'+esc(gn)+'</span>':'')+(isDanh?'<span class="tag tp2">Banner ID: '+item.part+'</span>':(item.part>=0?'<span class="tag tgr">Part '+item.part+'</span>':''))+'</div>';
-  }).join('<hr style="border-color:var(--border);margin:8px 0">');
+  if(results.length > 2) {
+    el.innerHTML = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:4px;align-items:start;">'
+      + results.map(({id,item}) => {
+          if(!item) return '';
+          const name=vi(item.name),desc=vi(item.description||'');
+          const isDanh=desc==='Danh hieu'||desc==='Danh hiệu';
+          const iconVal=item.icon!=null?item.icon:item.iconId;
+          const src=item._online?(iconVal!=null?ONLINE_ICON_BASE+iconVal+'.png':'small/Small999999.png'):(iconVal!=null?'small/Small'+iconVal+'.png':'small/Small999999.png');
+          const ih='<img src="'+src+'" onerror="this.onerror=null;this.src=\'small/Small999999.png\'" style="width:52px;height:52px;object-fit:contain;border-radius:8px;flex-shrink:0;">';
+          const typeName=TN[item.type]||('Type '+item.type);
+          const gc=gCls(item.gender),gn=getG(item.gender);
+          const [rl,rc]=gr(item.level||1);
+          return '<div style="background:var(--bg1);border:1px solid var(--border);border-radius:12px;overflow:hidden;">'
+            +'<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 11px 5px;background:var(--bg3);border-bottom:1px solid var(--border);">'
+            +'<span style="font-size:9px;font-weight:700;text-transform:uppercase;color:var(--text3);">'+esc(rl)+'</span>'
+            +'<span class="id-chip" onclick="cpId(this,\''+esc(id)+'\')" style="font-size:9.5px;padding:1px 6px;">ID: '+esc(id)+'</span>'
+            +'</div>'
+            +'<div style="display:flex;align-items:flex-start;gap:11px;padding:13px 13px 10px;">'+ih
+            +'<div style="flex:1;min-width:0;">'
+            +'<div style="font-size:13.5px;font-weight:700;color:var(--text);">'+esc(name)+'</div>'
+            +(desc&&!isDanh?'<div style="font-size:12px;color:var(--text2);margin-top:3px;">'+esc(desc)+'</div>':'')
+            +'</div></div>'
+            +'<div style="padding:0 13px 11px;display:flex;gap:5px;flex-wrap:wrap;">'
+            +'<span class="tag tb" style="font-size:10px;">'+esc(typeName)+'</span>'
+            +(item.level>1?'<span class="tag to" style="font-size:10px;">Lv.'+item.level+'</span>':'')
+            +(item.gender!=null&&item.gender!==3?'<span class="tag '+gc+'" style="font-size:10px;">'+esc(gn)+'</span>':'')
+            +(isDanh?'<span class="tag tp2" style="font-size:10px;">Banner #'+item.part+'</span>':(item.part!=null&&item.part>=0?'<span class="tag tgr" style="font-size:10px;">Part '+item.part+'</span>':''))
+            +'</div></div>';
+        }).join('')+'</div>';
+  } else {
+    el.innerHTML=results.map(({id,item})=>{
+      if(!item) return '';
+      const name=vi(item.name),desc=vi(item.description||'');
+      const isDanh=desc==='Danh hieu'||desc==='Danh hiệu';
+      const iconUrl=getIconUrl(item);
+      const iconVal=item.icon!=null?item.icon:item.iconId;
+      const onlineFb=iconVal!=null?ONLINE_ICON_BASE+iconVal+'.png':'';
+      const ih=iconUrl
+        ?'<img src="'+iconUrl+'" onerror="'+(onlineFb?'this.onerror=function(){this.src=\'small/Small999999.png\'};this.src=\''+onlineFb+'\'':'this.src=\'small/Small999999.png\'')+'" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">'
+        :'<img src="small/Small999999.png" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">';
+      const gc=gCls(item.gender);const gn=getG(item.gender);
+      const idChip='<span class="id-chip" onclick="cpId(this,\''+esc(id)+'\')" title="Click để copy ID">ID: '+esc(id)+'</span>';
+      return '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);">'
+        +ih+'<div style="flex:1;min-width:0"><div style="display:flex;align-items:flex-start;justify-content:space-between;gap:6px">'
+        +'<div class="lr-name">'+esc(name)+'</div>'+idChip+'</div>'
+        +(desc&&!isDanh?'<div style="font-size:12px;color:var(--text2);margin-top:2px">'+esc(desc)+'</div>':'')
+        +'</div></div>'
+        +'<div class="lr-row">'
+        +'<span class="lk">IconID</span><span class="lv">'+(iconVal!=null?iconVal:'—')+'</span>'
+        +'<span class="lk">Type</span><span class="lv">'+(TN[item.type]||item.type)+'</span>'
+        +'<span class="lk">Level</span><span class="lv">'+item.level+'</span>'
+        +'</div>'
+        +'<div class="lr-row" style="margin-top:5px;">'
+        +(item.gender!==3?'<span class="tag '+gc+'">'+esc(gn)+'</span>':'')
+        +(isDanh?'<span class="tag tp2">Banner ID: '+item.part+'</span>':(item.part>=0?'<span class="tag tgr">Part '+item.part+'</span>':''))
+        +'</div>';
+    }).join('<hr style="border-color:var(--border);margin:8px 0">');
+  }
 }
 
 /* LOOKUP OPTION */
@@ -1229,7 +1371,7 @@ function lO(){
   el.innerHTML=results.map(({id,opt})=>{const name=vi(opt.name);const hh=opt.name.includes('#');return'<div class="lr-name">'+esc(name)+'</div><div class="lr-row"><span class="lk">ID</span><span class="lv">'+esc(id)+'</span><span class="lk">Type</span><span class="lv">'+opt.type+'</span><span class="lk">Tham số</span><span class="lv" style="color:'+(hh?'var(--green)':'var(--text3)')+';">'+(hh?'Có (#)':'Không')+'</span></div>';}).join('<hr style="border-color:var(--border);margin:8px 0">');
 }
 
-/* MAP LOOKUP */
+/* MAP */
 function normSearch(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');}
 function viewMap(id,name){
   const overlay=document.createElement('div');overlay.style.cssText='position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;cursor:pointer;';overlay.onclick=function(){document.body.removeChild(overlay);};
@@ -1238,31 +1380,27 @@ function viewMap(id,name){
   const hint=document.createElement('div');hint.style.cssText='color:rgba(255,255,255,.35);font-size:12px;font-family:var(--sans);';hint.textContent='Nhấn bất kỳ đâu để đóng';
   overlay.appendChild(title);overlay.appendChild(img);overlay.appendChild(hint);document.body.appendChild(overlay);
 }
-
 const SVG_COPY='<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="opacity:.7;flex-shrink:0"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>';
 const SVG_CHECK='<svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="flex-shrink:0"><polyline points="20 6 9 17 4 12"/></svg>';
-
 function makeBadge(mapId){
-  const badge=document.createElement('span');badge.style.cssText=['align-self:flex-start','cursor:pointer','user-select:none','outline:none','-webkit-tap-highlight-color:transparent','display:inline-flex','align-items:center','gap:4px','padding:3px 10px 3px 7px','border-radius:999px','background:linear-gradient(135deg,rgba(59,139,255,.15),rgba(91,163,255,.08))','border:1px solid rgba(59,139,255,.3)','color:#5ba3ff',"font-family:'JetBrains Mono',monospace",'font-size:10.5px','font-weight:600','letter-spacing:.04em','box-shadow:0 0 8px rgba(59,139,255,.1),inset 0 1px 0 rgba(255,255,255,.04)','transition:all .2s cubic-bezier(.4,0,.2,1)'].join(';');
-  badge.title='Click để copy ID';badge.innerHTML=SVG_COPY+'Map '+mapId;
-  const resetBadge=()=>{badge.innerHTML=SVG_COPY+'Map '+mapId;badge.style.background='linear-gradient(135deg,rgba(59,139,255,.15),rgba(91,163,255,.08))';badge.style.borderColor='rgba(59,139,255,.3)';badge.style.color='#5ba3ff';badge.style.boxShadow='0 0 8px rgba(59,139,255,.1),inset 0 1px 0 rgba(255,255,255,.04)';};
-  badge.onmouseenter=()=>{badge.style.background='linear-gradient(135deg,rgba(59,139,255,.25),rgba(91,163,255,.15))';badge.style.borderColor='rgba(59,139,255,.6)';badge.style.boxShadow='0 0 14px rgba(59,139,255,.22),0 2px 6px rgba(0,0,0,.2)';badge.style.transform='translateY(-1px)';badge.style.color='#fff';};
+  const badge=document.createElement('span');badge.style.cssText=['align-self:flex-start','cursor:pointer','user-select:none','display:inline-flex','align-items:center','gap:4px','padding:3px 10px 3px 7px','border-radius:999px','background:linear-gradient(135deg,rgba(59,139,255,.15),rgba(91,163,255,.08))','border:1px solid rgba(59,139,255,.3)','color:#5ba3ff',"font-family:'JetBrains Mono',monospace",'font-size:10.5px','font-weight:600','transition:all .2s'].join(';');
+  badge.innerHTML=SVG_COPY+'Map '+mapId;
+  const resetBadge=()=>{badge.innerHTML=SVG_COPY+'Map '+mapId;badge.style.background='linear-gradient(135deg,rgba(59,139,255,.15),rgba(91,163,255,.08))';badge.style.borderColor='rgba(59,139,255,.3)';badge.style.color='#5ba3ff';};
+  badge.onmouseenter=()=>{badge.style.background='linear-gradient(135deg,rgba(59,139,255,.25),rgba(91,163,255,.15))';badge.style.borderColor='rgba(59,139,255,.6)';badge.style.transform='translateY(-1px)';badge.style.color='#fff';};
   badge.onmouseleave=()=>{badge.style.transform='';resetBadge();};
-  badge.onclick=function(e){e.stopPropagation();navigator.clipboard.writeText(String(mapId)).then(()=>{badge.innerHTML=SVG_CHECK+'Copy ID!';badge.style.background='linear-gradient(135deg,rgba(34,197,94,.2),rgba(34,197,94,.1))';badge.style.borderColor='rgba(34,197,94,.5)';badge.style.color='#22c55e';badge.style.boxShadow='0 0 12px rgba(34,197,94,.2)';badge.style.transform='';setTimeout(resetBadge,1400);});};
+  badge.onclick=function(e){e.stopPropagation();navigator.clipboard.writeText(String(mapId)).then(()=>{badge.innerHTML=SVG_CHECK+'Copy ID!';badge.style.background='linear-gradient(135deg,rgba(34,197,94,.2),rgba(34,197,94,.1))';badge.style.borderColor='rgba(34,197,94,.5)';badge.style.color='#22c55e';setTimeout(resetBadge,1400);});};
   return badge;
 }
-
 function makeMapCard(m,i){
   const div=document.createElement('div');div.className='map-card';div.style.animationDelay=(i*.04)+'s';
   const thumbWrap=document.createElement('div');thumbWrap.style.cssText='width:54px;height:54px;border-radius:8px;border:1px solid var(--border);background:var(--bg3);flex-shrink:0;overflow:hidden;';
   const thumb=document.createElement('img');thumb.src='https://electroheavenvn.github.io/DataNRO/TeaMobi/Maps/'+m.id+'_tile.png';thumb.style.cssText='width:100%;height:100%;object-fit:cover;display:block;';thumb.onerror=function(){thumbWrap.innerHTML='<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--text3);">'+m.id+'</div>';};thumbWrap.appendChild(thumb);
   const info=document.createElement('div');info.style.cssText='flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;';
-  const nameEl=document.createElement('span');nameEl.style.cssText=['white-space:nowrap','overflow:hidden','text-overflow:ellipsis','font-size:14px','font-weight:700','letter-spacing:.01em','background:linear-gradient(90deg,#f59e0b,#fbbf24)','-webkit-background-clip:text','-webkit-text-fill-color:transparent','background-clip:text'].join(';');nameEl.textContent=m.name;
+  const nameEl=document.createElement('span');nameEl.style.cssText=['white-space:nowrap','overflow:hidden','text-overflow:ellipsis','font-size:14px','font-weight:700','background:linear-gradient(90deg,#f59e0b,#fbbf24)','-webkit-background-clip:text','-webkit-text-fill-color:transparent','background-clip:text'].join(';');nameEl.textContent=m.name;
   info.appendChild(nameEl);info.appendChild(makeBadge(m.id));
   const btn=document.createElement('button');btn.className='btn bgh bsm';btn.style.cssText='flex-shrink:0;gap:5px;display:inline-flex;align-items:center;';btn.innerHTML='<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>Xem map';btn.onclick=function(e){e.stopPropagation();viewMap(m.id,m.name);};
   div.appendChild(thumbWrap);div.appendChild(info);div.appendChild(btn);return div;
 }
-
 function lM(){
   const q=document.getElementById('mi2').value.trim();const el=document.getElementById('mr');if(!q){el.classList.remove('on');return;}
   el.classList.add('on');const byId=MD.find(m=>String(m.id)===q);let results=[];
@@ -1287,14 +1425,13 @@ function rbr(){
 }
 function ubrSel(id,v){const row=brows.find(r=>r.id===id);if(!row)return;row.optId=v;row.val='';rbr();uo();const s=document.querySelector('#br'+id+' .bsel');if(s)s.value=row.optId;}
 function ubrVal(id,v){const row=brows.find(r=>r.id===id);if(!row)return;row.val=v;const od=row.optId!==''?OD[row.optId]:null;const hh=od&&od.name.includes('#');const prev=od?(hh?fo(od,v||'0'):vi(od.name)):'--';const prevEl=document.getElementById('bprev'+id);if(prevEl)prevEl.textContent=prev;uo();}
-
 let uoTimer=null;
 function uo(){clearTimeout(uoTimer);uoTimer=setTimeout(_uo,120);}
 async function _uo(){
   const iid=document.getElementById('bid').value.trim();const qty=document.getElementById('bqty').value.trim();
   const ne=document.getElementById('bin');const qp=document.getElementById('bqtyp');const iconBox=document.getElementById('b-icon');
   if(iid){
-    let item=ID[iid]||null;let online=false;if(!item){if(onlineCache[iid]){item=onlineCache[iid];online=true;}}
+    let item=ID[iid]||null;if(!item&&onlineCache[iid])item=onlineCache[iid];
     if(item){ne.innerHTML='<span class="iname-b">'+esc(vi(item.name))+'</span>';const iconUrl=getIconUrl(item);if(iconUrl){iconBox.style.display='flex';iconBox.innerHTML='<img src="'+iconUrl+'" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">';}else{iconBox.style.display='none';iconBox.innerHTML='';}}
     else{ne.innerHTML='<span class="spin-sm"></span>';iconBox.style.display='none';const res=await getItemAsync(iid);if(document.getElementById('bid').value.trim()!==iid)return;if(res.item){ne.innerHTML='<span class="iname-b">'+esc(vi(res.item.name))+'</span>';const iconUrl=getIconUrl(res.item);if(iconUrl){iconBox.style.display='flex';iconBox.innerHTML='<img src="'+iconUrl+'" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">'; }}else{ne.innerHTML='<span style="font-size:12px;color:var(--red)">Không tìm thấy</span>';}}
   }else{ne.innerHTML='';iconBox.style.display='none';iconBox.innerHTML='';}
@@ -1306,7 +1443,6 @@ async function _uo(){
   if(valid.length)str+='_'+valid.map(r=>{const hh=OD[r.optId]&&OD[r.optId].name.includes('#');return r.optId+','+(hh?(r.val||'0'):'0');}).join(';');
   document.getElementById('ot').textContent=str;document.getElementById('ot').style.color='var(--green)';
 }
-
 function cpO(){const txt=document.getElementById('ot').textContent;if(txt==='— chưa có dữ liệu —')return;navigator.clipboard.writeText(txt).then(()=>{const ob=document.getElementById('ob');ob.classList.add('cp');setTimeout(()=>ob.classList.remove('cp'),1500);});}
 function toggleQty(){document.getElementById('qty-wrap').style.display='flex';document.getElementById('qty-btn').style.display='none';document.getElementById('bqty').focus();}
 function removeQty(){document.getElementById('bqty').value='';document.getElementById('qty-wrap').style.display='none';document.getElementById('qty-btn').style.display='';document.getElementById('bqtyp').textContent='';uo();}
@@ -1316,6 +1452,29 @@ document.getElementById('si').addEventListener('keydown',ev=>{if(ev.key==='Enter
 document.getElementById('li').addEventListener('keydown',ev=>{if(ev.key==='Enter')lI();});
 document.getElementById('lo').addEventListener('keydown',ev=>{if(ev.key==='Enter')lO();});
 document.getElementById('mi2').addEventListener('keydown',ev=>{if(ev.key==='Enter')lM();});
+
+/* P1 expand/collapse */
+let optExpanded=false;
+function expandOpt(){
+  if(optExpanded)return;optExpanded=true;
+  const card=document.getElementById('opt-card');
+  document.getElementById('opt-collapsed').style.display='none';
+  card.style.width='';card.style.cursor='default';card.onclick=null;
+  document.getElementById('opt-expanded').style.display='block';
+}
+function collapseOpt(e){
+  if(e)e.stopPropagation();optExpanded=false;
+  const card=document.getElementById('opt-card');
+  document.getElementById('opt-expanded').style.display='none';
+  card.style.width='42px';card.style.cursor='pointer';card.onclick=expandOpt;
+  document.getElementById('opt-collapsed').style.display='flex';
+  document.getElementById('lor').classList.remove('on');document.getElementById('lor').innerHTML='';document.getElementById('lo').value='';
+}
+function clearLI(){
+  document.getElementById('li').value='';
+  document.getElementById('lir').classList.remove('on');
+  document.getElementById('lir').innerHTML='';
+}
 
 updateBell();
 initTheme();
