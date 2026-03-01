@@ -1017,6 +1017,47 @@ let singleRes=null;
 async function checkSingle(){
   const v=document.getElementById('si').value.trim();const ee=document.getElementById('es');
   if(!v){ee.textContent='Chưa nhập chuỗi nào!';ee.style.display='block';return;}
+  if(v.includes('@')){
+    // Tạo popup overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);animation:fu .2s ease;';
+    
+    const box = document.createElement('div');
+    box.style.cssText = 'background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:28px 32px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center;animation:loginIn .3s ease;';
+    
+    box.innerHTML = `
+      <div style="margin-bottom:12px;"><img src="https://i.redd.it/391eu1s8wn9e1.gif" style="width:80px;height:80px;border-radius:12px;object-fit:cover;" onerror="this.outerHTML='<div style=\'font-size:40px\'>⚠️</div>'"></div>
+      <div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:10px;">Sai chỗ rồi bro!</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:20px;">
+        Chuỗi của bạn chứa ký tự <span style="font-family:var(--mono);background:var(--bg3);color:var(--accent2);padding:1px 7px;border-radius:4px;font-weight:700;">@</span> — đây là định dạng <b style="color:var(--text);">nhiều item</b>.<br>
+        Hãy bật <b style="color:var(--accent2);">"Tra cứu nhiều Item"</b> ở góc trên bên phải nhé!
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;">
+        <button id="popup-switch-btn" style="padding:9px 20px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;">Chuyển ngay</button>
+        <button id="popup-close-btn" style="padding:9px 20px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;">Đóng</button>
+      </div>
+    `;
+    
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+    
+    const close = () => document.body.removeChild(overlay);
+    overlay.addEventListener('click', e => { if(e.target===overlay) close(); });
+    document.getElementById('popup-close-btn').addEventListener('click', close);
+    document.getElementById('popup-switch-btn').addEventListener('click', () => {
+      close();
+      // Bật toggle multi mode
+      const mtg = document.getElementById('mtg');
+      if(!mtg.checked){ mtg.checked = true; togM(); }
+      // Dán chuỗi vào textarea
+      const qpInput = document.getElementById('qp-input');
+      qpInput.value = v;
+      onQpInput(v);
+      // Scroll đến textarea
+      setTimeout(() => qpInput.scrollIntoView({ behavior:'smooth', block:'center' }), 100);
+    });
+    return;
+  }
   ee.style.display='none';
   document.getElementById('rs-e').style.display='none';
   document.getElementById('rs-r').innerHTML='<div class="empty"><span class="spin-sm"></span><span style="color:var(--text2)">Đang tra cứu...</span></div>';
