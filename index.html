@@ -468,7 +468,7 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
         <span>Nhập nhanh nhiều Item (phân cách bằng @)</span>
         <div style="display:flex;align-items:center;gap:6px;">
           <span id="qp-count" style="font-size:10px;font-weight:700;color:var(--accent2);background:rgba(59,139,255,.12);padding:2px 9px;border-radius:5px;display:none;"></span>
-          <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:3px 8px;border:1px solid var(--border);border-radius:5px;">Cách Nhau Bằng @</span>
+          <span style="font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);padding:3px 8px;border:1px solid var(--border);border-radius:5px;">Coder: Hậu Lê Khắc</span>
         </div>
       </div>
       <div style="position:relative;">
@@ -664,16 +664,17 @@ function getIconUrl(item) {
   else return 'small/Small' + iconVal + '.png';
 }
 function iconBoxHtml(item, iid) {
-  const url = getIconUrl(item);
-  if (url) {
-    const iconVal = item ? (item.icon != null ? item.icon : item.iconId) : null;
-    const onlineFallback = iconVal != null ? (ONLINE_ICON_BASE + iconVal + '.png') : '';
-    const fallbackScript = onlineFallback
-      ? `this.onerror=function(){this.src='small/Small999999.png'};this.src='${onlineFallback}'`
-      : `this.src='small/Small999999.png'`;
-    return '<img src="' + url + '" onerror="' + fallbackScript + '" alt="">';
+  const iconVal = item ? (item.icon != null ? item.icon : item.iconId) : null;
+  if (iconVal == null) {
+    return '<img src="small/Small999999.png" alt="" style="width:100%;height:100%;object-fit:contain;">';
   }
-  return '<img src="small/Small999999.png" alt="">';
+  const localUrl = 'small/Small' + iconVal + '.png';
+  const onlineUrl = ONLINE_ICON_BASE + iconVal + '.png';
+  // local item: local → online → Small999999
+  // online item: online → local → Small999999
+  const initSrc = (item && item._online) ? onlineUrl : localUrl;
+  const fallback1 = (item && item._online) ? localUrl : onlineUrl;
+  return '<img src="' + initSrc + '" onerror="this.onerror=function(){this.src=\'small/Small999999.png\'};this.src=\'' + fallback1 + '\'" alt="" style="width:100%;height:100%;object-fit:contain;">';
 }
 
 /* NOTIFICATIONS */
@@ -1092,9 +1093,10 @@ async function checkQp() {
       const desc = vi(item.description || '');
       const isDanh = desc === 'Danh hieu' || desc === 'Danh hiệu';
       const iconVal = item.icon != null ? item.icon : item.iconId;
-      const src = item._online
-        ? (iconVal != null ? ONLINE_ICON_BASE + iconVal + '.png' : 'small/Small999999.png')
-        : (iconVal != null ? 'small/Small' + iconVal + '.png' : 'small/Small999999.png');
+      // Luôn thử local trước, fallback sang online, rồi placeholder SVG
+      const localSrc = iconVal != null ? 'small/Small' + iconVal + '.png' : null;
+      const onlineSrc = iconVal != null ? ONLINE_ICON_BASE + iconVal + '.png' : null;
+      const initSrc = item._online ? (onlineSrc || '') : (localSrc || onlineSrc || '');
       const [rl, rc] = gr(item.level || 1);
       const typeName = TN[item.type] || ('Type ' + item.type);
       const gc = gCls(item.gender), gn = getG(item.gender);
@@ -1119,10 +1121,35 @@ async function checkQp() {
       // Body
       const body = document.createElement('div');
       body.className = 'qp-card-body';
+
+      // Icon wrapper — luôn có background để tránh xuyên thấu khi img fail
+      const imgWrap = document.createElement('div');
+      imgWrap.style.cssText = 'width:36px;height:36px;border-radius:6px;flex-shrink:0;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;';
+
       const imgEl = document.createElement('img');
-      imgEl.src = src;
-      imgEl.onerror = function() { this.onerror = null; this.src = 'small/Small999999.png'; };
-      imgEl.style.cssText = 'width:36px;height:36px;object-fit:contain;border-radius:6px;flex-shrink:0;';
+      imgEl.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block;';
+
+      // Fallback chain: local → online → Small999999
+      if (initSrc) {
+        imgEl.src = initSrc;
+        if (!item._online && localSrc && onlineSrc) {
+          imgEl.onerror = function() {
+            this.onerror = function() { this.src = 'small/Small999999.png'; this.onerror = null; };
+            this.src = onlineSrc;
+          };
+        } else if (item._online && onlineSrc && localSrc) {
+          imgEl.onerror = function() {
+            this.onerror = function() { this.src = 'small/Small999999.png'; this.onerror = null; };
+            this.src = localSrc;
+          };
+        } else {
+          imgEl.onerror = function() { this.src = 'small/Small999999.png'; this.onerror = null; };
+        }
+      } else {
+        imgEl.src = 'small/Small999999.png';
+      }
+
+      imgWrap.appendChild(imgEl);
       const bodyInfo = document.createElement('div');
       bodyInfo.style.cssText = 'flex:1;min-width:0;';
       const nameDiv = document.createElement('div');
@@ -1143,7 +1170,7 @@ async function checkQp() {
         + (item.gender != null && item.gender !== 3 ? '<span class="tag ' + gc + '" style="font-size:8.5px;padding:1px 5px;">' + esc(gn) + '</span>' : '');
       bodyInfo.appendChild(nameDiv);
       bodyInfo.appendChild(tagsDiv);
-      body.appendChild(imgEl);
+      body.appendChild(imgWrap);
       body.appendChild(bodyInfo);
       card.appendChild(body);
 
@@ -1307,8 +1334,9 @@ async function lI(){
           const name=vi(item.name),desc=vi(item.description||'');
           const isDanh=desc==='Danh hieu'||desc==='Danh hiệu';
           const iconVal=item.icon!=null?item.icon:item.iconId;
-          const src=item._online?(iconVal!=null?ONLINE_ICON_BASE+iconVal+'.png':'small/Small999999.png'):(iconVal!=null?'small/Small'+iconVal+'.png':'small/Small999999.png');
-          const ih='<img src="'+src+'" onerror="this.onerror=null;this.src=\'small/Small999999.png\'" style="width:52px;height:52px;object-fit:contain;border-radius:8px;flex-shrink:0;">';
+          const ih='<div style="width:52px;height:52px;flex-shrink:0;border-radius:7px;background:var(--bg3);border:1px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;">'
+          + iconBoxHtml(item, id)
+          + '</div>';
           const typeName=TN[item.type]||('Type '+item.type);
           const gc=gCls(item.gender),gn=getG(item.gender);
           const [rl,rc]=gr(item.level||1);
@@ -1337,9 +1365,7 @@ async function lI(){
       const iconUrl=getIconUrl(item);
       const iconVal=item.icon!=null?item.icon:item.iconId;
       const onlineFb=iconVal!=null?ONLINE_ICON_BASE+iconVal+'.png':'';
-      const ih=iconUrl
-        ?'<img src="'+iconUrl+'" onerror="'+(onlineFb?'this.onerror=function(){this.src=\'small/Small999999.png\'};this.src=\''+onlineFb+'\'':'this.src=\'small/Small999999.png\'')+'" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">'
-        :'<img src="small/Small999999.png" style="width:38px;height:38px;object-fit:contain;border-radius:6px;background:var(--bg3);border:1px solid var(--border)">';
+      const ih='<div style="width:38px;height:38px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+iconBoxHtml(item,id)+'</div>';
       const gc=gCls(item.gender);const gn=getG(item.gender);
       const idChip='<span class="id-chip" onclick="cpId(this,\''+esc(id)+'\')" title="Click để copy ID">ID: '+esc(id)+'</span>';
       return '<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--border);">'
@@ -1432,8 +1458,8 @@ async function _uo(){
   const ne=document.getElementById('bin');const qp=document.getElementById('bqtyp');const iconBox=document.getElementById('b-icon');
   if(iid){
     let item=ID[iid]||null;if(!item&&onlineCache[iid])item=onlineCache[iid];
-    if(item){ne.innerHTML='<span class="iname-b">'+esc(vi(item.name))+'</span>';const iconUrl=getIconUrl(item);if(iconUrl){iconBox.style.display='flex';iconBox.innerHTML='<img src="'+iconUrl+'" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">';}else{iconBox.style.display='none';iconBox.innerHTML='';}}
-    else{ne.innerHTML='<span class="spin-sm"></span>';iconBox.style.display='none';const res=await getItemAsync(iid);if(document.getElementById('bid').value.trim()!==iid)return;if(res.item){ne.innerHTML='<span class="iname-b">'+esc(vi(res.item.name))+'</span>';const iconUrl=getIconUrl(res.item);if(iconUrl){iconBox.style.display='flex';iconBox.innerHTML='<img src="'+iconUrl+'" style="width:100%;height:100%;object-fit:contain;" onerror="this.parentNode.style.display=\'none\'">'; }}else{ne.innerHTML='<span style="font-size:12px;color:var(--red)">Không tìm thấy</span>';}}
+    if(item){ne.innerHTML='<span class="iname-b">'+esc(vi(item.name))+'</span>';iconBox.style.display='flex';iconBox.innerHTML=iconBoxHtml(item,iid);}
+    else{ne.innerHTML='<span class="spin-sm"></span>';iconBox.style.display='none';const res=await getItemAsync(iid);if(document.getElementById('bid').value.trim()!==iid)return;if(res.item){ne.innerHTML='<span class="iname-b">'+esc(vi(res.item.name))+'</span>';iconBox.style.display='flex';iconBox.innerHTML=iconBoxHtml(res.item,iid);}else{ne.innerHTML='<span style="font-size:12px;color:var(--red)">Không tìm thấy</span>';}}
   }else{ne.innerHTML='';iconBox.style.display='none';iconBox.innerHTML='';}
   if(qty&&parseInt(qty)>0)qp.textContent='→ Số Lượng:'+qty;else qp.textContent='';
   const valid=brows.filter(r=>r.optId!=='');
