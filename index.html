@@ -266,7 +266,6 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .spin-sm{display:inline-block;width:12px;height:12px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:5px;}
 .qp-chip{display:inline-flex;align-items:center;font-family:var(--mono);font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:5px;background:var(--bg3);border:1px solid var(--border);color:var(--text2);cursor:default;white-space:nowrap;max-width:160px;overflow:hidden;text-overflow:ellipsis;transition:background .13s,border-color .13s;}
 .qp-chip:hover{background:rgba(59,139,255,.1);border-color:rgba(59,139,255,.3);color:var(--accent2);}
-/* ── QP Card grid ── */
 .qp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:4px;align-items:start;}
 .qp-card{background:var(--bg1);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .15s,box-shadow .15s;}
 .qp-card:hover{border-color:var(--border2);box-shadow:0 3px 12px var(--shadow);}
@@ -278,6 +277,201 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 .qp-card-opts{display:none;border-top:1px solid var(--border);padding:7px 10px 8px;}
 .qp-opt-row{display:flex;gap:6px;padding:3px 0;border-bottom:1px solid var(--border);}
 .qp-opt-row:last-child{border-bottom:none;}
+
+/* ══════════════════════════════════════════
+   ONLINE PRESENCE PANEL
+══════════════════════════════════════════ */
+#presence-panel{
+  position:fixed;
+  bottom:16px;right:16px;
+  z-index:200;
+  display:none;
+  animation:ppIn .3s cubic-bezier(.16,1,.3,1) both;
+}
+#presence-panel.show{display:block;}
+@keyframes ppIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Pill nhỏ — luôn hiển thị */
+.pp-pill{
+  display:flex;align-items:center;gap:6px;
+  height:32px;padding:0 12px 0 9px;
+  background:var(--bg1);
+  border:1px solid var(--border);
+  border-radius:16px;
+  cursor:pointer;user-select:none;
+  box-shadow:0 2px 10px rgba(0,0,0,.4);
+  transition:border-color .15s,box-shadow .15s,transform .15s;
+  white-space:nowrap;
+}
+.pp-pill:hover{border-color:rgba(34,197,94,.5);box-shadow:0 4px 16px rgba(0,0,0,.5);transform:translateY(-1px);}
+.pp-pill-dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;position:relative;}
+.pp-pill-dot::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid var(--green);animation:pp-ring 2s ease-in-out infinite;opacity:0;}
+@keyframes pp-ring{0%{transform:scale(.8);opacity:.8}100%{transform:scale(1.8);opacity:0}}
+.pp-pill-label{font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--text3);}
+.pp-pill-count{font-family:var(--mono);font-size:10px;font-weight:800;background:rgba(34,197,94,.18);color:var(--green);border:1px solid rgba(34,197,94,.35);padding:0 5px;border-radius:999px;min-width:17px;text-align:center;line-height:16px;}
+.pp-pill-arrow{font-size:8px;color:var(--text3);margin-left:1px;transition:transform .2s;}
+.pp-pill.open .pp-pill-arrow{transform:rotate(180deg);}
+
+/* Panel mở rộng — popup phía trên pill */
+.pp-expanded{
+  position:absolute;
+  bottom:calc(100% + 8px);right:0;
+  width:240px;
+  background:var(--bg1);
+  border:1px solid var(--border);
+  border-radius:14px;
+  box-shadow:0 8px 32px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.04);
+  overflow:hidden;
+  opacity:0;transform:translateY(8px) scale(.97);
+  pointer-events:none;
+  transition:all .22s cubic-bezier(.16,1,.3,1);
+  transform-origin:bottom right;
+}
+.pp-expanded.open{opacity:1;transform:none;pointer-events:auto;}
+
+.pp-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 13px 9px;
+  background:var(--bg2);
+  border-bottom:1px solid var(--border);
+}
+.pp-title-row{display:flex;align-items:center;gap:7px;}
+.pp-pulse{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;position:relative;}
+.pp-pulse::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:1.5px solid var(--green);animation:pp-ring 2s ease-in-out infinite;opacity:0;}
+.pp-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);}
+.pp-count-badge{font-family:var(--mono);font-size:10px;font-weight:700;background:rgba(34,197,94,.15);color:var(--green);border:1px solid rgba(34,197,94,.3);padding:1px 7px;border-radius:999px;min-width:20px;text-align:center;}
+.pp-close-btn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;line-height:1;padding:0 2px;transition:color .13s;}
+.pp-close-btn:hover{color:var(--red);}
+.pp-toggle-icon{display:none;}
+
+.pp-body{padding:6px 4px;max-height:280px;overflow-y:auto;}
+.pp-body::-webkit-scrollbar{width:3px;}
+.pp-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+
+/* Member row */
+.pp-member{
+  display:flex;align-items:center;gap:9px;
+  padding:7px 9px;
+  border-radius:9px;
+  transition:background .14s;
+  cursor:default;
+  position:relative;
+}
+.pp-member:hover{background:var(--bg2);}
+.pp-member.is-self{background:rgba(59,139,255,.06);border:1px solid rgba(59,139,255,.12);}
+
+/* Avatar */
+.pp-avatar{
+  width:34px;height:34px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:800;color:#fff;
+  flex-shrink:0;
+  position:relative;
+}
+.pp-avatar-ring{
+  position:absolute;inset:-2px;border-radius:50%;
+  border:2px solid transparent;
+  transition:border-color .3s;
+}
+.pp-avatar.online .pp-avatar-ring{border-color:var(--green);}
+.pp-avatar.offline .pp-avatar-ring{border-color:transparent;}
+
+/* Status dot */
+.pp-dot{
+  position:absolute;bottom:1px;right:1px;
+  width:10px;height:10px;
+  border-radius:50%;
+  border:2px solid var(--bg1);
+  transition:background .3s;
+}
+.pp-dot.online{background:var(--green);}
+.pp-dot.offline{background:var(--text3);}
+.pp-dot.online{animation:dot-pulse 3s ease-in-out infinite;}
+@keyframes dot-pulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{box-shadow:0 0 0 4px rgba(34,197,94,0)}}
+
+/* Info */
+.pp-info{flex:1;min-width:0;}
+.pp-name{
+  font-size:12.5px;font-weight:700;
+  color:var(--text);
+  display:flex;align-items:center;gap:5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.pp-you-badge{
+  font-size:8.5px;font-weight:700;
+  padding:1px 5px;border-radius:4px;
+  background:rgba(59,139,255,.15);color:var(--accent2);
+  flex-shrink:0;
+}
+.pp-status-line{
+  font-size:10.5px;
+  color:var(--text3);
+  margin-top:2px;
+  display:flex;align-items:center;gap:4px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.pp-status-line.online{color:var(--green);}
+.pp-status-line.activity{color:var(--accent2);}
+
+/* Activity chip dưới tên */
+.pp-activity{
+  font-size:10px;
+  background:rgba(59,139,255,.09);
+  border:1px solid rgba(59,139,255,.18);
+  color:var(--accent2);
+  padding:2px 7px;border-radius:5px;
+  margin-top:3px;
+  display:inline-block;
+  max-width:140px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+
+/* Status selector popup */
+.pp-status-selector{
+  position:absolute;
+  bottom:calc(100% + 6px);right:10px;
+  background:var(--bg1);
+  border:1px solid var(--border);
+  border-radius:10px;
+  box-shadow:0 6px 24px rgba(0,0,0,.4);
+  z-index:300;
+  padding:6px;
+  min-width:180px;
+  opacity:0;transform:translateY(6px) scale(.97);
+  pointer-events:none;
+  transition:all .16s cubic-bezier(.4,0,.2,1);
+}
+.pp-status-selector.open{opacity:1;transform:none;pointer-events:auto;}
+.pp-sel-title{font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);padding:3px 6px 6px;border-bottom:1px solid var(--border);margin-bottom:4px;}
+.pp-sel-opt{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 9px;border-radius:7px;
+  cursor:pointer;transition:background .13s;
+  font-size:12px;font-weight:600;color:var(--text);
+}
+.pp-sel-opt:hover{background:var(--bg2);}
+.pp-sel-opt.active{background:rgba(59,139,255,.1);color:var(--accent2);}
+.pp-sel-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* Footer: "Thay đổi trạng thái" button */
+.pp-footer{
+  padding:7px 9px 8px;
+  border-top:1px solid var(--border);
+}
+.pp-my-status-row{
+  display:flex;align-items:center;gap:7px;
+  padding:5px 7px;
+  border-radius:7px;
+  background:var(--bg2);
+  cursor:pointer;
+  transition:background .13s;
+  border:1px solid var(--border);
+}
+.pp-my-status-row:hover{background:var(--bg3);border-color:var(--border2);}
+.pp-my-status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.pp-my-status-txt{font-size:11px;font-weight:600;color:var(--text2);flex:1;}
+.pp-my-status-arrow{font-size:10px;color:var(--text3);}
 </style>
 </head>
 <body>
@@ -328,6 +522,8 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
         <option value="Khang">Đình Khang</option>
         <option value="Thanh">Thái Thanh</option>
         <option value="Hau">Khắc Hậu</option>
+        <option value="Truc">Xuân Trúc</option>
+        <option value="Thao">Thanh Thảo</option>
       </select>
       <div class="fid-hint">Chọn tên rồi nhấn vào khuôn mặt để quét</div>
       <label class="login-save" style="margin-top:14px;">
@@ -583,6 +779,45 @@ body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.92);}
 </div>
 </div>
 
+<!-- ══ ONLINE PRESENCE FLOATING PANEL ══ -->
+<div id="presence-panel">
+  <!-- Pill thu gọn — luôn thấy, click để mở -->
+  <div class="pp-pill" id="pp-pill" onclick="togglePanelExpand()">
+    <div class="pp-pill-dot"></div>
+    <span class="pp-pill-label">TRẠNG THÁI</span>
+    <span class="pp-pill-count" id="pp-pill-count">0</span>
+    <span class="pp-pill-arrow">▲</span>
+  </div>
+
+  <!-- Panel mở rộng -->
+  <div class="pp-expanded" id="pp-expanded">
+    <!-- Header -->
+    <div class="pp-header">
+      <div class="pp-title-row">
+        <div class="pp-pulse"></div>
+        <span class="pp-title">TeaMobi Online</span>
+        <span class="pp-count-badge" id="pp-count-badge">0</span>
+      </div>
+      <button class="pp-close-btn" onclick="togglePanelExpand()">x</button>
+    </div>
+
+    <!-- Member list -->
+    <div class="pp-body" id="pp-body"></div>
+
+    <!-- Footer: my status -->
+    <div class="pp-footer" id="pp-footer">
+      <div class="pp-my-status-row" id="pp-my-status-row" onclick="toggleStatusSelector(event)">
+        <div class="pp-my-status-dot" id="pp-my-status-dot" style="background:var(--green);"></div>
+        <span class="pp-my-status-txt" id="pp-my-status-txt">Online</span>
+        <span class="pp-my-status-arrow"></span>
+      </div>
+      <div class="pp-status-selector" id="pp-status-selector">
+        <div class="pp-sel-title">Chọn trạng thái</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const ONLINE_ITEMS_URL = 'https://electroheavenvn.github.io/DataNRO/TeaMobi/Server1/ItemTemplates.json';
 const ONLINE_ICON_BASE = 'https://electroheavenvn.github.io/DataNRO/TeaMobi/Icons/';
@@ -670,16 +905,321 @@ function iconBoxHtml(item, iid) {
   }
   const localUrl = 'small/Small' + iconVal + '.png';
   const onlineUrl = ONLINE_ICON_BASE + iconVal + '.png';
-  // local item: local → online → Small999999
-  // online item: online → local → Small999999
   const initSrc = (item && item._online) ? onlineUrl : localUrl;
   const fallback1 = (item && item._online) ? localUrl : onlineUrl;
   return '<img src="' + initSrc + '" onerror="this.onerror=function(){this.src=\'small/Small999999.png\'};this.src=\'' + fallback1 + '\'" alt="" style="width:100%;height:100%;object-fit:contain;">';
 }
 
+const FIREBASE_DB = 'https://dragonboy-tool-default-rtdb.asia-southeast1.firebasedatabase.app';
+const PRESENCE_PATH = 'presence';
+
+const MEMBERS_CONFIG = [
+  { key: 'Khang',  display: 'Đình Khang',  color: '#3b8bff', avatar: '' },
+  { key: 'Thanh',  display: 'Thái Thanh',  color: '#22c55e', avatar: '' },
+  { key: 'Hau',    display: 'Khắc Hậu',   color: '#f59e0b', avatar: 'https://images.steamusercontent.com/ugc/449611652050198394/003B0F458420C44A75D10CBDC94A9C0B964C06F7/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false' },
+  { key: 'Truc',   display: 'Xuân Trúc',   color: '#f43f5e', avatar: '' },
+  { key: 'Thao',   display: 'Thanh Thảo',  color: '#06b6d4', avatar: '' },
+];
+
+const STATUS_OPTIONS = [
+  { id: 'online',    label: 'Online',           color: '#22c55e', activity: '' },
+  { id: 'busy',      label: 'Bận',              color: '#f59e0b', activity: '' },
+  { id: 'gaming',    label: 'Đang chơi game',   color: '#8b5cf6', activity: '' },
+  { id: 'searching', label: 'Đang tra cứu',     color: '#3b8bff', activity: '' },
+  { id: 'away',      label: 'Vắng mặt',         color: '#6b7280', activity: '' },
+];
+
+let _autoActivityTimer = null;
+let _manualStatus = false; // true nếu người dùng tự chọn trạng thái
+
+function setAutoActivity(activity, itemName) {
+  if (_manualStatus) return; // nếu đã tự chọn thì không override
+  const label = itemName ? activity.replace('...', ' ' + itemName) : activity;
+  if (!myPresenceName) return;
+  const st = STATUS_OPTIONS.find(s => s.id === myStatusId) || STATUS_OPTIONS[0];
+  // Cập nhật Firebase với activity mới
+  if (_autoActivityTimer) clearTimeout(_autoActivityTimer);
+  fbPatch(`${PRESENCE_PATH}/${myPresenceName}`, { activity: label, ts: Date.now() });
+  if (fbPresenceData[myPresenceName]) {
+    fbPresenceData[myPresenceName].activity = label;
+    renderPresencePanel();
+  }
+  _autoActivityTimer = setTimeout(() => {
+    fbPatch(`${PRESENCE_PATH}/${myPresenceName}`, { activity: '', ts: Date.now() });
+    if (fbPresenceData[myPresenceName]) {
+      fbPresenceData[myPresenceName].activity = '';
+      renderPresencePanel();
+    }
+  }, 60000);
+}
+
+let myPresenceName = null;
+let myStatusId = 'online';
+let ppBodyCollapsed = false;
+let statusSelectorOpen = false;
+let presenceHeartbeat = null;
+let presencePollInterval = null;
+let fbPresenceData = {};
+
+// ── Firebase REST helpers ──
+async function fbPatch(path, data) {
+  try {
+    await fetch(`${FIREBASE_DB}/${path}.json`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+  } catch(e) {}
+}
+
+async function fbGet(path) {
+  try {
+    const r = await fetch(`${FIREBASE_DB}/${path}.json`);
+    return r.ok ? r.json() : null;
+  } catch(e) { return null; }
+}
+
+// Set offline dùng sendBeacon (hoạt động khi đóng tab)
+function fbSetOfflineBeacon(name) {
+  try {
+    const blob = new Blob([JSON.stringify({ online: false, statusId: 'offline', ts: Date.now(), onlineSince: null })], { type: 'application/json' });
+    navigator.sendBeacon(`${FIREBASE_DB}/${PRESENCE_PATH}/${name}.json?x-http-method-override=PATCH`, blob);
+  } catch(e) {}
+}
+
+// ── Cập nhật trạng thái của mình lên Firebase ──
+let _onlineSince = null;
+async function updateMyPresence(statusId) {
+  if (!myPresenceName) return;
+  myStatusId = statusId || myStatusId;
+  const st = STATUS_OPTIONS.find(s => s.id === myStatusId) || STATUS_OPTIONS[0];
+  if (!_onlineSince) _onlineSince = Date.now();
+  await fbPatch(`${PRESENCE_PATH}/${myPresenceName}`, {
+    online: true,
+    statusId: myStatusId,
+    activity: st.activity,
+    ts: Date.now(),
+    onlineSince: _onlineSince,
+  });
+  // Sync local data ngay để hiển thị mượt
+  if (!fbPresenceData[myPresenceName]) fbPresenceData[myPresenceName] = {};
+  fbPresenceData[myPresenceName] = { ...fbPresenceData[myPresenceName], online: true, statusId: myStatusId, activity: st.activity, ts: Date.now(), onlineSince: _onlineSince };
+  renderPresencePanel();
+}
+
+// ── Poll Firebase mỗi 6 giây để lấy danh sách online ──
+async function pollPresence() {
+  const data = await fbGet(PRESENCE_PATH);
+  if (data) {
+    const now = Date.now();
+    Object.keys(data).forEach(k => {
+      if (data[k].online && (now - (data[k].ts || 0)) > 40000) {
+        data[k].online = false;
+        data[k].statusId = 'offline';
+      }
+    });
+    fbPresenceData = data;
+    renderPresencePanel();
+  }
+}
+
+// ── Khởi tạo khi đăng nhập ──
+async function initPresence(userName) {
+  myPresenceName = userName;
+  myStatusId = 'online';
+
+  await updateMyPresence('online');
+
+  // Hiện panel
+  document.getElementById('presence-panel').classList.add('show');
+
+  // Poll ngay + mỗi 6 giây
+  await pollPresence();
+  clearInterval(presencePollInterval);
+  presencePollInterval = setInterval(pollPresence, 6000);
+
+  // Heartbeat mỗi 25 giây
+  clearInterval(presenceHeartbeat);
+  presenceHeartbeat = setInterval(() => {
+    if (!document.hidden) updateMyPresence(myStatusId);
+  }, 25000);
+
+  // Khi tab ẩn/hiện
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) updateMyPresence(myStatusId);
+  });
+
+  // Khi đóng tab → sendBeacon để set offline
+  window.addEventListener('beforeunload', () => {
+    fbSetOfflineBeacon(myPresenceName);
+  });
+}
+
+// ── Đăng xuất ──
+async function destroyPresence() {
+  if (myPresenceName) {
+    await fbPatch(`${PRESENCE_PATH}/${myPresenceName}`, { online: false, statusId: 'offline', ts: Date.now(), onlineSince: null });
+  }
+  clearInterval(presencePollInterval);
+  clearInterval(presenceHeartbeat);
+  myPresenceName = null;
+  _onlineSince = null;
+  fbPresenceData = {};
+  document.getElementById('presence-panel').classList.remove('show');
+}
+
+// ── Thời gian hiển thị ──
+function timeAgo(ts) {
+  if (!ts) return '';
+  const diff = Math.floor((Date.now() - ts) / 1000);
+  if (diff < 10) return ' Vừa xong';
+  if (diff < 60) return diff + ' giây trước';
+  if (diff < 3600) return Math.floor(diff / 60) + ' phút trước';
+  if (diff < 86400) return Math.floor(diff / 3600) + ' giờ trước';
+  return Math.floor(diff / 86400) + ' ngày trước';
+}
+function timeDuration(ts) {
+  if (!ts) return '';
+  const diff = Math.floor((Date.now() - ts) / 1000);
+  if (diff < 60) return diff + ' giây';
+  if (diff < 3600) return Math.floor(diff / 60) + ' phút';
+  if (diff < 86400) {
+    const h = Math.floor(diff / 3600);
+    const m = Math.floor((diff % 3600) / 60);
+    return m > 0 ? h + 'h ' + m + 'ph' : h + 'h';
+  }
+  const d = Math.floor(diff / 86400);
+  const h = Math.floor((diff % 86400) / 3600);
+  return h > 0 ? d + 'ngày ' + h + 'h' : d + 'ngày';
+}
+
+// ── Render panel ──
+function renderPresencePanel() {
+  const data = fbPresenceData;
+  const body = document.getElementById('pp-body');
+  const countBadge = document.getElementById('pp-count-badge');
+
+  const onlineCount = Object.values(data).filter(d => d.online).length;
+  countBadge.textContent = onlineCount;
+  countBadge.style.background = onlineCount > 0 ? 'rgba(34,197,94,.15)' : 'rgba(100,116,139,.1)';
+  countBadge.style.color = onlineCount > 0 ? 'var(--green)' : 'var(--text3)';
+  countBadge.style.borderColor = onlineCount > 0 ? 'rgba(34,197,94,.3)' : 'rgba(100,116,139,.2)';
+  const pillCount = document.getElementById('pp-pill-count');
+  if (pillCount) { pillCount.textContent = onlineCount; pillCount.style.background = onlineCount > 0 ? 'rgba(34,197,94,.18)' : 'rgba(100,116,139,.1)'; pillCount.style.color = onlineCount > 0 ? 'var(--green)' : 'var(--text3)'; }
+
+  if (!myPresenceName) { body.innerHTML = ''; return; }
+
+  // Sắp xếp: bản thân đầu tiên, online trước offline
+  const sorted = MEMBERS_CONFIG.slice().sort((a, b) => {
+    if (a.key === myPresenceName) return -1;
+    if (b.key === myPresenceName) return 1;
+    const aOn = data[a.key] && data[a.key].online ? 1 : 0;
+    const bOn = data[b.key] && data[b.key].online ? 1 : 0;
+    return bOn - aOn;
+  });
+
+  body.innerHTML = sorted.map(m => {
+    const d = data[m.key];
+    const isOnline = d && d.online;
+    const isSelf = m.key === myPresenceName;
+    const st = STATUS_OPTIONS.find(s => s.id === (d ? d.statusId : 'offline')) || STATUS_OPTIONS[0];
+    const dotColor = isOnline ? st.color : '#6b7280';
+    const firstChar = m.display.charAt(0).toUpperCase();
+
+    // Dòng trạng thái + thời gian
+    let statusLine = '';
+    let subLine = '';
+    if (isOnline) {
+      // Dòng 1: trạng thái (nếu có activity thì hiện activity, nếu không thì hiện label)
+      statusLine = d.activity ? d.activity : st.label;
+      if (d.onlineSince) {
+        subLine = 'Đang Online ' + timeDuration(d.onlineSince);
+      }
+    } else {
+      // Offline: hiện "Offline · X trước"
+      statusLine = d && d.ts ? 'Offline · ' + timeAgo(d.ts) : 'Offline';
+      subLine = '';
+    }
+
+    return `<div class="pp-member ${isSelf ? 'is-self' : ''}">
+      <div class="pp-avatar ${isOnline ? 'online' : 'offline'}" style="background:${m.color};">
+        <div class="pp-avatar-ring"></div>
+        ${m.avatar ? '<img src="' + m.avatar + '" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;z-index:0;" onerror="this.style.display=\'none\'">' : firstChar}
+        <div class="pp-dot ${isOnline ? 'online' : 'offline'}" style="background:${dotColor};"></div>
+      </div>
+      <div class="pp-info">
+        <div class="pp-name">
+          ${esc(m.display)}
+          ${isSelf ? '<span class="pp-you-badge">Bạn</span>' : ''}
+        </div>
+        <div class="pp-status-line ${isOnline ? 'online' : ''}">
+          ${esc(statusLine)}
+        </div>
+        ${subLine ? `<div class="pp-activity">${esc(subLine)}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  updateMyStatusFooter();
+}
+
+function updateMyStatusFooter() {
+  const st = STATUS_OPTIONS.find(s => s.id === myStatusId) || STATUS_OPTIONS[0];
+  document.getElementById('pp-my-status-dot').style.background = st.color;
+  document.getElementById('pp-my-status-txt').textContent = st.label;
+}
+
+// ── Toggle collapse panel ──
+function togglePanelBody() {} // legacy
+let ppExpanded = false;
+function togglePanelExpand() {
+  ppExpanded = !ppExpanded;
+  document.getElementById('pp-expanded').classList.toggle('open', ppExpanded);
+  document.getElementById('pp-pill').classList.toggle('open', ppExpanded);
+}
+
+// ── Status selector ──
+function toggleStatusSelector(e) {
+  e.stopPropagation();
+  statusSelectorOpen = !statusSelectorOpen;
+  const sel = document.getElementById('pp-status-selector');
+  sel.classList.toggle('open', statusSelectorOpen);
+  if (statusSelectorOpen) renderStatusSelector();
+}
+
+function renderStatusSelector() {
+  const sel = document.getElementById('pp-status-selector');
+  const opts = STATUS_OPTIONS.map(s =>
+    `<div class="pp-sel-opt ${s.id === myStatusId ? 'active' : ''}" onclick="selectStatus('${s.id}')">
+      <div class="pp-sel-dot" style="background:${s.color};"></div>
+      ${esc(s.label)}
+      ${s.activity ? `<span style="font-size:10px;color:var(--text3);margin-left:auto;">${esc(s.activity)}</span>` : ''}
+    </div>`
+  ).join('');
+  sel.innerHTML = `<div class="pp-sel-title">Chọn trạng thái</div>${opts}`;
+}
+
+function selectStatus(statusId) {
+  statusSelectorOpen = false;
+  document.getElementById('pp-status-selector').classList.remove('open');
+  _manualStatus = true;
+  // Nếu chọn lại Online thì bật auto lại
+  if (statusId === 'online') _manualStatus = false;
+  updateMyPresence(statusId);
+}
+
+document.addEventListener('click', (e) => {
+  const sel = document.getElementById('pp-status-selector');
+  const footer = document.getElementById('pp-footer');
+  if (sel && footer && !footer.contains(e.target)) {
+    statusSelectorOpen = false;
+    sel.classList.remove('open');
+  }
+});
+
 /* NOTIFICATIONS */
 const NOTIFS = [
-  {id:'tb001',emoji:'🔔',title:'Vừa mới Update',desc:'Thêm tài khoản cho Thảo - Trúc, fix các chuỗi không hoạt động được',time:'03/03/2026'},
+  {id:'tb001',emoji:'🔔',title:'Vừa mới Update',desc:'Thêm tài khoản cho Thảo - Trúc, fix các chuỗi không hoạt động được, cập nhật thêm chức năng online',time:'03/03/2026'},
 ];
 const RK = 'db_nread';
 function getRead(){try{return new Set(JSON.parse(localStorage.getItem(RK)||'[]'));}catch(e){return new Set();}}
@@ -735,8 +1275,10 @@ function enterApp(name){
   document.getElementById('app').style.display='block';
   document.getElementById('greet-name').textContent=name;
   updateBell();
+  initPresence(name); // ← Khởi tạo presence
 }
 function doLogout(){
+  destroyPresence(); // ← Dọn dẹp presence
   localStorage.removeItem('db_user');
   document.getElementById('login-screen').classList.add('show');
   document.getElementById('app').style.display='none';
@@ -911,6 +1453,7 @@ function initTheme(){
   else{idbGet('db_bgimg').then(img=>{if(img){currentBgImg=img;_showBgControls();applyBg();}else{applyBg();}}).catch(()=>applyBg());}
 }
 
+const PAGE_NAMES=['Đang tra Option','Đang tra item','Đang tra map','Đang tạo chuỗi'];
 function showPage(i,el){
   document.querySelectorAll('.page').forEach((p,j)=>p.classList.toggle('on',j===i));
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
@@ -918,6 +1461,7 @@ function showPage(i,el){
   const mtw=document.getElementById('mtw');
   mtw.style.opacity=i===0?'1':'0.3';
   mtw.style.pointerEvents=i===0?'auto':'none';
+  setAutoActivity(PAGE_NAMES[i]||'');
 }
 function togM(){
   const on=document.getElementById('mtg').checked;
@@ -1016,13 +1560,10 @@ async function checkSingle(){
   const v=document.getElementById('si').value.trim();const ee=document.getElementById('es');
   if(!v){ee.textContent='Chưa nhập chuỗi nào!';ee.style.display='block';return;}
   if(v.includes('@')){
-    // Tạo popup overlay
     const overlay = document.createElement('div');
     overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);animation:fu .2s ease;';
-    
     const box = document.createElement('div');
     box.style.cssText = 'background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:28px 32px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center;animation:loginIn .3s ease;';
-    
     box.innerHTML = `
       <div style="margin-bottom:12px;"><img src="https://i.redd.it/391eu1s8wn9e1.gif" style="width:80px;height:80px;border-radius:12px;object-fit:cover;" onerror="this.outerHTML='<div style=\'font-size:40px\'>⚠️</div>'"></div>
       <div style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:10px;">Sai chỗ rồi bro!</div>
@@ -1035,23 +1576,18 @@ async function checkSingle(){
         <button id="popup-close-btn" style="padding:9px 20px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:13px;font-weight:700;cursor:pointer;">Đóng</button>
       </div>
     `;
-    
     overlay.appendChild(box);
     document.body.appendChild(overlay);
-    
     const close = () => document.body.removeChild(overlay);
     overlay.addEventListener('click', e => { if(e.target===overlay) close(); });
     document.getElementById('popup-close-btn').addEventListener('click', close);
     document.getElementById('popup-switch-btn').addEventListener('click', () => {
       close();
-      // Bật toggle multi mode
       const mtg = document.getElementById('mtg');
       if(!mtg.checked){ mtg.checked = true; togM(); }
-      // Dán chuỗi vào textarea
       const qpInput = document.getElementById('qp-input');
       qpInput.value = v;
       onQpInput(v);
-      // Scroll đến textarea
       setTimeout(() => qpInput.scrollIntoView({ behavior:'smooth', block:'center' }), 100);
     });
     return;
@@ -1064,6 +1600,8 @@ async function checkSingle(){
   singleRes=await parseAsync(v);
   document.getElementById('rs-r').innerHTML=ric(singleRes);
   document.getElementById('as').style.display='flex';
+  if(singleRes&&singleRes.item) setAutoActivity('Tra item: ' + vi(singleRes.item.name));
+  else if(singleRes) setAutoActivity('Đang kiểm tra option');
 }
 function clearSingle(){document.getElementById('si').value='';document.getElementById('rs-e').style.display='flex';document.getElementById('rs-r').style.display='none';document.getElementById('as').style.display='none';document.getElementById('es').style.display='none';singleRes=null;}
 function cpSingle(){if(!singleRes)return;const txt=bt(singleRes);navigator.clipboard.writeText(txt).then(()=>{const b=event.currentTarget;const o=b.innerHTML;b.textContent='Đã copy!';setTimeout(()=>b.innerHTML=o,2000);});}
@@ -1100,24 +1638,18 @@ function onQpInput(val) {
   document.getElementById('qp-clear-all-btn').style.display = 'inline-flex';
 }
 
-// ══ FIX CHÍNH: dùng DOM thật thay vì innerHTML string để tránh lỗi escape ══
 async function checkQp() {
   const strs = parseQpStr(document.getElementById('qp-input').value);
   if (!strs.length) return;
-
   const resultsEl = document.getElementById('qp-results');
   resultsEl.innerHTML = `<div class="empty" style="min-height:64px"><span class="spin-sm"></span><span style="color:var(--text2);font-size:13px">Đang kiểm tra ${strs.length} items...</span></div>`;
-
   const parsed = await Promise.all(strs.map(s => parseAsync(s)));
-
   resultsEl.innerHTML = '';
-
+  setAutoActivity('Đang kiểm tra ' + strs.length + ' items');
   if (strs.length > 2) {
-    // Grid view — dùng DOM để tránh bug escape onclick
     const grid = document.createElement('div');
     grid.className = 'qp-grid';
     resultsEl.appendChild(grid);
-
     parsed.forEach((p, idx) => {
       if (!p || !p.item) {
         const err = document.createElement('div');
@@ -1126,29 +1658,22 @@ async function checkQp() {
         grid.appendChild(err);
         return;
       }
-
       const item = p.item, id = p.iid, opts = p.opts, qty = p.qty;
       const name = vi(item.name);
       const desc = vi(item.description || '');
       const isDanh = desc === 'Danh hieu' || desc === 'Danh hiệu';
       const iconVal = item.icon != null ? item.icon : item.iconId;
-      // Luôn thử local trước, fallback sang online, rồi placeholder SVG
       const localSrc = iconVal != null ? 'small/Small' + iconVal + '.png' : null;
       const onlineSrc = iconVal != null ? ONLINE_ICON_BASE + iconVal + '.png' : null;
       const initSrc = item._online ? (onlineSrc || '') : (localSrc || onlineSrc || '');
       const [rl, rc] = gr(item.level || 1);
       const typeName = TN[item.type] || ('Type ' + item.type);
       const gc = gCls(item.gender), gn = getG(item.gender);
-
-      // Card wrapper
       const card = document.createElement('div');
       card.className = 'qp-card';
-
-      // Header
       const hdr = document.createElement('div');
       hdr.className = 'qp-card-hdr';
-      hdr.innerHTML =
-        '<span style="font-size:8.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);">' + esc(rl) + '</span>';
+      hdr.innerHTML = '<span style="font-size:8.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);">' + esc(rl) + '</span>';
       const chipEl = document.createElement('span');
       chipEl.className = 'id-chip';
       chipEl.style.cssText = 'font-size:9px;padding:1px 5px;';
@@ -1156,38 +1681,22 @@ async function checkQp() {
       chipEl.onclick = function(e) { e.stopPropagation(); cpId(chipEl, id); };
       hdr.appendChild(chipEl);
       card.appendChild(hdr);
-
-      // Body
       const body = document.createElement('div');
       body.className = 'qp-card-body';
-
-      // Icon wrapper — luôn có background để tránh xuyên thấu khi img fail
       const imgWrap = document.createElement('div');
       imgWrap.style.cssText = 'width:36px;height:36px;border-radius:6px;flex-shrink:0;background:var(--bg3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;overflow:hidden;';
-
       const imgEl = document.createElement('img');
       imgEl.style.cssText = 'width:100%;height:100%;object-fit:contain;display:block;';
-
-      // Fallback chain: local → online → Small999999
       if (initSrc) {
         imgEl.src = initSrc;
         if (!item._online && localSrc && onlineSrc) {
-          imgEl.onerror = function() {
-            this.onerror = function() { this.src = 'small/Small999999.png'; this.onerror = null; };
-            this.src = onlineSrc;
-          };
+          imgEl.onerror = function() { this.onerror = function() { this.src = 'small/Small999999.png'; this.onerror = null; }; this.src = onlineSrc; };
         } else if (item._online && onlineSrc && localSrc) {
-          imgEl.onerror = function() {
-            this.onerror = function() { this.src = 'small/Small999999.png'; this.onerror = null; };
-            this.src = localSrc;
-          };
+          imgEl.onerror = function() { this.onerror = function() { this.src = 'small/Small999999.png'; this.onerror = null; }; this.src = localSrc; };
         } else {
           imgEl.onerror = function() { this.src = 'small/Small999999.png'; this.onerror = null; };
         }
-      } else {
-        imgEl.src = 'small/Small999999.png';
-      }
-
+      } else { imgEl.src = 'small/Small999999.png'; }
       imgWrap.appendChild(imgEl);
       const bodyInfo = document.createElement('div');
       bodyInfo.style.cssText = 'flex:1;min-width:0;';
@@ -1203,8 +1712,7 @@ async function checkQp() {
       }
       const tagsDiv = document.createElement('div');
       tagsDiv.className = 'qp-card-tags';
-      tagsDiv.innerHTML =
-        '<span class="tag tb" style="font-size:8.5px;padding:1px 5px;">' + esc(typeName) + '</span>'
+      tagsDiv.innerHTML = '<span class="tag tb" style="font-size:8.5px;padding:1px 5px;">' + esc(typeName) + '</span>'
         + (item.level > 1 ? '<span class="tag to" style="font-size:8.5px;padding:1px 5px;">Lv.' + item.level + '</span>' : '')
         + (item.gender != null && item.gender !== 3 ? '<span class="tag ' + gc + '" style="font-size:8.5px;padding:1px 5px;">' + esc(gn) + '</span>' : '');
       bodyInfo.appendChild(nameDiv);
@@ -1212,10 +1720,7 @@ async function checkQp() {
       body.appendChild(imgWrap);
       body.appendChild(bodyInfo);
       card.appendChild(body);
-
-      // Footer + options panel — CHỈ tạo nếu có options
       if (opts.length) {
-        // Options panel (ẩn mặc định)
         const optsPanel = document.createElement('div');
         optsPanel.className = 'qp-card-opts';
         opts.forEach(o => {
@@ -1223,13 +1728,10 @@ async function checkQp() {
           const nt = o.id === '30';
           const row = document.createElement('div');
           row.className = 'qp-opt-row';
-          row.innerHTML =
-            '<span style="font-family:var(--mono);font-size:9px;color:var(--text3);min-width:20px;">' + o.id + '</span>'
+          row.innerHTML = '<span style="font-family:var(--mono);font-size:9px;color:var(--text3);min-width:20px;">' + o.id + '</span>'
             + '<span style="font-size:11px;color:' + (nt ? '#fca5a5' : 'var(--text)') + ';">' + esc(label) + '</span>';
           optsPanel.appendChild(row);
         });
-
-        // Footer toggle — dùng addEventListener, không dùng onclick string
         const footer = document.createElement('div');
         footer.className = 'qp-card-footer';
         const footerLeft = document.createElement('span');
@@ -1240,8 +1742,6 @@ async function checkQp() {
         footerArrow.textContent = '▼ xem';
         footer.appendChild(footerLeft);
         footer.appendChild(footerArrow);
-
-        // Toggle bằng addEventListener — không cần ID, không escape
         let isOpen = false;
         footer.addEventListener('click', function(e) {
           e.stopPropagation();
@@ -1249,16 +1749,12 @@ async function checkQp() {
           optsPanel.style.display = isOpen ? 'block' : 'none';
           footerArrow.textContent = isOpen ? '▲ ẩn' : '▼ xem';
         });
-
         card.appendChild(footer);
         card.appendChild(optsPanel);
       }
-
       grid.appendChild(card);
     });
-
   } else {
-    // Ít item → full width
     const wrap = document.createElement('div');
     wrap.className = 'qp-results-wrap';
     const hdrEl = document.createElement('div');
@@ -1271,7 +1767,6 @@ async function checkQp() {
     wrap.appendChild(bodyEl);
     resultsEl.appendChild(wrap);
   }
-
   resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -1353,6 +1848,7 @@ function clearAllRows(){document.getElementById('mrows').innerHTML='';mrowId=0;a
 async function lI(){
   const q=document.getElementById('li').value.trim();const el=document.getElementById('lir');if(!q)return;
   el.classList.add('on');el.innerHTML='<span class="spin-sm"></span><span style="font-size:12px;color:var(--text2)">Đang tra cứu...</span>';
+  setAutoActivity('Đang tra: ' + q);
   let results=[];
   if(ID[q]) results=[{id:q,item:ID[q],online:false}];
   else{const ql=q.toLowerCase();results=Object.entries(ID).filter(([k,v])=>vi(v.name).toLowerCase().includes(ql)).slice(0,5).map(([k,v])=>({id:k,item:v,online:false}));}
@@ -1372,10 +1868,8 @@ async function lI(){
           if(!item) return '';
           const name=vi(item.name),desc=vi(item.description||'');
           const isDanh=desc==='Danh hieu'||desc==='Danh hiệu';
-          const iconVal=item.icon!=null?item.icon:item.iconId;
           const ih='<div style="width:52px;height:52px;flex-shrink:0;border-radius:7px;background:var(--bg3);border:1px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;">'
-          + iconBoxHtml(item, id)
-          + '</div>';
+          + iconBoxHtml(item, id) + '</div>';
           const typeName=TN[item.type]||('Type '+item.type);
           const gc=gCls(item.gender),gn=getG(item.gender);
           const [rl,rc]=gr(item.level||1);
@@ -1401,9 +1895,7 @@ async function lI(){
       if(!item) return '';
       const name=vi(item.name),desc=vi(item.description||'');
       const isDanh=desc==='Danh hieu'||desc==='Danh hiệu';
-      const iconUrl=getIconUrl(item);
       const iconVal=item.icon!=null?item.icon:item.iconId;
-      const onlineFb=iconVal!=null?ONLINE_ICON_BASE+iconVal+'.png':'';
       const ih='<div style="width:38px;height:38px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;">'+iconBoxHtml(item,id)+'</div>';
       const gc=gCls(item.gender);const gn=getG(item.gender);
       const idChip='<span class="id-chip" onclick="cpId(this,\''+esc(id)+'\')" title="Click để copy ID">ID: '+esc(id)+'</span>';
@@ -1468,7 +1960,8 @@ function makeMapCard(m,i){
 }
 function lM(){
   const q=document.getElementById('mi2').value.trim();const el=document.getElementById('mr');if(!q){el.classList.remove('on');return;}
-  el.classList.add('on');const byId=MD.find(m=>String(m.id)===q);let results=[];
+  el.classList.add('on');
+  const byId=MD.find(m=>String(m.id)===q);let results=[];
   if(byId)results=[byId];else{const ql=normSearch(q);results=MD.filter(m=>normSearch(m.name).includes(ql));}
   if(!results.length){el.innerHTML='<span style="color:var(--red);font-size:13px">Làm gì có Map '+esc(q)+' đâu Bro</span>';return;}
   el.innerHTML='';const hdr=document.createElement('div');hdr.style.cssText='font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;';hdr.textContent=results.length+' KẾT QUẢ';el.appendChild(hdr);results.forEach((m,i)=>el.appendChild(makeMapCard(m,i)));
