@@ -1264,7 +1264,7 @@ function closeNotif(){notifOpen=false;document.getElementById('notif-drop').clas
 document.addEventListener('click',e=>{if(!document.getElementById('notif-wrap').contains(e.target))closeNotif();});
 
 /* AUTH */
-const MEMBERS = ['Khang','Thanh','Hau','Phi','Truc','Thao'];
+const MEMBERS = ['Khang','Thanh','Hậu','Phi','Trúc','Thảo'];
 const TROLL_MSG = { 'Tôi': 'mày không có quyền!!' };
 function normName(n){return n.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\u0111/g,'d');}
 const NORM_MAP = Object.fromEntries(MEMBERS.map(m=>[normName(m),m]));
