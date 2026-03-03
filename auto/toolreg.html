@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tool DragonBoy Tools</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+[data-theme="dark"]{--bg:#0f1724;--bg1:#141e30;--bg2:#18253e;--bg3:#1d2d4a;--border:#243554;--border2:#2d4266;--text:#d4e4f7;--text2:#7a96bc;--text3:#3d5a84;--input-bg:#0a1020;--shadow:rgba(0,0,0,.5);}
+[data-theme="light"]{--bg:#f0f4fa;--bg1:#ffffff;--bg2:#f5f8fe;--bg3:#e8eef8;--border:#cbd5e8;--border2:#b0bfd8;--text:#1a2540;--text2:#4a6080;--text3:#8a9ab8;--input-bg:#f5f8fe;--shadow:rgba(0,0,0,.1);}
+:root{--accent:#3b8bff;--accent2:#5ba3ff;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--purple:#8b5cf6;--mono:'JetBrains Mono',monospace;--sans:'Be Vietnam Pro',sans-serif;}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .25s;}
+body.has-bg[data-theme="dark"] .card{background:rgba(20,30,48,.88);backdrop-filter:blur(3px);}
+body.has-bg[data-theme="dark"] .topbar{background:rgba(20,30,48,.95);backdrop-filter:blur(3px);}
+body.has-bg[data-theme="light"] .card{background:rgba(255,255,255,.88);backdrop-filter:blur(3px);}
+body.has-bg[data-theme="light"] .topbar{background:rgba(255,255,255,.95);backdrop-filter:blur(3px);}
+#app{position:relative;z-index:1;}
+.topbar{height:52px;background:var(--bg1);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 1px 12px var(--shadow);}
+.logo-text{font-weight:800;font-size:15px;color:var(--accent2);}
+.logo-sub{font-size:11px;color:var(--text3);font-weight:600;}
+.divr{width:1px;height:20px;background:var(--border);flex-shrink:0;}
+.ml-auto{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.icon-btn{width:34px;height:34px;border-radius:7px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--text2);}
+.icon-btn:hover{border-color:var(--accent);color:var(--text);}
+.theme-wrap{position:relative;}
+.theme-drop{position:absolute;top:calc(100% + 8px);right:0;width:300px;background:var(--bg1);border:1px solid var(--border);border-radius:14px;box-shadow:0 8px 36px rgba(0,0,0,.4);z-index:500;opacity:0;transform:translateY(-8px) scale(.97);pointer-events:none;transition:all .18s cubic-bezier(.4,0,.2,1);transform-origin:top right;padding:14px;}
+.theme-drop.open{opacity:1;transform:none;pointer-events:auto;}
+.theme-drop-hd{font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;}
+.theme-section{margin-bottom:12px;}
+.theme-section-lbl{font-size:10px;font-weight:600;color:var(--text3);margin-bottom:7px;letter-spacing:.05em;text-transform:uppercase;}
+.base-row{display:flex;gap:6px;}
+.base-btn{flex:1;padding:7px 0;border-radius:7px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);font-family:var(--sans);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
+.base-btn:hover{border-color:var(--accent2);color:var(--text);}
+.base-btn.on{border-color:var(--accent);background:rgba(59,139,255,.12);color:var(--accent2);}
+.swatches{display:flex;flex-wrap:wrap;gap:6px;}
+.swatch{width:32px;height:32px;border-radius:7px;cursor:pointer;border:2px solid transparent;transition:all .15s;position:relative;}
+.swatch:hover{transform:scale(1.1);}
+.swatch.on{border-color:#fff;box-shadow:0 0 0 2px var(--accent);}
+.swatch::after{content:'✓';position:absolute;inset:0;display:none;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;}
+.swatch.on::after{display:flex;}
+.upload-area{border:1.5px dashed var(--border2);border-radius:8px;padding:9px 12px;cursor:pointer;transition:border-color .15s;display:flex;align-items:center;gap:9px;font-size:12px;color:var(--text2);font-weight:600;margin-top:6px;}
+.upload-area:hover{border-color:var(--accent);color:var(--text);}
+.upload-preview{width:100%;height:48px;object-fit:cover;border-radius:7px;margin-top:7px;border:1px solid var(--border);display:none;}
+.upload-preview.show{display:block;}
+.clear-bg-btn{width:100%;margin-top:6px;padding:5px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--red);font-family:var(--sans);font-size:11px;font-weight:700;cursor:pointer;transition:all .13s;display:none;}
+.clear-bg-btn.show{display:block;}
+.overlay-row{display:flex;align-items:center;gap:8px;margin-top:7px;}
+.overlay-lbl{font-size:11px;color:var(--text2);font-weight:600;white-space:nowrap;min-width:60px;}
+.overlay-slider{flex:1;accent-color:var(--accent);cursor:pointer;}
+.overlay-val{font-family:var(--mono);font-size:11px;color:var(--accent2);min-width:34px;text-align:right;}
+.bg-controls{display:none;margin-top:8px;background:var(--bg3);border-radius:8px;padding:9px 10px;border:1px solid var(--border);}
+.bg-controls.show{display:block;}
+.main{max-width:960px;margin:0 auto;padding:22px 18px;position:relative;z-index:1;}
+.card{background:var(--bg1);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:12px;}
+.ctitle{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.ctitle::before{content:'';width:3px;height:13px;background:var(--accent);border-radius:2px;flex-shrink:0;}
+.sep{height:1px;background:var(--border);margin:14px 0;}
+.field{width:100%;background:var(--input-bg);border:1px solid var(--border);border-radius:7px;padding:9px 13px;font-family:var(--mono);font-size:13px;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s;}
+.field:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,139,255,.12);}
+.field::placeholder{color:var(--text3);font-size:12px;}
+.row-lbl{font-size:11px;font-weight:700;color:var(--text3);min-width:44px;text-align:right;flex-shrink:0;}
+.arrow{color:var(--text3);font-size:13px;font-family:var(--mono);flex-shrink:0;}
+.pass-wrap{position:relative;flex:1;}
+.pass-wrap .field{padding-right:38px;}
+.eye-btn{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text3);cursor:pointer;line-height:1;transition:color .13s;padding:0;display:flex;}
+.eye-btn:hover{color:var(--text);}
+.preview-strip{display:flex;align-items:center;gap:10px;padding:9px 13px;background:var(--bg2);border:1px solid var(--border);border-radius:7px;font-family:var(--mono);font-size:12px;flex-wrap:wrap;margin-bottom:12px;}
+.pv{color:var(--accent2);font-weight:600;}
+.pa{color:var(--text3);}
+.ptotal{background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(--green);padding:2px 9px;border-radius:5px;font-weight:800;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+.btn{font-family:var(--sans);font-size:12px;font-weight:700;padding:0 16px;height:36px;border:none;border-radius:7px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap;}
+.btn:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.btn:active{transform:translateY(0);}
+.bp{background:var(--accent);color:#fff;box-shadow:0 2px 8px rgba(59,139,255,.3);}
+.bg2{background:var(--green);color:#fff;}
+.bgh{background:var(--bg3);color:var(--text2);border:1px solid var(--border);}
+.bgh:hover{color:var(--text);border-color:var(--border2);}
+.bred{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.25);}
+.bred:hover{background:rgba(239,68,68,.2);}
+.borange{background:rgba(245,158,11,.1);color:var(--orange);border:1px solid rgba(245,158,11,.25);}
+.borange:hover{background:rgba(245,158,11,.2);}
+.bpurple{background:rgba(139,92,246,.1);color:var(--purple);border:1px solid rgba(139,92,246,.25);}
+.bpurple:hover{background:rgba(139,92,246,.2);}
+.bsm{height:30px;padding:0 12px;font-size:11px;}
+.stats-bar{display:flex;gap:10px;flex-wrap:wrap;}
+.stat-chip{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;background:var(--bg2);border:1px solid var(--border);font-size:11px;font-weight:700;}
+.stat-chip .sv{font-family:var(--mono);font-size:13px;}
+.stat-chip.g .sv{color:var(--green);}
+.stat-chip.o .sv{color:var(--orange);}
+.stat-chip .sl{color:var(--text3);}
+.bulk-panel{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:13px 15px;margin-bottom:12px;display:none;}
+.bulk-panel.show{display:block;}
+.bulk-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px;}
+.bulk-row:last-child{margin-bottom:0;}
+.bulk-lbl{font-size:11px;font-weight:700;color:var(--text2);min-width:110px;}
+.tbl-ctrl{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.filter-row{display:flex;gap:6px;align-items:center;}
+.table-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;overflow-x:auto;}
+.tbl{width:100%;border-collapse:collapse;min-width:500px;}
+.tbl thead{background:var(--bg3);}
+.tbl th{padding:8px 12px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);text-align:left;border-bottom:1px solid var(--border);}
+.tbl th.tc{text-align:center;}
+.tbl tbody tr{border-bottom:1px solid var(--border);transition:background .12s;}
+.tbl tbody tr:last-child{border-bottom:none;}
+.tbl tbody tr:hover{background:var(--bg2);}
+.tbl td{padding:7px 12px;font-family:var(--mono);font-size:12.5px;color:var(--text);}
+.tbl td.tc{text-align:center;}
+.tu{color:var(--accent2);}
+.tp{color:var(--orange);}
+.tsv{display:inline-block;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.25);color:var(--green);padding:1px 8px;border-radius:5px;font-size:11px;font-weight:700;}
+.stt-num{color:var(--text3);font-size:11px;}
+.cr-btn{width:26px;height:26px;border:1px solid var(--border);border-radius:5px;background:transparent;color:var(--text3);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .12s;font-size:12px;}
+.cr-btn:hover{border-color:var(--accent);color:var(--accent2);}
+.cr-btn.ok{border-color:var(--green);color:var(--green);}
+.pagination{display:flex;align-items:center;gap:6px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap;}
+.pg-info{font-size:11px;color:var(--text3);font-family:var(--mono);}
+.pg-btn{width:28px;height:28px;border:1px solid var(--border);border-radius:5px;background:var(--bg2);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .13s;}
+.pg-btn:hover{border-color:var(--accent);color:var(--accent2);}
+.pg-btn:disabled{opacity:.3;pointer-events:none;}
+.fmt-tabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap;}
+.ftab{padding:4px 12px;font-size:11px;font-weight:700;border-radius:5px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-family:var(--sans);transition:all .12px;}
+.ftab:hover{color:var(--text);}
+.ftab.on{background:rgba(59,139,255,.12);color:var(--accent2);border-color:var(--accent);}
+.export-box{background:var(--input-bg);border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-family:var(--mono);font-size:12px;color:var(--text2);max-height:200px;overflow-y:auto;white-space:pre;line-height:1.8;cursor:pointer;transition:border-color .15s;}
+.export-box:hover{border-color:var(--accent);}
+.export-box.cp{border-color:var(--green);}
+.export-hint{font-size:10px;color:var(--text3);margin-top:5px;text-align:right;}
+.drop-zone{border:2px dashed var(--border2);border-radius:10px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;color:var(--text3);}
+.drop-zone:hover,.drop-zone.drag{border-color:var(--accent);background:rgba(59,139,255,.05);color:var(--accent2);}
+.drop-zone .dz-title{font-size:13px;font-weight:700;margin:8px 0 4px;}
+.drop-zone .dz-sub{font-size:11px;}
+.empty{display:flex;align-items:center;justify-content:min-height:80px;color:var(--text3);font-size:13px;}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg1);border:1px solid var(--green);border-radius:9px;padding:10px 20px;font-size:13px;font-weight:700;color:var(--green);box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:9999;opacity:0;transition:all .25s cubic-bezier(.16,1,.3,1);pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.modal-overlay{position:fixed;inset:0;z-index:8000;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.modal-overlay.show{display:flex;}
+.modal-box{background:var(--bg1);border:1px solid var(--border);border-radius:16px;padding:26px 28px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.modal-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:12px;}
+.modal-btns{display:flex;gap:8px;margin-top:16px;justify-content:flex-end;}
+@media(max-width:600px){.main{padding:14px 10px;}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<div class="topbar">
+  <span class="logo-text">DragonBoy</span>
+  <span class="logo-sub">Tool User</span>
+  <div class="divr"></div>
+  <div class="ml-auto">
+    <div class="theme-wrap" id="theme-wrap">
+      <button class="icon-btn" id="theme-toggle-btn" title="Giao diện">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </button>
+      <div class="theme-drop" id="theme-drop">
+        <div class="theme-drop-hd">Tùy chỉnh giao diện</div>
+        <div class="theme-section">
+          <div class="theme-section-lbl">Chế độ</div>
+          <div class="base-row">
+            <button class="base-btn" id="mode-dark">Tối</button>
+            <button class="base-btn" id="mode-light">Sáng</button>
+          </div>
+        </div>
+        <div class="theme-section">
+          <div class="theme-section-lbl">Màu nền gradient</div>
+          <div class="swatches" id="swatches"></div>
+        </div>
+        <div class="theme-section">
+          <div class="theme-section-lbl">Ảnh nền</div>
+          <div class="upload-area" id="bg-upload-area">Tải ảnh làm background</div>
+          <input type="file" id="bg-upload" accept="image/*" style="display:none">
+          <img class="upload-preview" id="upload-preview" alt="">
+          <div class="bg-controls" id="bg-controls">
+            <div class="overlay-row">
+              <span class="overlay-lbl">Độ mờ:</span>
+              <input class="overlay-slider" type="range" min="0" max="90" value="40" id="overlay-slider">
+              <span class="overlay-val" id="overlay-val">40%</span>
+            </div>
+          </div>
+          <button class="clear-bg-btn" id="clear-bg-btn">Xóa ảnh nền</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<div class="card">
+  <div class="ctitle">Tricker Tạo User</div>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="row-lbl">Email/Phone</span>
+      <input class="field" id="emailStart" placeholder="Email/Phone bắt đầu" style="flex:1;"/>
+      <span class="arrow">→</span>
+      <input class="field" id="emailEnd" placeholder="Email/Phone kết thúc" style="flex:1;"/>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="row-lbl">Chuỗi Phone</span>
+      <input class="field" id="phoneStart" value="" placeholder="SĐT bắt đầu VD: sdt0001@gmail.com" style="flex:1;"/>
+      <span class="arrow">→</span>
+      <input class="field" id="phoneEnd" value="" placeholder="SĐT kết thúc VD: sdt1000@gmail.com" style="flex:1;"/>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="row-lbl">Password</span>
+      <div class="pass-wrap">
+        <input class="field" id="password" type="password" value=""/>
+        <button class="eye-btn" id="eye-btn">
+          <svg id="eye-icon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <span class="row-lbl" style="min-width:auto;">Server</span>
+      <input class="field" id="server" type="number" value="" min="1" style="width:80px;flex-shrink:0;"/>
+    </div>
+  </div>
+  <div class="preview-strip" id="preview-strip">
+    <span class="pa">Từ:</span><span class="pv" id="pv-first">—</span>
+    <span class="pa">→</span><span class="pv" id="pv-last">—</span>
+    <span class="pa" style="margin-left:8px;">Tổng:</span><span class="ptotal" id="pv-total">0</span>
+    <span class="pa">tài khoản</span>
+    <span id="pv-phone-wrap" style="display:none;margin-left:12px;padding-left:12px;border-left:1px solid var(--border);">
+      <span class="pa">SĐT: </span><span class="pv" id="pv-p1">—</span><span class="pa"> → </span><span class="pv" id="pv-p2">—</span>
+    </span>
+  </div>
+  <div class="btn-row">
+    <button class="btn bp" id="btn-generate">Tạo danh sách</button>
+    <button class="btn bgh" id="btn-reset">Reset</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="ctitle">Tải file TXT lên</div>
+  <div class="drop-zone" id="drop-zone">
+    <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="opacity:.4;margin:0 auto;display:block;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <div class="dz-title">Kéo thả hoặc click để chọn file .txt</div>
+    <div class="dz-sub">STT|email|pass|server|sdt — mỗi dòng 1 tài khoản</div>
+  </div>
+  <input type="file" id="txt-upload" accept=".txt,.csv" style="display:none">
+</div>
+
+<div class="card" id="result-card" style="display:none;">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:12px;">
+    <div class="ctitle" style="margin-bottom:0;">Danh sách tài khoản</div>
+    <div class="stats-bar">
+      <div class="stat-chip g"><span class="sl">Tổng</span><span class="sv" id="st-total">0</span></div>
+      <div class="stat-chip o"><span class="sl">Server</span><span class="sv" id="st-sv">—</span></div>
+    </div>
+  </div>
+  <div class="btn-row" style="margin-bottom:10px;">
+    <button class="btn borange bsm" id="btn-bulk">Sửa hàng loạt</button>
+    <button class="btn bred bsm" id="btn-clrstt">Xóa cột STT</button>
+    <button class="btn bred bsm" id="btn-clrall">Xóa toàn bộ</button>
+  </div>
+  <div class="bulk-panel" id="bulk-panel">
+    <div style="font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:10px;">Sửa hàng loạt</div>
+    <div class="bulk-row">
+      <span class="bulk-lbl">Mật khẩu mới:</span>
+      <input class="field" id="bulk-pass" placeholder="Nhập mật khẩu mới..." style="flex:1;max-width:240px;"/>
+      <button class="btn borange bsm" id="btn-bulk-pass">Áp dụng</button>
+    </div>
+    <div class="bulk-row">
+      <span class="bulk-lbl">Server mới:</span>
+      <input class="field" id="bulk-sv" type="number" placeholder="Số server..." style="max-width:120px;"/>
+      <button class="btn borange bsm" id="btn-bulk-sv">Áp dụng</button>
+    </div>
+    <div class="bulk-row">
+      <span class="bulk-lbl">Đánh lại STT:</span>
+      <input class="field" id="bulk-stt-start" type="number" value="1" style="max-width:100px;"/>
+      <button class="btn bpurple bsm" id="btn-bulk-stt">Đánh lại</button>
+    </div>
+  </div>
+  <div class="tbl-ctrl">
+    <div class="filter-row">
+      <span style="font-size:11px;color:var(--text3);font-weight:600;">Lọc server:</span>
+      <input class="field" id="filter-sv" type="number" placeholder="Số server..." style="width:110px;padding:5px 10px;font-size:12px;"/>
+      <button class="btn bgh bsm" id="btn-filter-clear">Tất cả</button>
+    </div>
+    <div class="filter-row">
+      <span style="font-size:11px;color:var(--text3);font-weight:600;">Hiện:</span>
+      <select class="field" id="page-size" style="width:90px;padding:5px 10px;font-size:12px;">
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100" selected>100</option>
+        <option value="200">200</option>
+        <option value="99999">Tất cả</option>
+      </select>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table class="tbl">
+      <thead><tr>
+        <th class="tc" style="width:55px;">STT</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th class="tc" style="width:80px;">Server</th>
+        <th style="width:160px;">SĐT</th>
+        <th class="tc" style="width:55px;">Copy</th>
+      </tr></thead>
+      <tbody id="tbl-body"></tbody>
+    </table>
+  </div>
+  <div class="pagination" id="pagination"></div>
+  <div class="sep"></div>
+  <div class="ctitle" style="margin-bottom:10px;">Xuất dữ liệu</div>
+  <div class="fmt-tabs" id="fmt-tabs">
+    <button class="ftab on" data-fmt="pipe">Pipe | (có STT)</button>
+    <button class="ftab" data-fmt="nostt">Bỏ STT</button>
+    <button class="ftab" data-fmt="comma">Dấu phẩy</button>
+    <button class="ftab" data-fmt="userpass">User:Pass</button>
+    <button class="ftab" data-fmt="json">JSON</button>
+  </div>
+  <div class="export-box" id="export-box"></div>
+  <div class="export-hint">Click vào ô trên để copy tất cả</div>
+  <div class="btn-row" style="margin-top:10px;">
+    <button class="btn bg2 bsm" id="btn-copy-export">Copy tất cả</button>
+    <button class="btn bgh bsm" id="btn-dl-txt">Tải .txt</button>
+    <button class="btn bgh bsm" id="btn-dl-csv">Tải .csv</button>
+  </div>
+</div>
+
+</div></div>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-title" id="modal-title">Xác nhận</div>
+    <div id="modal-body" style="font-size:13px;color:var(--text2);line-height:1.7;"></div>
+    <div class="modal-btns">
+      <button class="btn bgh" id="modal-cancel">Hủy</button>
+      <button class="btn bred" id="modal-ok">Xác nhận</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<button id="scroll-top-btn" title="Về đầu trang" style="position:fixed;bottom:22px;right:22px;width:40px;height:40px;border-radius:10px;border:1px solid var(--border2);background:var(--bg1);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px var(--shadow);z-index:999;opacity:0;transform:translateY(10px);transition:all .25s cubic-bezier(.16,1,.3,1);pointer-events:none;">
+  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+(function() {
+'use strict';
+
+// ── STATE ──
+var allData = [], filteredData = [], currentPage = 1, pageSize = 100, currentFmt = 'pipe';
+var showPass = false, bulkOpen = false, modalCb = null, toastTimer = null;
+var curBase = localStorage.getItem('ag_base') || 'dark';
+var curGrad = localStorage.getItem('ag_grad') || '';
+var curBgImg = null;
+var curOverlay = parseInt(localStorage.getItem('ag_overlay') || '40');
+var tdOpen = false;
+
+var GRADS = [
+  {id:'g1',css:'linear-gradient(45deg,#0c675e,#069e90)'},
+  {id:'g2',css:'linear-gradient(135deg,rgba(165,42,4,.89),rgba(113,102,8,.89),rgba(13,95,16,.93),rgba(4,79,88,.94),rgba(19,56,86,.9),rgba(24,32,78,.94),rgba(100,8,115,.95))'},
+  {id:'g3',css:'linear-gradient(45deg,#29323c,#485563)'},
+  {id:'g4',css:'linear-gradient(45deg,#795548,#945c48)'},
+  {id:'g5',css:'linear-gradient(45deg,#1565C0,#1E88E5)'},
+  {id:'g6',css:'linear-gradient(45deg,#65379b,#886aea)'},
+  {id:'g7',css:'linear-gradient(180deg,#ff5447,#f1076f)'},
+  {id:'g8',css:'linear-gradient(180deg,#08a50e,#69bb03)'},
+  {id:'g9',css:'linear-gradient(45deg,#6a11cb,#2575fc)'},
+  {id:'g10',css:'linear-gradient(135deg,#f093fb,#f5576c)'},
+  {id:'g11',css:'linear-gradient(135deg,#0072ff,#00c6ff)'},
+  {id:'g12',css:'linear-gradient(135deg,#f7971e,#ffd200)'},
+  {id:'g13',css:'linear-gradient(135deg,#fbc2eb,#a18cd1)'},
+  {id:'g14',css:'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460,#533483)'},
+  {id:'g15',css:'linear-gradient(135deg,#fc4a1a,#f7b733)'}
+];
+
+// ── UTILS ──
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function $(id) { return document.getElementById(id); }
+function showToast(msg, isErr) {
+  var t = $('toast');
+  t.textContent = msg;
+  t.style.borderColor = isErr ? 'var(--red)' : 'var(--green)';
+  t.style.color = isErr ? 'var(--red)' : 'var(--green)';
+  t.classList.add('show');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2400);
+}
+function openModal(title, body, cb) {
+  $('modal-title').textContent = title;
+  $('modal-body').innerHTML = body;
+  modalCb = cb;
+  $('modal').classList.add('show');
+}
+function closeModal() {
+  $('modal').classList.remove('show');
+  modalCb = null;
+}
+
+// ── THEME ──
+function applyBg() {
+  var b = document.body;
+  if (curBgImg) {
+    b.style.backgroundImage = 'url(' + curBgImg + ')';
+    b.style.backgroundSize = 'cover';
+    b.style.backgroundPosition = 'center';
+    b.style.backgroundAttachment = 'fixed';
+    b.classList.add('has-bg');
+    var ov = $('bg-overlay-div');
+    if (!ov) {
+      ov = document.createElement('div');
+      ov.id = 'bg-overlay-div';
+      ov.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;transition:background .3s;';
+      document.body.insertBefore(ov, document.body.firstChild);
+    }
+    var op = curOverlay / 100;
+    var rgb = curBase === 'dark' ? '0,0,0' : '255,255,255';
+    ov.style.background = 'rgba(' + rgb + ',' + op + ')';
+    ov.style.display = 'block';
+  } else if (curGrad) {
+    var g = GRADS.filter(function(x){ return x.id === curGrad; })[0];
+    b.style.backgroundImage = g ? g.css : '';
+    b.style.backgroundSize = '100% 100%';
+    b.style.backgroundAttachment = 'fixed';
+    b.classList.add('has-bg');
+    var ov2 = $('bg-overlay-div');
+    if (ov2) ov2.style.display = 'none';
+  } else {
+    b.style.backgroundImage = '';
+    b.style.backgroundSize = '';
+    b.style.backgroundAttachment = '';
+    b.classList.remove('has-bg');
+    var ov3 = $('bg-overlay-div');
+    if (ov3) ov3.style.display = 'none';
+  }
+}
+function setBaseMode(m) {
+  curBase = m;
+  localStorage.setItem('ag_base', m);
+  document.documentElement.setAttribute('data-theme', m);
+  $('mode-dark').classList.toggle('on', m === 'dark');
+  $('mode-light').classList.toggle('on', m === 'light');
+  applyBg();
+}
+function setGrad(id) {
+  if (curBgImg) clearBg();
+  if (curGrad === id) {
+    curGrad = '';
+    localStorage.removeItem('ag_grad');
+    var el = $('sw-' + id);
+    if (el) el.classList.remove('on');
+  } else {
+    if (curGrad) { var old = $('sw-' + curGrad); if (old) old.classList.remove('on'); }
+    curGrad = id;
+    localStorage.setItem('ag_grad', id);
+    var nel = $('sw-' + id);
+    if (nel) nel.classList.add('on');
+  }
+  applyBg();
+}
+function clearBg() {
+  curBgImg = null;
+  $('upload-preview').classList.remove('show');
+  $('upload-preview').src = '';
+  $('clear-bg-btn').classList.remove('show');
+  $('bg-controls').classList.remove('show');
+  $('bg-upload').value = '';
+  applyBg();
+}
+function buildSwatches() {
+  $('swatches').innerHTML = GRADS.map(function(g) {
+    return '<div class="swatch" id="sw-' + g.id + '" style="background:' + g.css + '" data-gid="' + g.id + '"></div>';
+  }).join('');
+  $('swatches').addEventListener('click', function(e) {
+    var sw = e.target.closest('.swatch');
+    if (sw) setGrad(sw.dataset.gid);
+  });
+}
+function initTheme() {
+  document.documentElement.setAttribute('data-theme', curBase);
+  buildSwatches();
+  $('mode-dark').classList.toggle('on', curBase === 'dark');
+  $('mode-light').classList.toggle('on', curBase === 'light');
+  if (curGrad) { var el = $('sw-' + curGrad); if (el) el.classList.add('on'); }
+  applyBg();
+}
+
+// ── EVENTS: THEME ──
+$('theme-toggle-btn').addEventListener('click', function(e) {
+  e.stopPropagation();
+  tdOpen = !tdOpen;
+  $('theme-drop').classList.toggle('open', tdOpen);
+});
+document.addEventListener('click', function(e) {
+  if (!$('theme-wrap').contains(e.target)) {
+    tdOpen = false;
+    $('theme-drop').classList.remove('open');
+  }
+});
+$('mode-dark').addEventListener('click', function(e) { e.stopPropagation(); setBaseMode('dark'); });
+$('mode-light').addEventListener('click', function(e) { e.stopPropagation(); setBaseMode('light'); });
+$('bg-upload-area').addEventListener('click', function() { $('bg-upload').click(); });
+$('clear-bg-btn').addEventListener('click', clearBg);
+$('bg-upload').addEventListener('change', function() {
+  var file = this.files[0]; if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var img = new Image();
+    img.onload = function() {
+      var MAX = 1280, w = img.width, h = img.height;
+      if (w > MAX || h > MAX) { if (w > h) { h = Math.round(h*MAX/w); w = MAX; } else { w = Math.round(w*MAX/h); h = MAX; } }
+      var canvas = document.createElement('canvas'); canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      var c = canvas.toDataURL('image/jpeg', 0.82);
+      if (c.length > 3000000) c = canvas.toDataURL('image/jpeg', 0.6);
+      curBgImg = c;
+      if (curGrad) { var old = $('sw-' + curGrad); if (old) old.classList.remove('on'); curGrad = ''; localStorage.removeItem('ag_grad'); }
+      $('upload-preview').src = c; $('upload-preview').classList.add('show');
+      $('clear-bg-btn').classList.add('show'); $('bg-controls').classList.add('show');
+      $('overlay-slider').value = curOverlay; $('overlay-val').textContent = curOverlay + '%';
+      applyBg();
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+$('overlay-slider').addEventListener('input', function() {
+  curOverlay = parseInt(this.value);
+  localStorage.setItem('ag_overlay', curOverlay);
+  $('overlay-val').textContent = curOverlay + '%';
+  applyBg();
+});
+
+// ── PASSWORD TOGGLE ──
+$('eye-btn').addEventListener('click', function() {
+  showPass = !showPass;
+  $('password').type = showPass ? 'text' : 'password';
+  $('eye-icon').innerHTML = showPass
+    ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+    : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+});
+
+// ── UNIFIED PARSE: supports email (prefix+num@domain) OR plain (prefix+num) ──
+function parseField(val) {
+  val = (val || '').trim();
+  if (!val) return null;
+  // Email format: anything ending with @domain
+  var at = val.lastIndexOf('@');
+  if (at > 0) {
+    var domain = val.slice(at+1), local = val.slice(0, at);
+    var m = local.match(/^(.*?)(\d+)$/);
+    if (m) return { type:'email', prefix: m[1], num: parseInt(m[2]), numStr: m[2], domain: domain,
+      format: function(n) { return this.prefix + String(n).padStart(this.numStr.length, '0') + '@' + this.domain; }
+    };
+  }
+  // Plain: optional non-digit prefix + digits (e.g. 0909222222 or sdt001)
+  var nm = val.match(/^(.*?)(\d+)$/);
+  if (nm) return { type:'plain', prefix: nm[1], num: parseInt(nm[2]), numStr: nm[2], domain: '',
+    format: function(n) { return this.prefix + String(n).padStart(this.numStr.length, '0'); }
+  };
+  return null;
+}
+
+// Keep alias for backward compat
+function parseEmailOrNum(val) { return parseField(val); }
+function parseEmail(em) { return parseField(em); }
+
+// ── PREVIEW ──
+function updatePreview() {
+  var s = parseField($('emailStart').value);
+  var e = parseField($('emailEnd').value);
+  var sameGroup = s && e && s.prefix === e.prefix && s.domain === e.domain && e.num >= s.num;
+  if (sameGroup) {
+    $('pv-first').textContent = $('emailStart').value.trim();
+    $('pv-last').textContent = $('emailEnd').value.trim();
+    $('pv-total').textContent = (e.num - s.num + 1).toLocaleString();
+  } else {
+    $('pv-first').textContent = '—'; $('pv-last').textContent = '—'; $('pv-total').textContent = '0';
+  }
+  var ps = $('phoneStart').value.trim(), pe = $('phoneEnd').value.trim();
+  var wrap = $('pv-phone-wrap');
+  if (ps && pe) {
+    wrap.style.display = 'inline'; $('pv-p1').textContent = ps; $('pv-p2').textContent = pe;
+  } else { wrap.style.display = 'none'; }
+}
+$('emailStart').addEventListener('input', updatePreview);
+$('emailEnd').addEventListener('input', updatePreview);
+$('phoneStart').addEventListener('input', updatePreview);
+$('phoneEnd').addEventListener('input', updatePreview);
+
+// ── GENERATE ──
+$('btn-generate').addEventListener('click', function() {
+  var pass = $('password').value;
+  var sv = parseInt($('server').value);
+  if (!pass) { showToast('Nhập mật khẩu!', true); return; }
+  if (isNaN(sv) || sv < 1) { showToast('Server không hợp lệ!', true); return; }
+
+  var emStartVal = $('emailStart').value.trim();
+  var emEndVal   = $('emailEnd').value.trim();
+  var phStartVal = $('phoneStart').value.trim();
+  var phEndVal   = $('phoneEnd').value.trim();
+
+  // Determine primary range (email field, fallback to phone field if email empty)
+  var hasEmail = emStartVal && emEndVal;
+  var hasPhone = phStartVal && phEndVal;
+
+  if (!hasEmail && !hasPhone) { showToast('Nhập ít nhất Email hoặc SĐT!', true); return; }
+
+  // Parse primary range
+  var primaryStartVal = hasEmail ? emStartVal : phStartVal;
+  var primaryEndVal   = hasEmail ? emEndVal   : phEndVal;
+  var s = parseField(primaryStartVal);
+  var e = parseField(primaryEndVal);
+
+  if (!s || !e) { showToast('Giá trị bắt đầu/kết thúc không hợp lệ!', true); return; }
+  if (s.prefix !== e.prefix || s.domain !== e.domain) { showToast('Tiền tố hoặc domain khác nhau!', true); return; }
+  if (e.num < s.num) { showToast('Giá trị kết thúc phải >= bắt đầu!', true); return; }
+
+  var total = e.num - s.num + 1;
+  if (total > 50000) { showToast('Tối đa 50,000 tài khoản!', true); return; }
+
+  // Parse secondary phone range (only if email is primary and phone fields filled)
+  var phones = [];
+  if (hasEmail && hasPhone) {
+    var ps2 = parseField(phStartVal), pe2 = parseField(phEndVal);
+    if (ps2 && pe2 && pe2.num >= ps2.num) {
+      for (var pp = ps2.num; pp <= pe2.num; pp++) phones.push(ps2.format(pp));
+    }
+  }
+
+  allData = [];
+  for (var i = s.num, stt = 1; i <= e.num; i++, stt++) {
+    var username = s.format(i);
+    // If phone-only mode, phone col = username, email col = username too
+    var phoneVal = hasEmail
+      ? (phones.length ? phones[Math.min(stt-1, phones.length-1)] : '')
+      : username; // phone IS the username
+    allData.push({ stt: stt, username: username, password: pass, server: sv, phone: phoneVal });
+  }
+  filteredData = allData.slice();
+  currentPage = 1;
+  showResultCard();
+  showToast('Đã tạo ' + allData.length.toLocaleString() + ' tài khoản!');
+});
+
+$('btn-reset').addEventListener('click', function() {
+  $('emailStart').value = '';
+  $('emailEnd').value = '';
+  $('password').value = '';
+  $('server').value = '';
+  $('phoneStart').value = '';
+  $('phoneEnd').value = '';
+  updatePreview();
+});
+
+// ── FILE UPLOAD ──
+$('drop-zone').addEventListener('click', function() { $('txt-upload').click(); });
+$('drop-zone').addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('drag'); });
+$('drop-zone').addEventListener('dragleave', function() { this.classList.remove('drag'); });
+$('drop-zone').addEventListener('drop', function(e) {
+  e.preventDefault(); this.classList.remove('drag');
+  var f = e.dataTransfer.files[0]; if (f) parseTxtFile(f);
+});
+$('txt-upload').addEventListener('change', function() { if (this.files[0]) parseTxtFile(this.files[0]); });
+function parseTxtFile(file) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var lines = e.target.result.split('\n').map(function(l){ return l.trim(); }).filter(Boolean);
+    var parsed = [], errors = 0;
+    lines.forEach(function(line, idx) {
+      var sep = line.includes('|') ? '|' : ',';
+      var p = line.split(sep).map(function(x){ return x.trim(); });
+      if (p.length >= 5) parsed.push({stt:p[0],username:p[1],password:p[2],server:p[3],phone:p[4]});
+      else if (p.length === 4) parsed.push({stt:p[0],username:p[1],password:p[2],server:p[3],phone:''});
+      else if (p.length === 3) parsed.push({stt:idx+1,username:p[0],password:p[1],server:p[2],phone:''});
+      else errors++;
+    });
+    if (!parsed.length) { showToast('Không đọc được dữ liệu!', true); return; }
+    allData = parsed; filteredData = allData.slice(); currentPage = 1;
+    showResultCard();
+    showToast('Đã nạp ' + parsed.length + ' tài khoản' + (errors ? ' (' + errors + ' dòng lỗi)' : '') + '!');
+  };
+  reader.readAsText(file, 'utf-8');
+}
+
+// ── RESULT ──
+function showResultCard() {
+  $('result-card').style.display = 'block';
+  updateStats(); renderTable(); renderExport();
+  setTimeout(function(){ $('result-card').scrollIntoView({behavior:'smooth',block:'start'}); }, 100);
+}
+function updateStats() {
+  var svSet = {};
+  allData.forEach(function(r){ svSet[r.server] = 1; });
+  var svKeys = Object.keys(svSet);
+  $('st-total').textContent = allData.length.toLocaleString();
+  $('st-sv').textContent = svKeys.length <= 5 ? svKeys.join(', ') : svKeys.length + ' server';
+}
+
+// ── BULK ──
+$('btn-bulk').addEventListener('click', function() {
+  bulkOpen = !bulkOpen;
+  $('bulk-panel').classList.toggle('show', bulkOpen);
+});
+$('btn-bulk-pass').addEventListener('click', function() {
+  var v = $('bulk-pass').value;
+  if (!v) { showToast('Nhập mật khẩu mới!', true); return; }
+  allData.forEach(function(r){ r.password = v; });
+  filteredData.forEach(function(r){ r.password = v; });
+  renderTable(); renderExport();
+  showToast('Đã đổi mật khẩu cho ' + allData.length + ' tài khoản!');
+});
+$('btn-bulk-sv').addEventListener('click', function() {
+  var v = $('bulk-sv').value.trim();
+  if (!v) { showToast('Nhập số server!', true); return; }
+  allData.forEach(function(r){ r.server = v; });
+  filteredData.forEach(function(r){ r.server = v; });
+  updateStats(); renderTable(); renderExport();
+  showToast('Đã đổi server thành ' + v + '!');
+});
+$('btn-bulk-stt').addEventListener('click', function() {
+  var start = parseInt($('bulk-stt-start').value) || 1;
+  allData.forEach(function(r, i){ r.stt = start + i; });
+  var map = {};
+  allData.forEach(function(r){ map[r.username] = r.stt; });
+  filteredData.forEach(function(r){ r.stt = map[r.username] !== undefined ? map[r.username] : r.stt; });
+  renderTable(); renderExport();
+  showToast('Đã đánh lại STT từ ' + start + '!');
+});
+$('btn-clrstt').addEventListener('click', function() {
+  openModal('Xóa cột STT', 'Cột STT sẽ bị xóa khỏi tất cả tài khoản?', function() {
+    allData.forEach(function(r){ r.stt = ''; });
+    filteredData.forEach(function(r){ r.stt = ''; });
+    renderTable(); renderExport();
+    showToast('Đã xóa cột STT!');
+  });
+});
+$('btn-clrall').addEventListener('click', function() {
+  openModal('Xóa toàn bộ', 'Xóa toàn bộ <b>' + allData.length + '</b> tài khoản? Không thể hoàn tác!', function() {
+    allData = []; filteredData = [];
+    $('result-card').style.display = 'none';
+    showToast('Đã xóa toàn bộ!');
+  });
+});
+
+// ── TABLE ──
+$('filter-sv').addEventListener('input', filterTable);
+$('btn-filter-clear').addEventListener('click', function() { $('filter-sv').value = ''; filterTable(); });
+$('page-size').addEventListener('change', function() { pageSize = parseInt(this.value); currentPage = 1; renderTable(); });
+
+function filterTable() {
+  var sv = $('filter-sv').value.trim();
+  filteredData = sv ? allData.filter(function(r){ return String(r.server) === sv; }) : allData.slice();
+  currentPage = 1; renderTable(); renderExport();
+}
+function renderTable() {
+  var body = $('tbl-body');
+  if (!filteredData.length) {
+    body.innerHTML = '<tr><td colspan="6"><div class="empty">Không có dữ liệu</div></td></tr>';
+    $('pagination').innerHTML = ''; return;
+  }
+  var ps = pageSize >= 99999 ? filteredData.length : pageSize;
+  var totalPages = Math.ceil(filteredData.length / ps);
+  currentPage = Math.min(currentPage, totalPages);
+  var slice = filteredData.slice((currentPage-1)*ps, currentPage*ps);
+  body.innerHTML = slice.map(function(r) {
+    var rowTxt = esc(r.username)+'|'+esc(r.password)+'|'+esc(String(r.server))+(r.phone?'|'+esc(String(r.phone)):'');
+    return '<tr>'
+      + '<td class="tc stt-num">'+esc(String(r.stt))+'</td>'
+      + '<td class="tu">'+esc(r.username)+'</td>'
+      + '<td class="tp">'+('•'.repeat(Math.min(String(r.password).length,8)))+'</td>'
+      + '<td class="tc"><span class="tsv">'+esc(String(r.server))+'</span></td>'
+      + '<td style="color:var(--purple);font-family:var(--mono);font-size:12px;">'+esc(String(r.phone||'—'))+'</td>'
+      + '<td class="tc"><button class="cr-btn" data-txt="'+rowTxt+'">⎘</button></td>'
+      + '</tr>';
+  }).join('');
+  renderPagination(totalPages);
+}
+$('tbl-body').addEventListener('click', function(e) {
+  var btn = e.target.closest('.cr-btn');
+  if (!btn) return;
+  var txt = btn.dataset.txt;
+  navigator.clipboard.writeText(txt).then(function() {
+    btn.textContent = '✓'; btn.classList.add('ok');
+    setTimeout(function(){ btn.textContent = '⎘'; btn.classList.remove('ok'); }, 1500);
+  });
+});
+function renderPagination(totalPages) {
+  var pg = $('pagination');
+  if (totalPages <= 1) { pg.innerHTML = ''; return; }
+  var ps = pageSize >= 99999 ? filteredData.length : pageSize;
+  var s = (currentPage-1)*ps+1, e2 = Math.min(currentPage*ps, filteredData.length);
+  pg.innerHTML = '<span class="pg-info">'+s+'–'+e2+' / '+filteredData.length+'</span>'
+    + '<button class="pg-btn" data-p="1" '+(currentPage===1?'disabled':'')+'>«</button>'
+    + '<button class="pg-btn" data-p="'+(currentPage-1)+'" '+(currentPage===1?'disabled':'')+'>‹</button>'
+    + '<span class="pg-info" style="color:var(--accent2);">'+currentPage+'/'+totalPages+'</span>'
+    + '<button class="pg-btn" data-p="'+(currentPage+1)+'" '+(currentPage===totalPages?'disabled':'')+'>›</button>'
+    + '<button class="pg-btn" data-p="'+totalPages+'" '+(currentPage===totalPages?'disabled':'')+'>»</button>';
+}
+$('pagination').addEventListener('click', function(e) {
+  var btn = e.target.closest('.pg-btn');
+  if (!btn || btn.disabled) return;
+  currentPage = parseInt(btn.dataset.p);
+  renderTable();
+});
+
+// ── EXPORT ──
+$('fmt-tabs').addEventListener('click', function(e) {
+  var tab = e.target.closest('.ftab');
+  if (!tab) return;
+  currentFmt = tab.dataset.fmt;
+  document.querySelectorAll('.ftab').forEach(function(b){ b.classList.remove('on'); });
+  tab.classList.add('on');
+  renderExport();
+});
+function renderExport() {
+  var box = $('export-box');
+  var data = filteredData.length ? filteredData : allData;
+  if (!data.length) { box.textContent = '— chưa có dữ liệu —'; return; }
+  var lines = [];
+  if (currentFmt === 'pipe') lines = data.map(function(r){ return r.stt+'|'+r.username+'|'+r.password+'|'+r.server+(r.phone?'|'+r.phone:''); });
+  else if (currentFmt === 'nostt') lines = data.map(function(r){ return r.username+'|'+r.password+'|'+r.server+(r.phone?'|'+r.phone:''); });
+  else if (currentFmt === 'comma') lines = data.map(function(r){ return r.stt+','+r.username+','+r.password+','+r.server+(r.phone?','+r.phone:''); });
+  else if (currentFmt === 'userpass') lines = data.map(function(r){ return r.username+':'+r.password; });
+  else if (currentFmt === 'json') { box.textContent = JSON.stringify(data, null, 2); return; }
+  box.textContent = lines.join('\n');
+}
+$('export-box').addEventListener('click', copyExport);
+$('btn-copy-export').addEventListener('click', copyExport);
+function copyExport() {
+  var txt = $('export-box').textContent;
+  if (!txt || txt === '— chưa có dữ liệu —') return;
+  navigator.clipboard.writeText(txt).then(function() {
+    $('export-box').classList.add('cp');
+    setTimeout(function(){ $('export-box').classList.remove('cp'); }, 1500);
+    showToast('Đã copy ' + (filteredData.length || allData.length).toLocaleString() + ' dòng!');
+  });
+}
+$('btn-dl-txt').addEventListener('click', function() {
+  var txt = $('export-box').textContent;
+  if (!txt || txt === '— chưa có dữ liệu —') return;
+  dlFile(txt, 'accounts.txt', 'text/plain');
+});
+$('btn-dl-csv').addEventListener('click', function() {
+  var data = filteredData.length ? filteredData : allData; if (!data.length) return;
+  var lines = ['STT,Username,Password,Server,Phone'].concat(data.map(function(r){
+    return r.stt+',"'+r.username+'","'+r.password+'",'+r.server+',"'+(r.phone||'')+'"';
+  }));
+  dlFile(lines.join('\n'), 'accounts.csv', 'text/csv;charset=utf-8;');
+});
+function dlFile(content, filename, mime) {
+  var blob = new Blob(['\ufeff'+content], {type:mime});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  showToast('Đang tải ' + filename);
+}
+
+// ── MODAL ──
+$('modal-cancel').addEventListener('click', closeModal);
+$('modal-ok').addEventListener('click', function() { if (modalCb) modalCb(); closeModal(); });
+$('modal').addEventListener('click', function(e) { if (e.target === $('modal')) closeModal(); });
+
+// ── SCROLL TO TOP ──
+(function() {
+  var btn = $('scroll-top-btn');
+  window.addEventListener('scroll', function() {
+    var show = window.scrollY > 300;
+    btn.style.opacity = show ? '1' : '0';
+    btn.style.transform = show ? 'translateY(0)' : 'translateY(10px)';
+    btn.style.pointerEvents = show ? 'auto' : 'none';
+  });
+  btn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  btn.addEventListener('mouseenter', function() {
+    btn.style.borderColor = 'var(--accent)';
+    btn.style.color = 'var(--accent2)';
+  });
+  btn.addEventListener('mouseleave', function() {
+    btn.style.borderColor = 'var(--border2)';
+    btn.style.color = 'var(--text2)';
+  });
+})();
+
+// ── INIT ──
+initTheme();
+updatePreview();
+
+})();
+</script>
+</body>
+</html>
