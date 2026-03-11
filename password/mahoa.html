@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark" data-accent="blue">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mã Hóa Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+[data-accent="blue"]   { --a1:#3b82f6;--a2:#60a5fa;--a3:rgba(59,130,246,.15);--a4:rgba(59,130,246,.07); }
+[data-accent="orange"] { --a1:#f97316;--a2:#fb923c;--a3:rgba(249,115,22,.15);--a4:rgba(249,115,22,.07); }
+[data-accent="green"]  { --a1:#22c55e;--a2:#4ade80;--a3:rgba(34,197,94,.15);--a4:rgba(34,197,94,.07); }
+[data-accent="red"]    { --a1:#ef4444;--a2:#f87171;--a3:rgba(239,68,68,.15);--a4:rgba(239,68,68,.07); }
+[data-accent="purple"] { --a1:#a855f7;--a2:#c084fc;--a3:rgba(168,85,247,.15);--a4:rgba(168,85,247,.07); }
+[data-accent="cyan"]   { --a1:#06b6d4;--a2:#22d3ee;--a3:rgba(6,182,212,.15);--a4:rgba(6,182,212,.07); }
+
+[data-theme="dark"] {
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2333;--bg4:#21262d;
+  --card:rgba(22,27,34,.95);--card-b:rgba(48,54,61,.8);--card-hov:rgba(30,37,46,.98);
+  --text:#e6edf3;--text2:#8b949e;--text3:#6e7681;
+  --topbar:rgba(13,17,23,.97);--inp-bg:#0d1117;--inp-b:#30363d;
+  --pill-bg:rgba(22,27,34,.9);--pill-b:rgba(48,54,61,.9);--pill-t:#8b949e;
+  --div:rgba(48,54,61,.6);--sh:0 8px 32px rgba(0,0,0,.5);
+  --out-ok:#22c55e;--out-err:#ef4444;--out-muted:#6e7681;
+  --scrollbar:#30363d;
+  --panel-bg:rgba(22,27,34,.98);--panel-b:rgba(48,54,61,.9);
+}
+[data-theme="light"] {
+  --bg:#f0f4f8;--bg2:#fff;--bg3:#f6f8fa;--bg4:#eaeef2;
+  --card:rgba(255,255,255,.97);--card-b:rgba(209,217,224,.9);--card-hov:#fff;
+  --text:#1c2128;--text2:#57606a;--text3:#8c959f;
+  --topbar:rgba(255,255,255,.97);--inp-bg:#fff;--inp-b:#d0d7de;
+  --pill-bg:rgba(255,255,255,.9);--pill-b:rgba(209,217,224,.9);--pill-t:#57606a;
+  --div:rgba(209,217,224,.7);--sh:0 4px 24px rgba(0,0,0,.08);
+  --out-ok:#16a34a;--out-err:#dc2626;--out-muted:#8c959f;
+  --scrollbar:#d0d7de;
+  --panel-bg:rgba(255,255,255,.98);--panel-b:rgba(209,217,224,.9);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* BG LAYER */
+#bgLayer{
+  position:fixed;inset:0;z-index:0;
+  background-size:cover;background-repeat:no-repeat;
+  transition:opacity .3s;
+  pointer-events:none;
+}
+
+body{font-family:'Be Vietnam Pro',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;position:relative;}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;background:var(--topbar);border-bottom:1px solid var(--div);backdrop-filter:blur(16px);padding:0 20px;height:52px;display:flex;align-items:center;gap:14px;}
+.logo-text{font-family:'Oswald',sans-serif;font-size:16px;font-weight:700;color:var(--text);letter-spacing:1px;}
+.logo-text span{color:var(--a1);}
+.topbar-title{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600;color:var(--text2);}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px;}
+.icon-btn{width:34px;height:34px;border-radius:8px;border:1px solid var(--card-b);background:var(--bg4);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:15px;font-family:inherit;}
+.icon-btn:hover{color:var(--a1);border-color:var(--a1);background:var(--a4);}
+
+/* COLOR PICKER */
+.color-picker{position:relative;}
+.color-dots{position:absolute;top:calc(100% + 8px);right:0;background:var(--card);border:1px solid var(--card-b);border-radius:12px;padding:10px;display:none;flex-wrap:wrap;gap:6px;width:130px;box-shadow:var(--sh);z-index:200;}
+.color-picker.open .color-dots{display:flex;}
+.dot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all .15s;}
+.dot:hover,.dot.active{border-color:white;transform:scale(1.15);}
+.dot[data-c="blue"]{background:#3b82f6;}
+.dot[data-c="orange"]{background:#f97316;}
+.dot[data-c="green"]{background:#22c55e;}
+.dot[data-c="red"]{background:#ef4444;}
+.dot[data-c="purple"]{background:#a855f7;}
+.dot[data-c="cyan"]{background:#06b6d4;}
+
+/* MAIN */
+.main{position:relative;z-index:1;padding:16px 20px 60px;max-width:1300px;margin:0 auto;}
+
+/* SEARCH */
+.search-wrap{position:relative;margin-bottom:14px;}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text3);pointer-events:none;font-size:14px;}
+.search-input{width:100%;background:var(--inp-bg);border:1px solid var(--inp-b);border-radius:10px;padding:11px 44px 11px 40px;font-family:'Be Vietnam Pro',sans-serif;font-size:14px;color:var(--text);outline:none;transition:all .2s;}
+.search-input::placeholder{color:var(--text3);}
+.search-input:focus{border-color:var(--a1);box-shadow:0 0 0 3px var(--a3);}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:6px;border:none;background:var(--bg4);color:var(--text2);cursor:pointer;display:none;align-items:center;justify-content:center;font-size:14px;transition:all .15s;}
+.search-clear:hover{background:var(--a3);color:var(--a1);}
+.search-clear.show{display:flex;}
+
+/* FILTER PILLS */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.pill{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;border:1px solid var(--pill-b);background:var(--pill-bg);color:var(--pill-t);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;user-select:none;}
+.pill:hover{border-color:var(--a1);color:var(--a2);}
+.pill.active{background:var(--a3);border-color:var(--a1);color:var(--a1);font-weight:600;}
+.pill .cnt{background:var(--bg4);border-radius:10px;padding:1px 6px;font-size:11px;font-weight:700;color:var(--text);}
+.pill.active .cnt{background:var(--a1);color:#fff;}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px;}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--card-b);border-radius:12px;overflow:hidden;transition:all .25s;animation:fadeIn .3s ease forwards;}
+.card:hover{background:var(--card-hov);border-color:var(--a1);box-shadow:0 0 0 1px var(--a3),var(--sh);transform:translateY(-2px);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.card-header{padding:14px 14px 0;display:flex;flex-direction:column;gap:6px;}
+.origin-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);}
+.origin-dot{width:5px;height:5px;border-radius:50%;background:var(--a1);flex-shrink:0;}
+.card-name{font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;color:var(--text);letter-spacing:.5px;line-height:1.2;}
+.card-desc{font-size:12px;color:var(--text2);line-height:1.5;}
+
+.tags{display:flex;gap:6px;flex-wrap:wrap;padding:8px 14px 0;}
+.tag{font-size:11px;font-weight:600;padding:2px 9px;border-radius:4px;letter-spacing:.3px;}
+.tag-enc{background:var(--a3);color:var(--a2);border:1px solid var(--a1);}
+.tag-rev{background:rgba(34,197,94,.12);color:#22c55e;border:1px solid rgba(34,197,94,.3);}
+.tag-hash{background:rgba(239,68,68,.12);color:#ef4444;border:1px solid rgba(239,68,68,.3);}
+.tag-sym{background:rgba(168,85,247,.12);color:#a855f7;border:1px solid rgba(168,85,247,.3);}
+
+.boost-row{padding:5px 14px 10px;font-size:11px;color:var(--text3);}
+.boost-val{color:var(--a2);font-weight:600;}
+
+.card-divider{height:1px;background:var(--div);margin:0 14px;}
+
+/* INPUT/OUTPUT SECTION */
+.card-body{padding:12px 14px;}
+.field-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:6px;}
+.field-label span{color:var(--a1);}
+
+textarea.inp,input.inp{width:100%;background:var(--inp-bg);border:1px solid var(--inp-b);border-radius:7px;padding:10px 12px;font-family:'Be Vietnam Pro',sans-serif;font-size:13px;color:var(--text);outline:none;resize:vertical;transition:border .2s,box-shadow .2s;line-height:1.6;}
+textarea.inp{min-height:72px;}
+textarea.inp:focus,input.inp:focus{border-color:var(--a1);box-shadow:0 0 0 2px var(--a3);}
+textarea.inp::placeholder,input.inp::placeholder{color:var(--text3);opacity:.6;}
+
+.output-box{width:100%;background:var(--inp-bg);border:1px solid var(--inp-b);border-radius:7px;padding:10px 12px;min-height:48px;position:relative;transition:border .2s,box-shadow .2s;}
+.output-box.ok{border-color:var(--out-ok);box-shadow:0 0 0 2px rgba(34,197,94,.1);}
+.output-box.err{border-color:var(--out-err);box-shadow:0 0 0 2px rgba(239,68,68,.1);}
+.out-text{font-family:'Be Vietnam Pro',monospace;font-size:13px;line-height:1.7;word-break:break-all;white-space:pre-wrap;color:var(--out-ok);}
+.out-text.err{color:var(--out-err);}
+.out-text.muted{color:var(--out-muted);font-style:italic;}
+.copy-btn{position:absolute;top:7px;right:7px;background:var(--bg4);border:1px solid var(--card-b);color:var(--text2);font-size:10px;letter-spacing:1px;padding:3px 8px;border-radius:4px;cursor:pointer;font-family:'Be Vietnam Pro',sans-serif;font-weight:600;transition:all .15s;opacity:0;}
+.output-box:hover .copy-btn{opacity:1;}
+.copy-btn:hover{background:var(--a3);color:var(--a1);border-color:var(--a1);}
+
+.btn-row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.btn{padding:8px 18px;font-family:'Be Vietnam Pro',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border:none;border-radius:6px;cursor:pointer;transition:all .2s;}
+.btn-pri{background:var(--a1);color:#fff;}
+.btn-pri:hover{filter:brightness(1.15);transform:translateY(-1px);box-shadow:0 4px 14px var(--a3);}
+.btn-sec{background:transparent;color:var(--a1);border:1px solid var(--a1);}
+.btn-sec:hover{background:var(--a4);}
+.btn-clr{background:transparent;color:var(--text3);border:1px solid var(--card-b);}
+.btn-clr:hover{color:var(--out-err);border-color:var(--out-err);}
+
+/* SHIFT INPUT for Caesar */
+.shift-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.shift-row label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);white-space:nowrap;}
+.shift-row input{width:70px;min-height:auto;padding:6px 10px;font-size:12px;}
+
+/* TOGGLE */
+.card-toggle{width:100%;background:none;border:none;border-top:1px solid var(--div);color:var(--text3);font-size:11px;font-family:'Be Vietnam Pro',sans-serif;font-weight:600;padding:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:4px;transition:all .2s;letter-spacing:.5px;text-transform:uppercase;}
+.card-toggle:hover{color:var(--a1);background:var(--a4);}
+.tog-icon{transition:transform .25s;font-size:9px;}
+.card-body.collapsed{display:none;}
+.card.open .tog-icon{transform:rotate(180deg);}
+
+/* STATS */
+.stats-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;}
+.stat{font-size:11px;color:var(--text3);}
+.stat b{color:var(--a2);}
+
+/* NO RESULT */
+.no-res{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text3);}
+.no-res h3{font-size:16px;color:var(--text2);margin-bottom:6px;}
+
+/* ===== CUSTOMIZE PANEL ===== */
+.panel-toggle-btn{
+  width:34px;height:34px;border-radius:8px;border:1px solid var(--card-b);
+  background:var(--bg4);color:var(--text2);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;font-size:16px;
+}
+.panel-toggle-btn:hover{color:var(--a1);border-color:var(--a1);background:var(--a4);}
+.panel-toggle-btn.active{background:var(--a3);color:var(--a1);border-color:var(--a1);}
+
+.customize-panel{
+  position:fixed;top:52px;right:0;width:280px;height:calc(100vh - 52px);
+  background:var(--panel-bg);border-left:1px solid var(--panel-b);
+  z-index:99;overflow-y:auto;
+  transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  backdrop-filter:blur(20px);
+  box-shadow:-8px 0 32px rgba(0,0,0,.3);
+}
+.customize-panel.open{transform:translateX(0);}
+
+.panel-header{
+  padding:16px;border-bottom:1px solid var(--div);
+  font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--text2);display:flex;align-items:center;gap:8px;
+}
+.panel-header::before{content:'';width:8px;height:8px;border-radius:2px;background:var(--a1);}
+
+.panel-section{padding:14px 16px;border-bottom:1px solid var(--div);}
+.panel-section-title{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;}
+
+/* Theme toggle */
+.theme-row{display:flex;gap:8px;}
+.theme-btn{flex:1;padding:8px;border-radius:8px;border:1px solid var(--card-b);background:var(--bg4);color:var(--text2);font-family:'Be Vietnam Pro',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.theme-btn:hover{border-color:var(--a1);color:var(--a1);}
+.theme-btn.active{background:var(--a3);border-color:var(--a1);color:var(--a1);}
+
+/* Gradient grid */
+.grad-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
+.grad-swatch{
+  aspect-ratio:1;border-radius:6px;cursor:pointer;
+  border:2px solid transparent;transition:all .15s;
+}
+.grad-swatch:hover{transform:scale(1.1);}
+.grad-swatch.active{border-color:white;box-shadow:0 0 0 2px var(--a1);}
+
+/* Upload */
+.upload-btn{
+  width:100%;padding:10px;border-radius:8px;
+  border:1px dashed var(--inp-b);background:var(--inp-bg);
+  color:var(--text2);font-family:'Be Vietnam Pro',sans-serif;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.upload-btn:hover{border-color:var(--a1);color:var(--a1);}
+#fileInput{display:none;}
+
+.bg-preview{
+  width:100%;height:80px;border-radius:8px;overflow:hidden;
+  border:1px solid var(--inp-b);margin-top:8px;position:relative;
+  background:var(--bg4);display:flex;align-items:center;justify-content:center;
+}
+.bg-preview img{width:100%;height:100%;object-fit:cover;}
+.bg-preview .no-img{font-size:11px;color:var(--text3);}
+
+/* Size buttons */
+.size-btns{display:flex;gap:6px;}
+.size-btn{flex:1;padding:6px;border-radius:6px;border:1px solid var(--card-b);background:var(--bg4);color:var(--text3);font-family:'Be Vietnam Pro',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;}
+.size-btn:hover{border-color:var(--a1);color:var(--a1);}
+.size-btn.active{background:var(--a3);border-color:var(--a1);color:var(--a1);}
+
+/* Sliders */
+.slider-row{margin-top:10px;}
+.slider-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:5px;}
+.slider-label span{color:var(--a2);font-weight:600;}
+.slider{width:100%;-webkit-appearance:none;height:4px;border-radius:2px;background:var(--inp-b);outline:none;cursor:pointer;}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--a1);cursor:pointer;box-shadow:0 0 0 3px var(--a3);}
+.slider::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--a1);cursor:pointer;border:none;}
+
+/* Remove bg btn */
+.remove-btn{
+  width:100%;padding:8px;border-radius:8px;border:1px solid rgba(239,68,68,.3);
+  background:rgba(239,68,68,.08);color:#ef4444;
+  font-family:'Be Vietnam Pro',sans-serif;font-size:12px;font-weight:700;
+  cursor:pointer;transition:all .2s;margin-top:8px;
+}
+.remove-btn:hover{background:rgba(239,68,68,.18);border-color:#ef4444;}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--scrollbar);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--a1);}
+
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr;}
+  .topbar{padding:0 12px;gap:10px;}
+  .main{padding:12px 12px 40px;}
+  .customize-panel{width:100%;}
+}
+
+/* DETECT BANNER */
+.detect-banner{background:var(--card);border:1px solid var(--a1);border-radius:12px;padding:14px 16px;margin-bottom:18px;box-shadow:0 0 0 1px var(--a3),var(--sh);}
+.detect-title{font-size:13px;font-weight:700;color:var(--a2);margin-bottom:8px;}
+.detect-types{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
+.detect-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:4px;background:var(--a3);border:1px solid var(--a1);color:var(--a2);}
+.detect-badge em{font-style:normal;font-size:10px;opacity:.7;margin-left:4px;}
+.conf-high{background:rgba(34,197,94,.12);color:#22c55e;border-color:rgba(34,197,94,.3);}
+.conf-medium{background:rgba(249,115,22,.12);color:#f97316;border-color:rgba(249,115,22,.3);}
+.conf-low{background:rgba(107,114,128,.12);color:#9ca3af;border-color:rgba(107,114,128,.3);}
+.detect-hash{font-family:monospace;font-size:11px;color:var(--text3);word-break:break-all;background:var(--inp-bg);border:1px solid var(--inp-b);border-radius:6px;padding:8px 10px;margin-bottom:10px;}
+.detect-crack{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.detect-note{font-size:11px;color:var(--text3);}
+.crack-bar-wrap{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-bottom:6px;}
+.crack-bar{height:100%;background:var(--a1);border-radius:3px;transition:width .2s;}
+.crack-info{font-size:12px;color:var(--text2);display:flex;align-items:center;flex-wrap:wrap;gap:4px;}
+.crack-found{font-size:13px;font-weight:700;color:#22c55e;padding:8px 12px;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);border-radius:8px;}
+.crack-notfound{font-size:12px;color:var(--out-err);padding:8px 12px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;}
+</style>
+</head>
+<body>
+
+<!-- BG LAYER -->
+<div id="bgLayer"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a href="../index.html" style="text-decoration:none;display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:8px;border:1px solid var(--card-b);background:var(--bg4);color:var(--text2);font-family:'Be Vietnam Pro',sans-serif;font-size:12px;font-weight:600;transition:all .2s;" onmouseover="this.style.color='var(--a1)';this.style.borderColor='var(--a1)';this.style.background='var(--a4)'" onmouseout="this.style.color='var(--text2)';this.style.borderColor='var(--card-b)';this.style.background='var(--bg4)'">&#8592; Trở lại</a>
+  <div class="logo-text">MÃ HÓA <span>TOOL</span></div>
+  <div class="topbar-title">Mã hóa &amp; Giải mã</div>
+  <div class="topbar-right">
+    <div class="color-picker" id="colorPicker">
+      <button class="icon-btn" onclick="toggleCP()" title="Đổi màu accent">●</button>
+      <div class="color-dots">
+        <div class="dot active" data-c="blue"   onclick="setAccent('blue')"></div>
+        <div class="dot"        data-c="orange" onclick="setAccent('orange')"></div>
+        <div class="dot"        data-c="green"  onclick="setAccent('green')"></div>
+        <div class="dot"        data-c="red"    onclick="setAccent('red')"></div>
+        <div class="dot"        data-c="purple" onclick="setAccent('purple')"></div>
+        <div class="dot"        data-c="cyan"   onclick="setAccent('cyan')"></div>
+      </div>
+    </div>
+    <button class="panel-toggle-btn" id="panelToggleBtn" onclick="togglePanel()" title="Tùy chỉnh giao diện">⚙️</button>
+  </div>
+</div>
+
+<!-- CUSTOMIZE PANEL -->
+<div class="customize-panel" id="customizePanel">
+  <div class="panel-header">Tùy chỉnh giao diện</div>
+
+  <!-- Theme -->
+  <div class="panel-section">
+    <div class="panel-section-title">Chế độ sáng / tối</div>
+    <div class="theme-row">
+      <button class="theme-btn" id="darkBtn" onclick="setTheme('dark')">🌙 Tối</button>
+      <button class="theme-btn" id="lightBtn" onclick="setTheme('light')">☀️ Sáng</button>
+    </div>
+  </div>
+
+  <!-- Gradient presets -->
+  <div class="panel-section">
+    <div class="panel-section-title">Màu nền Gradient</div>
+    <div class="grad-grid" id="gradGrid"></div>
+  </div>
+
+  <!-- Upload image -->
+  <div class="panel-section">
+    <div class="panel-section-title">Ảnh nền tùy chỉnh</div>
+    <label class="upload-btn" for="fileInput">📁 Tải ảnh làm background</label>
+    <input type="file" id="fileInput" accept="image/*" onchange="onUpload(this)">
+    <div class="bg-preview" id="bgPreview">
+      <span class="no-img">Chưa có ảnh</span>
+    </div>
+
+    <!-- Size -->
+    <div style="margin-top:12px;">
+      <div class="panel-section-title" style="margin-bottom:6px;">Kích thước</div>
+      <div class="size-btns">
+        <button class="size-btn active" id="sz-cover"  onclick="setBgSize('cover')">Phủ đầy</button>
+        <button class="size-btn"        id="sz-contain" onclick="setBgSize('contain')">Vừa khung</button>
+        <button class="size-btn"        id="sz-auto"   onclick="setBgSize('auto')">Gốc</button>
+      </div>
+    </div>
+
+    <!-- Position X -->
+    <div class="slider-row">
+      <div class="slider-label">Vị trí X <span id="posXVal">50%</span></div>
+      <input type="range" class="slider" id="posX" min="0" max="100" value="50" oninput="updateBgPos()">
+    </div>
+    <!-- Position Y -->
+    <div class="slider-row">
+      <div class="slider-label">Vị trí Y <span id="posYVal">50%</span></div>
+      <input type="range" class="slider" id="posY" min="0" max="100" value="50" oninput="updateBgPos()">
+    </div>
+    <!-- Opacity -->
+    <div class="slider-row">
+      <div class="slider-label">Độ mờ <span id="opacityVal">30%</span></div>
+      <input type="range" class="slider" id="bgOpacity" min="0" max="100" value="30" oninput="updateBgOpacity()">
+    </div>
+
+    <button class="remove-btn" onclick="removeBg()">✕ Xóa ảnh nền</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- SEARCH -->
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;">
+    <div class="search-wrap" style="margin-bottom:0;flex:1">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" id="searchInput" type="text"
+      placeholder="Tìm kiếm thuật toán... (Nhập tên hoặc loại)"
+      oninput="onSearch(this.value)">
+    <button class="search-clear" id="clearBtn" onclick="clearSearch()">✕</button>
+    </div>
+    <button class="icon-btn" id="filterToggleBtn" onclick="toggleFilters()" title="Ẩn/hiện bộ lọc" style="flex-shrink:0">☰</button>
+  </div>
+
+  <!-- PILLS -->
+  <div class="filter-bar" id="filterBar">
+    <div class="pill active" data-f="all"      onclick="setFilter(this,'all')">Tất cả <span class="cnt" id="c-all">0</span></div>
+    <div class="pill"        data-f="hash"     onclick="setFilter(this,'hash')">One-way Hash <span class="cnt" id="c-hash">0</span></div>
+    <div class="pill"        data-f="reverse"  onclick="setFilter(this,'reverse')">Giải được <span class="cnt" id="c-reverse">0</span></div>
+    <div class="pill"        data-f="symmetric"onclick="setFilter(this,'symmetric')">Đối xứng <span class="cnt" id="c-symmetric">0</span></div>
+    <div class="pill"        data-f="sql"      onclick="setFilter(this,'sql')">SQL / DB <span class="cnt" id="c-sql">0</span></div>
+  </div>
+
+  <!-- DETECT BANNER -->
+  <div id="detectBanner" style="display:none"></div>
+
+  <!-- GRID -->
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+/* ===== FIXED MD5 ===== */
+async function md5(msg) {
+  function add32(a,b){return(a+b)&0xFFFFFFFF;}
+  function cmn(q,a,b,x,s,t){a=add32(add32(a,q),add32(x,t));return add32((a<<s)|(a>>>(32-s)),b);}
+  function ff(a,b,c,d,x,s,t){return cmn((b&c)|(~b&d),a,b,x,s,t);}
+  function gg(a,b,c,d,x,s,t){return cmn((b&d)|(c&~d),a,b,x,s,t);}
+  function hh(a,b,c,d,x,s,t){return cmn(b^c^d,a,b,x,s,t);}
+  function ii(a,b,c,d,x,s,t){return cmn(c^(b|~d),a,b,x,s,t);}
+  function md5cycle(x,k){
+    let a=x[0],b=x[1],c=x[2],d=x[3];
+    a=ff(a,b,c,d,k[0],7,-680876936);d=ff(d,a,b,c,k[1],12,-389564586);c=ff(c,d,a,b,k[2],17,606105819);b=ff(b,c,d,a,k[3],22,-1044525330);
+    a=ff(a,b,c,d,k[4],7,-176418897);d=ff(d,a,b,c,k[5],12,1200080426);c=ff(c,d,a,b,k[6],17,-1473231341);b=ff(b,c,d,a,k[7],22,-45705983);
+    a=ff(a,b,c,d,k[8],7,1770035416);d=ff(d,a,b,c,k[9],12,-1958414417);c=ff(c,d,a,b,k[10],17,-42063);b=ff(b,c,d,a,k[11],22,-1990404162);
+    a=ff(a,b,c,d,k[12],7,1804603682);d=ff(d,a,b,c,k[13],12,-40341101);c=ff(c,d,a,b,k[14],17,-1502002290);b=ff(b,c,d,a,k[15],22,1236535329);
+    a=gg(a,b,c,d,k[1],5,-165796510);d=gg(d,a,b,c,k[6],9,-1069501632);c=gg(c,d,a,b,k[11],14,643717713);b=gg(b,c,d,a,k[0],20,-373897302);
+    a=gg(a,b,c,d,k[5],5,-701558691);d=gg(d,a,b,c,k[10],9,38016083);c=gg(c,d,a,b,k[15],14,-660478335);b=gg(b,c,d,a,k[4],20,-405537848);
+    a=gg(a,b,c,d,k[9],5,568446438);d=gg(d,a,b,c,k[14],9,-1019803690);c=gg(c,d,a,b,k[3],14,-187363961);b=gg(b,c,d,a,k[8],20,1163531501);
+    a=gg(a,b,c,d,k[13],5,-1444681467);d=gg(d,a,b,c,k[2],9,-51403784);c=gg(c,d,a,b,k[7],14,1735328473);b=gg(b,c,d,a,k[12],20,-1926607734);
+    a=hh(a,b,c,d,k[5],4,-378558);d=hh(d,a,b,c,k[8],11,-2022574463);c=hh(c,d,a,b,k[11],16,1839030562);b=hh(b,c,d,a,k[14],23,-35309556);
+    a=hh(a,b,c,d,k[1],4,-1530992060);d=hh(d,a,b,c,k[4],11,1272893353);c=hh(c,d,a,b,k[7],16,-155497632);b=hh(b,c,d,a,k[10],23,-1094730640);
+    a=hh(a,b,c,d,k[13],4,681279174);d=hh(d,a,b,c,k[0],11,-358537222);c=hh(c,d,a,b,k[3],16,-722521979);b=hh(b,c,d,a,k[6],23,76029189);
+    a=hh(a,b,c,d,k[9],4,-640364487);d=hh(d,a,b,c,k[12],11,-421815835);c=hh(c,d,a,b,k[15],16,530742520);b=hh(b,c,d,a,k[2],23,-995338651);
+    a=ii(a,b,c,d,k[0],6,-198630844);d=ii(d,a,b,c,k[7],10,1126891415);c=ii(c,d,a,b,k[14],15,-1416354905);b=ii(b,c,d,a,k[5],21,-57434055);
+    a=ii(a,b,c,d,k[12],6,1700485571);d=ii(d,a,b,c,k[3],10,-1894986606);c=ii(c,d,a,b,k[10],15,-1051523);b=ii(b,c,d,a,k[1],21,-2054922799);
+    a=ii(a,b,c,d,k[8],6,1873313359);d=ii(d,a,b,c,k[15],10,-30611744);c=ii(c,d,a,b,k[6],15,-1560198380);b=ii(b,c,d,a,k[13],21,1309151649);
+    a=ii(a,b,c,d,k[4],6,-145523070);d=ii(d,a,b,c,k[11],10,-1120210379);c=ii(c,d,a,b,k[2],15,718787259);b=ii(b,c,d,a,k[9],21,-343485551);
+    x[0]=add32(a,x[0]);x[1]=add32(b,x[1]);x[2]=add32(c,x[2]);x[3]=add32(d,x[3]);
+  }
+  function md5blks(s){const r=[];for(let i=0;i<64;i+=4)r[i>>2]=s.charCodeAt(i)+(s.charCodeAt(i+1)<<8)+(s.charCodeAt(i+2)<<16)+(s.charCodeAt(i+3)<<24);return r;}
+  function rhex(n){let s='';for(let j=0;j<4;j++)s+='0123456789abcdef'[(n>>(j*8+4))&0xF]+'0123456789abcdef'[(n>>(j*8))&0xF];return s;}
+  const str=unescape(encodeURIComponent(msg));
+  let n=str.length,state=[1732584193,-271733879,-1732584194,271733878],i;
+  for(i=64;i<=n;i+=64)md5cycle(state,md5blks(str.substring(i-64,i)));
+  const tail=str.substring(i-64);
+  const length=new Array(16).fill(0);
+  for(i=0;i<tail.length;i++)length[i>>2]|=tail.charCodeAt(i)<<((i%4)*8);
+  length[i>>2]|=0x80<<((i%4)*8);
+  if(i>55){md5cycle(state,length);length.fill(0);}
+  length[14]=n*8;
+  md5cycle(state,length);
+  return (rhex(state[0])+rhex(state[1])+rhex(state[2])+rhex(state[3])).toUpperCase();
+}
+
+/* ===== HASH UTILS ===== */
+function hexBuf(buf){return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();}
+async function sha1(s){return hexBuf(await crypto.subtle.digest('SHA-1',new TextEncoder().encode(s)));}
+async function sha256(s){return hexBuf(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)));}
+async function sha384(s){return hexBuf(await crypto.subtle.digest('SHA-384',new TextEncoder().encode(s)));}
+async function sha512(s){return hexBuf(await crypto.subtle.digest('SHA-512',new TextEncoder().encode(s)));}
+async function mysqlHash(s){const enc=new TextEncoder();const b1=await crypto.subtle.digest('SHA-1',enc.encode(s));const b2=await crypto.subtle.digest('SHA-1',b1);return '*'+hexBuf(b2);}
+
+function toB64(s){try{return btoa(unescape(encodeURIComponent(s)))}catch{return btoa(s)}}
+function fromB64(s){try{return decodeURIComponent(escape(atob(s.trim())))}catch{try{return atob(s.trim())}catch{return null}}}
+function toHex(s){return Array.from(new TextEncoder().encode(s)).map(b=>b.toString(16).padStart(2,'0')).join('').toUpperCase();}
+function fromHex(s){try{const bytes=s.trim().replace(/\s/g,'').match(/.{1,2}/g).map(b=>parseInt(b,16));return new TextDecoder().decode(new Uint8Array(bytes));}catch{return null}}
+function rot13(s){return s.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode(((c.charCodeAt(0)-b+13)%26)+b);});}
+function toUrl(s){try{return encodeURIComponent(s)}catch{return null}}
+function fromUrl(s){try{return decodeURIComponent(s)}catch{return null}}
+function toBin(s){return Array.from(new TextEncoder().encode(s)).map(b=>b.toString(2).padStart(8,'0')).join(' ');}
+function fromBin(s){try{const bytes=s.trim().replace(/\s/g,'').match(/.{1,8}/g).map(b=>parseInt(b,2));return new TextDecoder().decode(new Uint8Array(bytes));}catch{return null}}
+function toAscii(s){return Array.from(s).map(c=>c.charCodeAt(0)).join(' ');}
+function fromAscii(s){try{return s.trim().split(/\s+/).map(n=>{const c=parseInt(n);if(isNaN(c))throw 0;return String.fromCharCode(c);}).join('');}catch{return null}}
+function atbash(s){return s.replace(/[a-zA-Z]/g,c=>{const a=c<='Z'?65:97;return String.fromCharCode(a+25-(c.charCodeAt(0)-a));});}
+function caesar(s,n){return s.replace(/[a-zA-Z]/g,c=>{const a=c<='Z'?65:97;return String.fromCharCode(((c.charCodeAt(0)-a+n)%26+26)%26+a);});}
+
+/* ===== ALGORITHMS ===== */
+const ALGOS = [
+  {id:'mysql41',name:'MySQL 4.1+ Password',cat:'sql',catLabel:'SQL / Database',
+   desc:'Định dạng *XXXXXXXX — mật khẩu MySQL chuẩn',tags:['hash','sql'],reversible:false,
+   bitLen:'160-bit (SHA-1 kép)',placeholder:'Nhập mật khẩu...',
+   async encode(v){return await mysqlHash(v);}},
+  {id:'sha1',name:'SHA-1',cat:'hash',catLabel:'One-way Hash',
+   desc:'Hàm băm 160-bit, phổ biến trong bảo mật cũ',tags:['hash'],reversible:false,
+   bitLen:'160-bit',placeholder:'Nhập chuỗi cần hash...',
+   async encode(v){return await sha1(v);}},
+  {id:'sha256',name:'SHA-256',cat:'hash',catLabel:'One-way Hash',
+   desc:'Tiêu chuẩn bảo mật hiện đại, dùng trong Bitcoin, JWT...',tags:['hash'],reversible:false,
+   bitLen:'256-bit',placeholder:'Nhập chuỗi cần hash...',
+   async encode(v){return await sha256(v);}},
+  {id:'sha384',name:'SHA-384',cat:'hash',catLabel:'One-way Hash',
+   desc:'SHA-2 trung gian 384-bit, dùng trong TLS 1.3',tags:['hash'],reversible:false,
+   bitLen:'384-bit',placeholder:'Nhập chuỗi cần hash...',
+   async encode(v){return await sha384(v);}},
+  {id:'sha512',name:'SHA-512',cat:'hash',catLabel:'One-way Hash',
+   desc:'Băm 512-bit, mạnh nhất trong dòng SHA-2',tags:['hash'],reversible:false,
+   bitLen:'512-bit',placeholder:'Nhập chuỗi cần hash...',
+   async encode(v){return await sha512(v);}},
+  {id:'md5',name:'MD5',cat:'hash',catLabel:'One-way Hash',
+   desc:'Băm 128-bit cổ điển, dùng kiểm tra tính toàn vẹn file',tags:['hash'],reversible:false,
+   bitLen:'128-bit',placeholder:'Nhập chuỗi cần hash...',
+   async encode(v){return await md5(v);}},
+  {id:'base64',name:'Base64',cat:'reverse',catLabel:'Có thể giải mã',
+   desc:'Mã hóa nhị phân thành ký tự ASCII, dùng trong email, JWT',tags:['reverse','symmetric'],reversible:true,
+   bitLen:'Reversible',placeholder:'Nhập chuỗi cần encode...',
+   async encode(v){return toB64(v);},async decode(v){const r=fromB64(v);return r!==null?r:null;}},
+  {id:'hex',name:'Hexadecimal',cat:'reverse',catLabel:'Có thể giải mã',
+   desc:'Chuyển đổi văn bản sang dạng hex, dùng trong lập trình',tags:['reverse','symmetric'],reversible:true,
+   bitLen:'Reversible',placeholder:'Nhập chuỗi cần encode...',
+   async encode(v){return toHex(v);},async decode(v){const r=fromHex(v);return r!==null?r:null;}},
+  {id:'url',name:'URL Encode',cat:'reverse',catLabel:'Có thể giải mã',
+   desc:'Mã hóa ký tự đặc biệt trong URL (%20, %3D...)',tags:['reverse','symmetric'],reversible:true,
+   bitLen:'Reversible',placeholder:'Nhập URL hoặc chuỗi...',
+   async encode(v){return toUrl(v);},async decode(v){const r=fromUrl(v);return r!==null?r:null;}},
+  {id:'binary',name:'Binary',cat:'reverse',catLabel:'Có thể giải mã',
+   desc:'Chuyển văn bản sang nhị phân 8-bit, mỗi byte cách nhau dấu cách',tags:['reverse','symmetric'],reversible:true,
+   bitLen:'Reversible',placeholder:'Nhập chuỗi hoặc binary...',
+   async encode(v){return toBin(v);},async decode(v){const r=fromBin(v);return r!==null?r:null;}},
+  {id:'ascii',name:'ASCII Codes',cat:'reverse',catLabel:'Có thể giải mã',
+   desc:'Chuyển văn bản sang mã ASCII thập phân, phân tách bằng dấu cách',tags:['reverse','symmetric'],reversible:true,
+   bitLen:'Reversible',placeholder:'Nhập chuỗi ASCII...',
+   async encode(v){return toAscii(v);},async decode(v){const r=fromAscii(v);return r!==null?r:null;}},
+  {id:'rot13',name:'ROT-13',cat:'symmetric',catLabel:'Đối xứng (tự giải)',
+   desc:'Xoay chữ cái 13 vị trí, encode = decode',tags:['reverse','symmetric'],reversible:true,
+   bitLen:'Symmetric',placeholder:'Nhập chuỗi chữ...',
+   async encode(v){return rot13(v);},async decode(v){return rot13(v);}},
+  {id:'atbash',name:'Atbash Cipher',cat:'symmetric',catLabel:'Đối xứng (tự giải)',
+   desc:'Đảo ngược bảng chữ cái: A↔Z, B↔Y... Mật mã cổ đại Do Thái',tags:['reverse','symmetric'],reversible:true,
+   bitLen:'Symmetric',placeholder:'Nhập chuỗi chữ cái...',
+   async encode(v){return atbash(v);},async decode(v){return atbash(v);}},
+  {id:'caesar',name:'Caesar Cipher',cat:'symmetric',catLabel:'Đối xứng',
+   desc:'Dịch chuyển bảng chữ cái N vị trí — mật mã Julius Caesar',tags:['reverse','symmetric'],reversible:true,
+   bitLen:'Configurable',placeholder:'Nhập chuỗi chữ cái...',hasShift:true,
+   async encode(v,n=3){return caesar(v,((n%26)+26)%26);},
+   async decode(v,n=3){return caesar(v,((-n%26)+26)%26);}},
+];
+
+/* ===== STATE ===== */
+let filter='all', search='';
+const state={};
+ALGOS.forEach(a=>{state[a.id]={input:'',output:'',mode:'enc',open:false,shift:3};});
+
+/* ===== RENDER ===== */
+function render(){
+  document.getElementById('c-all').textContent=ALGOS.length;
+  document.getElementById('c-hash').textContent=ALGOS.filter(a=>a.tags.includes('hash')).length;
+  document.getElementById('c-reverse').textContent=ALGOS.filter(a=>a.reversible).length;
+  document.getElementById('c-symmetric').textContent=ALGOS.filter(a=>a.tags.includes('symmetric')).length;
+  document.getElementById('c-sql').textContent=ALGOS.filter(a=>a.tags.includes('sql')||a.cat==='sql').length;
+
+  const q=search.toLowerCase().trim();
+  const filtered=ALGOS.filter(a=>{
+    const mf=filter==='all'||a.tags.includes(filter)||a.cat===filter;
+    const ms=!q||a.name.toLowerCase().includes(q)||a.desc.toLowerCase().includes(q)||a.cat.toLowerCase().includes(q);
+    return mf&&ms;
+  });
+
+  const grid=document.getElementById('grid');
+  if(!filtered.length){
+    grid.innerHTML=`<div class="no-res"><div style="font-size:40px;margin-bottom:12px">🔍</div><h3>Không tìm thấy thuật toán nào</h3><p>Thử tìm với từ khóa khác</p></div>`;
+    return;
+  }
+
+  grid.innerHTML=filtered.map((a,idx)=>{
+    const s=state[a.id];
+    const isEnc=s.mode==='enc';
+    const outText=s.output||'';
+    const outClass=outText.startsWith('Lỗi:')?'err':outText?'':'muted';
+    return `
+    <div class="card ${s.open?'open':''}" id="card-${a.id}" style="animation-delay:${idx*.04}s">
+      <div class="card-header">
+        <div class="origin-badge"><span class="origin-dot"></span>${a.catLabel}</div>
+        <div class="card-name">${hl(a.name,q)}</div>
+        <div class="card-desc">${hl(a.desc,q)}</div>
+      </div>
+      <div class="tags">
+        ${a.tags.includes('hash')?'<span class="tag tag-hash">One-way</span>':''}
+        ${a.reversible?'<span class="tag tag-rev">Giải được</span>':''}
+        ${a.tags.includes('symmetric')?'<span class="tag tag-sym">Symmetric</span>':''}
+        ${a.tags.includes('sql')?'<span class="tag tag-enc">SQL / DB</span>':''}
+      </div>
+      <div class="boost-row">Độ dài output: <span class="boost-val">${a.bitLen}</span></div>
+      <div class="card-divider"></div>
+
+      <div class="card-body${s.open?'':' collapsed'}" id="body-${a.id}">
+        <div style="display:flex;gap:6px;margin-bottom:10px;">
+          <button class="btn ${isEnc?'btn-pri':'btn-clr'}" onclick="setMode('${a.id}','enc')">Mã hóa</button>
+          ${a.reversible?`<button class="btn ${!isEnc?'btn-pri':'btn-clr'}" onclick="setMode('${a.id}','dec')">Giải mã</button>`:''}
+        </div>
+
+        ${a.hasShift?`<div class="shift-row">
+          <label>Shift (1-25):</label>
+          <input type="number" class="inp" min="1" max="25" value="${s.shift}"
+            oninput="state['${a.id}'].shift=Math.max(1,Math.min(25,parseInt(this.value)||3))">
+        </div>`:''}
+
+        <div class="field-label">${isEnc?'Input — Văn bản gốc':'Input — Chuỗi đã mã hóa'}</div>
+        <textarea class="inp" id="inp-${a.id}" placeholder="${a.placeholder}"
+          oninput="onInput('${a.id}',this.value)">${escHtml(s.input)}</textarea>
+
+        <div class="btn-row">
+          <button class="btn btn-pri" onclick="doRun('${a.id}')">${isEnc?'Encode':'Decode'}</button>
+          <button class="btn btn-clr" onclick="doClear('${a.id}')">Xóa</button>
+        </div>
+
+        <div class="field-label" style="margin-top:12px">Output <span>— Kết quả</span></div>
+        <div class="output-box ${outClass==='err'?'err':outText&&outClass!=='muted'?'ok':''}" id="out-${a.id}">
+          <button class="copy-btn" onclick="doCopy('${a.id}')">COPY</button>
+          <div class="out-text ${outClass}" id="outtext-${a.id}">${outText||'Kết quả hiển thị ở đây...'}</div>
+        </div>
+
+        ${outText&&outClass!=='err'?`
+        <div class="stats-row">
+          <div class="stat">Input: <b>${s.input.length} ký tự</b></div>
+          <div class="stat">Output: <b>${outText.length} ký tự</b></div>
+          ${a.id==='mysql41'?'<div class="stat">Format: <b>*[40 hex]</b></div>':''}
+          ${a.hasShift?`<div class="stat">Shift: <b>${s.shift}</b></div>`:''}
+        </div>`:''}
+      </div>
+
+      <button class="card-toggle" onclick="toggleCard('${a.id}')">
+        ${s.open?'Thu gọn':'Mở rộng'}
+        <span class="tog-icon">▼</span>
+      </button>
+    </div>`;
+  }).join('');
+}
+
+function hl(text,q){
+  if(!q)return text;
+  return text.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi'),
+    '<mark style="background:var(--a3);color:var(--a2);border-radius:2px;padding:0 1px">$1</mark>');
+}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+/* ===== CARD ACTIONS ===== */
+function toggleCard(id){
+  state[id].open=!state[id].open;
+  render();
+  if(state[id].open) setTimeout(()=>{const el=document.getElementById('inp-'+id);if(el)el.focus();},50);
+}
+function setMode(id,mode){
+  state[id].mode=mode;state[id].input='';state[id].output='';
+  render();
+  setTimeout(()=>{const el=document.getElementById('inp-'+id);if(el)el.focus();},50);
+}
+function onInput(id,val){state[id].input=val;}
+
+async function doRun(id){
+  const a=ALGOS.find(x=>x.id===id);
+  const s=state[id];
+  const val=s.input.trim();
+  if(!val){s.output='';render();return;}
+  const outEl=document.getElementById('outtext-'+id);
+  if(outEl){outEl.className='out-text muted';outEl.textContent='Đang xử lý...';}
+  try{
+    let result;
+    if(s.mode==='enc') result=await a.encode(val,s.shift);
+    else{
+      if(!a.decode){s.output='Lỗi: Thuật toán này không thể giải mã (one-way hash)';render();return;}
+      result=await a.decode(val,s.shift);
+      if(result===null){s.output='Lỗi: Chuỗi đầu vào không hợp lệ';render();return;}
+    }
+    s.output=result;render();
+  }catch(e){s.output='Lỗi: '+e.message;render();}
+}
+function doClear(id){state[id].input='';state[id].output='';render();setTimeout(()=>{const el=document.getElementById('inp-'+id);if(el)el.focus();},50);}
+function doCopy(id){
+  const text=state[id].output;if(!text)return;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.querySelector(`#out-${id} .copy-btn`);
+    if(btn){btn.textContent='COPIED!';setTimeout(()=>btn.textContent='COPY',1500);}
+  });
+}
+
+/* ===== HASH DETECTOR + CRACK ===== */
+function detectHashType(val){
+  const v=val.trim();
+  if(/^\*[0-9A-Fa-f]{40}$/.test(v)) return [{id:'mysql41',label:'MySQL 4.1+',conf:'HIGH'}];
+  const results=[];
+  if(/^[0-9A-Fa-f]+$/.test(v)){
+    if(v.length===32)  results.push({id:'md5',   label:'MD5',    conf:'HIGH'});
+    if(v.length===40)  results.push({id:'sha1',  label:'SHA-1',  conf:'HIGH'});
+    if(v.length===64)  results.push({id:'sha256',label:'SHA-256',conf:'HIGH'});
+    if(v.length===96)  results.push({id:'sha384',label:'SHA-384',conf:'HIGH'});
+    if(v.length===128) results.push({id:'sha512',label:'SHA-512',conf:'HIGH'});
+  }
+  if(/^[A-Za-z0-9+\/]+=*$/.test(v)&&v.length%4===0&&v.length>8)
+    results.push({id:'base64',label:'Base64',conf:results.length?'LOW':'MEDIUM'});
+  return results;
+}
+
+const WORDLIST_DEFAULT=[
+  '123456','password','123456789','12345678','12345','1234567','1234567890',
+  'qwerty','abc123','111111','iloveyou','admin','letmein','monkey','dragon',
+  'master','sunshine','princess','welcome','shadow','superman','michael',
+  'football','password1','123123','654321','hello','charlie','donald',
+  'password123','qwerty123','1q2w3e4r','admin123','root','toor','pass',
+  'test','guest','login','user','demo','temp','default',
+  '0000','1111','2222','3333','4444','5555','6666','7777','8888','9999',
+  '1234','12341234','trustno1','baseball','soccer','hockey','ranger',
+  'jordan','cheese','123321','naruto','pokemon','vietnam','hanoi','saigon',
+  'batman','nintendo','1q2w3e','killer','matrix','purple','pass123',
+  'love','money','freedom','passw0rd','P@ssword','P@ss123','admin@123',
+  'root123','11111111','00000000','test123','test1234','apple','google',
+  'facebook','twitter','linux','android','love123','god','angel','devil',
+  'sex','qazwsx','1qaz2wsx','changeme','secret','secret123','mypass',
+  'mustang','access','master1','hello123','monkey1','dragon1','qwerty1',
+  'abc1234','password2','pass12','112233','102030','123abc','abc321',
+  'a123456','123456a','abcdef','admin1','admin12','admin1234','root1',
+  'test12','user1','login123','welcome1','abc123456','q1w2e3r4',
+  'qwerty12','asdfgh','zxcvbn','qwertyuiop','superman123','batman123',
+  'spiderman','ironman','hacker','ninja','tiger','cobra','eagle',
+  'michael1','ronaldo','messi','liverpool','chelsea','barcelona',
+  'summer','winter','spring','birthday','sunshine1','rainbow','flower',
+  'computer','internet','server','database','mysql','python','java',
+  'github','google123','samsung','iphone','coffee','pizza','chocolate',
+  'monday','sunday','january','march','october','december',
+  'khachau123','haudzjj123','abc@123','Pass@123','Admin@123',
+  'Aa123456','Aa@123456','P@ssw0rd','Passw0rd1','Welcome1',
+  '1234rewq','9876543210','0987654321','password@1','pass@word',
+  'letmein1','letmein123','admin@1234','rootroot','testtest',
+];
+
+
+let crackState={running:false,found:null,tried:0,total:0,hash:'',type:null};
+
+async function startCrack(hashVal,algoId){
+  if(crackState.running){stopCrack();return;}
+  const algo=ALGOS.find(a=>a.id===algoId);
+  if(!algo)return;
+  crackState={running:true,found:null,tried:0,total:WORDLIST_DEFAULT.length,hash:hashVal.trim().toUpperCase(),type:algoId};
+  renderCrackProgress();
+  for(let i=0;i<WORDLIST_DEFAULT.length;i++){
+    if(!crackState.running)break;
+    const word=WORDLIST_DEFAULT[i];
+    const hashed=(await algo.encode(word)).toUpperCase();
+    crackState.tried=i+1;
+    if(i%15===0)renderCrackProgress();
+    if(hashed.trim()===crackState.hash.trim()){
+      crackState.found=word;crackState.running=false;
+      renderCrackProgress();return;
+    }
+    if(i%20===0)await new Promise(r=>setTimeout(r,0));
+  }
+  crackState.running=false;
+  renderCrackProgress();
+}
+
+function stopCrack(){crackState.running=false;renderCrackProgress();}
+async function testManual(hashVal,algoId){
+  const inp=document.getElementById('manualGuess');
+  if(!inp||!inp.value.trim())return;
+  const word=inp.value.trim();
+  const algo=ALGOS.find(a=>a.id===algoId);
+  if(!algo)return;
+  const hashed=(await algo.encode(word)).toUpperCase();
+  const target=hashVal.trim().toUpperCase();
+  const box=document.getElementById('crackProgress');
+  if(!box)return;
+  if(hashed===target){
+    box.innerHTML=`<div class="crack-found">✅ Đúng! Mật khẩu gốc: <b>"${word}"</b></div>`;
+    inp.style.borderColor='var(--out-ok)';
+  } else {
+    box.innerHTML=`<div class="crack-notfound">❌ Sai. <b>"${word}"</b> không khớp với hash này.</div>`;
+    inp.style.borderColor='var(--out-err)';
+    setTimeout(()=>{if(inp)inp.style.borderColor='';},1500);
+  }
+}
+
+
+function renderCrackProgress(){
+  const box=document.getElementById('crackProgress');
+  if(!box){crackState.running=false;return;}
+  const pct=Math.round((crackState.tried/crackState.total)*100)||0;
+  if(crackState.found){
+    box.innerHTML=`<div class="crack-found">✅ Tìm thấy! Mật khẩu gốc: <b>"${crackState.found}"</b></div>`;
+  } else if(!crackState.running&&crackState.tried>=crackState.total&&crackState.total>0){
+    box.innerHTML=`<div class="crack-notfound">❌ Không tìm thấy trong wordlist (${crackState.total} từ). Mật khẩu phức tạp hoặc không phổ biến.</div>`;
+  } else if(crackState.running){
+    box.innerHTML=`<div class="crack-running">
+      <div class="crack-bar-wrap"><div class="crack-bar" style="width:${pct}%"></div></div>
+      <div class="crack-info">🔍 Đang thử <b>${crackState.tried}/${crackState.total}</b> — <b>${pct}%</b>
+        <button class="btn btn-clr" style="padding:3px 10px;font-size:11px;margin-left:8px" onclick="stopCrack()">Dừng</button>
+      </div></div>`;
+  } else { box.innerHTML=''; }
+}
+
+/* ===== FILTER / SEARCH ===== */
+function setFilter(el,f){
+  filter=f;
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');render();
+}
+
+function onSearch(val){
+  search=val;
+  document.getElementById('clearBtn').classList.toggle('show',!!val);
+  const detectBox=document.getElementById('detectBanner');
+  const v=val.trim();
+  if(v.length>=32){
+    const types=detectHashType(v);
+    if(types.length){
+      // Only reset crack state if this is a NEW hash (not same as current)
+      const newHash = v.trim().toUpperCase();
+      if(crackState.hash !== newHash){
+        crackState={running:false,found:null,tried:0,total:0,hash:'',type:null};
+      }
+      const safeV=v.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+      detectBox.innerHTML=`<div class="detect-banner">
+        <div class="detect-title">🔍 Phát hiện Hash!</div>
+        <div class="detect-types">${types.map(t=>`<span class="detect-badge conf-${t.conf.toLowerCase()}">${t.label} <em>${t.conf}</em></span>`).join('')}</div>
+        <div class="detect-hash">${v}</div>
+        <div class="detect-crack">
+          <button class="btn btn-pri" id="crackBtn" onclick="startCrack('${safeV}','${types[0].id}')">${crackState.running?'⏹ Dừng':'⚡ Crack Wordlist'}</button>
+          <span class="detect-note">${WORDLIST_DEFAULT.length} từ phổ biến</span>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
+          <input class="inp" id="manualGuess" style="min-height:auto;padding:8px 12px;font-size:12px;flex:1" placeholder="Thử 1 mật khẩu bất kỳ..." onkeydown="if(event.key==='Enter')testManual('${safeV}','${types[0].id}')">
+          <button class="btn btn-sec" onclick="testManual('${safeV}','${types[0].id}')">Thử</button>
+        </div>
+
+        <div id="crackProgress"></div>
+      </div>`;
+      detectBox.style.display='block';
+      // Restore crack progress if was running
+      if(crackState.tried>0) renderCrackProgress();
+      return;
+    }
+  }
+  detectBox.style.display='none';
+  detectBox.innerHTML='';
+  render();
+}
+
+function clearSearch(){
+  document.getElementById('searchInput').value='';search='';
+  document.getElementById('clearBtn').classList.remove('show');
+  const detectBox=document.getElementById('detectBanner');
+  detectBox.style.display='none';detectBox.innerHTML='';
+  crackState.running=false;
+  render();
+}
+
+/* ===== THEME / ACCENT ===== */
+let isDark=true;
+function setTheme(t){
+  isDark=(t==='dark');
+  document.documentElement.dataset.theme=t;
+  document.getElementById('darkBtn').classList.toggle('active',isDark);
+  document.getElementById('lightBtn').classList.toggle('active',!isDark);
+}
+function setAccent(c){
+  document.documentElement.dataset.accent=c;
+  document.querySelectorAll('.dot').forEach(d=>d.classList.toggle('active',d.dataset.c===c));
+  document.getElementById('colorPicker').classList.remove('open');
+}
+function toggleCP(){document.getElementById('colorPicker').classList.toggle('open');}
+document.addEventListener('click',e=>{if(!e.target.closest('#colorPicker'))document.getElementById('colorPicker').classList.remove('open');});
+
+/* ===== CUSTOMIZE PANEL ===== */
+function togglePanel(){
+  const panel=document.getElementById('customizePanel');
+  const btn=document.getElementById('panelToggleBtn');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active',panel.classList.contains('open'));
+}
+document.addEventListener('click',e=>{
+  const panel=document.getElementById('customizePanel');
+  const btn=document.getElementById('panelToggleBtn');
+  if(panel.classList.contains('open')&&!panel.contains(e.target)&&!btn.contains(e.target))
+    {panel.classList.remove('open');btn.classList.remove('active');}
+});
+
+/* ===== GRADIENT PRESETS ===== */
+const GRADIENTS=[
+  'linear-gradient(135deg,#0f2027,#203a43,#2c5364)',
+  'linear-gradient(135deg,#0a0a0a,#1a0a2e,#16213e)',
+  'linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)',
+  'linear-gradient(135deg,#2d1b69,#11998e,#38ef7d)',
+  'linear-gradient(135deg,#4b1248,#f10711)',
+  'linear-gradient(135deg,#0f0c29,#302b63,#24243e)',
+  'linear-gradient(135deg,#1d2b64,#f8cdda)',
+  'linear-gradient(135deg,#093028,#237a57)',
+  'linear-gradient(135deg,#005c97,#363795)',
+  'linear-gradient(135deg,#7b4397,#dc2430)',
+  'linear-gradient(135deg,#f7971e,#ffd200)',
+  'linear-gradient(135deg,#ee0979,#ff6a00)',
+  'linear-gradient(135deg,#000428,#004e92)',
+  'linear-gradient(135deg,#1c92d2,#f2fcfe)',
+  'linear-gradient(135deg,#c94b4b,#4b134f)',
+];
+let activeBgType=null;
+
+function buildGradGrid(){
+  const grid=document.getElementById('gradGrid');
+  grid.innerHTML=GRADIENTS.map((g,i)=>
+    `<div class="grad-swatch" style="background:${g}" data-i="${i}" onclick="applyGradient(${i})"></div>`
+  ).join('');
+}
+
+function applyGradient(i){
+  activeBgType='gradient';
+  document.querySelectorAll('.grad-swatch').forEach((s,j)=>s.classList.toggle('active',j===i));
+  const layer=document.getElementById('bgLayer');
+  layer.style.backgroundImage=GRADIENTS[i];
+  layer.style.backgroundSize='cover';
+  layer.style.opacity=document.getElementById('bgOpacity').value/100;
+}
+
+/* ===== BG IMAGE ===== */
+let bgObjectUrl=null;
+function onUpload(input){
+  const file=input.files[0];if(!file)return;
+  if(bgObjectUrl)URL.revokeObjectURL(bgObjectUrl);
+  bgObjectUrl=URL.createObjectURL(file);
+  activeBgType='image';
+  document.querySelectorAll('.grad-swatch').forEach(s=>s.classList.remove('active'));
+  const layer=document.getElementById('bgLayer');
+  layer.style.backgroundImage=`url(${bgObjectUrl})`;
+  layer.style.opacity=document.getElementById('bgOpacity').value/100;
+  updateBgPos();
+  // preview
+  const prev=document.getElementById('bgPreview');
+  prev.innerHTML=`<img src="${bgObjectUrl}" alt="bg preview">`;
+}
+
+function setBgSize(s){
+  ['cover','contain','auto'].forEach(x=>document.getElementById('sz-'+x).classList.toggle('active',x===s));
+  document.getElementById('bgLayer').style.backgroundSize=s;
+}
+
+function updateBgPos(){
+  const x=document.getElementById('posX').value;
+  const y=document.getElementById('posY').value;
+  document.getElementById('posXVal').textContent=x+'%';
+  document.getElementById('posYVal').textContent=y+'%';
+  document.getElementById('bgLayer').style.backgroundPosition=`${x}% ${y}%`;
+}
+
+function updateBgOpacity(){
+  const v=document.getElementById('bgOpacity').value;
+  document.getElementById('opacityVal').textContent=v+'%';
+  document.getElementById('bgLayer').style.opacity=v/100;
+}
+
+function removeBg(){
+  if(bgObjectUrl)URL.revokeObjectURL(bgObjectUrl);
+  bgObjectUrl=null;activeBgType=null;
+  document.getElementById('bgLayer').style.backgroundImage='none';
+  document.getElementById('bgLayer').style.opacity=0;
+  document.querySelectorAll('.grad-swatch').forEach(s=>s.classList.remove('active'));
+  document.getElementById('bgPreview').innerHTML='<span class="no-img">Chưa có ảnh</span>';
+  document.getElementById('fileInput').value='';
+}
+
+/* ===== FILTER TOGGLE ===== */
+let filtersVisible = true;
+function toggleFilters(){
+  filtersVisible = !filtersVisible;
+  const bar = document.getElementById('filterBar');
+  const btn = document.getElementById('filterToggleBtn');
+  bar.style.display = filtersVisible ? 'flex' : 'none';
+  btn.style.color = filtersVisible ? '' : 'var(--a1)';
+  btn.style.borderColor = filtersVisible ? '' : 'var(--a1)';
+  btn.style.background = filtersVisible ? '' : 'var(--a4)';
+}
+
+/* ===== INIT ===== */
+buildGradGrid();
+setTheme('dark');
+render();
+</script>
+</body>
+</html>
