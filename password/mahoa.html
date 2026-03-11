@@ -258,11 +258,75 @@ textarea.inp::placeholder,input.inp::placeholder{color:var(--text3);opacity:.6;}
 ::-webkit-scrollbar-thumb{background:var(--scrollbar);border-radius:3px;}
 ::-webkit-scrollbar-thumb:hover{background:var(--a1);}
 
-@media(max-width:600px){
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
   .grid{grid-template-columns:1fr;}
-  .topbar{padding:0 12px;gap:10px;}
-  .main{padding:12px 12px 40px;}
   .customize-panel{width:100%;}
+}
+
+@media(max-width:600px){
+  /* TOPBAR */
+  .topbar{padding:0 10px;gap:8px;height:48px;}
+  .topbar-title{display:none;}
+  .logo-text{font-size:14px;}
+
+  /* MAIN */
+  .main{padding:10px 10px 60px;}
+
+  /* SEARCH */
+  .search-input{font-size:13px;padding:10px 36px 10px 34px;}
+
+  /* FILTER PILLS */
+  .filter-bar{gap:6px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+  .filter-bar::-webkit-scrollbar{display:none;}
+  .pill{font-size:11px;padding:4px 10px;white-space:nowrap;}
+
+  /* CARDS */
+  .card{border-radius:10px;}
+  .card-name{font-size:17px;}
+  .card-desc{font-size:11px;}
+  .boost-row{font-size:10px;}
+
+  /* CARD BODY */
+  .card-body{padding:10px 12px;}
+  .field-label{font-size:9px;}
+  textarea.inp{min-height:60px;font-size:12px;}
+  .btn{padding:7px 14px;font-size:11px;}
+  .btn-row{gap:6px;}
+  .out-text{font-size:12px;}
+  .stats-row{gap:8px;}
+  .stat{font-size:10px;}
+
+  /* CUSTOMIZE PANEL */
+  .customize-panel{width:100%;top:48px;height:calc(100vh - 48px);}
+  .panel-section{padding:12px 14px;}
+  .grad-grid{grid-template-columns:repeat(6,1fr);}
+
+  /* DETECT BANNER */
+  .detect-banner{padding:12px;}
+  .detect-title{font-size:12px;}
+  .detect-hash{font-size:10px;}
+  .detect-crack{flex-wrap:wrap;gap:8px;}
+
+  /* ICON BUTTONS */
+  .icon-btn,.panel-toggle-btn{width:30px;height:30px;font-size:13px;}
+
+  /* BACK BUTTON */
+  .topbar a[href="index.html"]{padding:0 8px;font-size:11px;}
+
+  /* TAGS */
+  .tags{padding:6px 12px 0;}
+  .tag{font-size:10px;padding:2px 7px;}
+
+  /* COLOR DOTS */
+  .color-dots{width:120px;}
+  .dot{width:20px;height:20px;}
+}
+
+@media(max-width:380px){
+  .topbar a[href="index.html"] span{display:none;}
+  .logo-text{font-size:13px;}
+  .pill .cnt{display:none;}
 }
 
 /* DETECT BANNER */
